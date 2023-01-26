@@ -1,9 +1,9 @@
 package Banco.Contas;
 
 import Util.Data;
- 
+
 public abstract class Conta {
-    
+
     protected int nroConta;
     protected int senha;
     protected float saldo;
@@ -18,7 +18,6 @@ public abstract class Conta {
 
     // private Agencia agencia;
 
- 
     public Conta(int nroConta, int senha, float saldo, Data aberturaConta) {
         this.nroConta = nroConta;
         this.senha = senha;
@@ -47,16 +46,13 @@ public abstract class Conta {
         return this.saldo;
     }
 
+    public Data getaberturaConta() {
+        return this.aberturaConta;
+    }
 
-     public Data getaberturaConta(){
-     return this.aberturaConta;
-     }
-
-
-     public Data getUltimaMovimentacao(){
-     return this.ultimaMovimentacao;
-     }
-
+    public Data getUltimaMovimentacao() {
+        return this.ultimaMovimentacao;
+    }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
@@ -75,12 +71,11 @@ public abstract class Conta {
         this.saldo = saldo;
     }
 
-    public String printConta(){
+    public String printConta() {
         String data = this.estado + ";" + this.nroConta + ";" + this.saldo + ";" + this.aberturaConta.printData() +
-        ";" + this.ultimaMovimentacao.printData();
+                ";" + this.ultimaMovimentacao.printData();
 
         return data;
     }
-
 
 }
