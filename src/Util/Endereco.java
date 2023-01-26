@@ -10,7 +10,8 @@ public class Endereco {
     private String numero;
     private String complemento;
 
-    public Endereco(String pais, String estado, String cidade, String bairro, String cep, String rua, String numero, String complemento) {
+    public Endereco(String pais, String estado, String cidade, String bairro, String cep, String rua, String numero,
+            String complemento) {
         this.pais = pais;
         this.estado = estado;
         this.cidade = cidade;
@@ -25,7 +26,7 @@ public class Endereco {
         return this.pais;
     }
 
-    public void setPais(String pais){
+    public void setPais(String pais) {
         this.pais = pais;
     }
 
@@ -33,7 +34,7 @@ public class Endereco {
         return this.estado;
     }
 
-    public void setEstado(String estado){
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -41,7 +42,7 @@ public class Endereco {
         return this.cidade;
     }
 
-    public void setCidade(String cidade){
+    public void setCidade(String cidade) {
         this.cidade = cidade;
     }
 
@@ -49,7 +50,7 @@ public class Endereco {
         return this.bairro;
     }
 
-    public void setBairro(String bairro){
+    public void setBairro(String bairro) {
         this.bairro = bairro;
     }
 
@@ -57,7 +58,7 @@ public class Endereco {
         return this.cep;
     }
 
-    public void setCep(String cep){
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -65,7 +66,7 @@ public class Endereco {
         return this.rua;
     }
 
-    public void setRua(String rua){
+    public void setRua(String rua) {
         this.rua = rua;
     }
 
@@ -73,7 +74,7 @@ public class Endereco {
         return this.numero;
     }
 
-    public void setNumero(String numero){
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -81,13 +82,13 @@ public class Endereco {
         return this.complemento;
     }
 
-    public void setComplemento(String complemento){
+    public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
 
-    public String printEndereco(){
-        String Data = rua + "; " + numero + "; " + complemento + "; " 
-        + bairro + "; " + cidade + "; " + estado + "; " + pais + "; " + cep;
+    public String printEndereco() {
+        String Data = rua + "; " + numero + "; " + complemento + "; "
+                + bairro + "; " + cidade + "; " + estado + "; " + pais + "; " + cep;
         return Data;
     }
 }

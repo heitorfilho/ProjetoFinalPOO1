@@ -34,7 +34,7 @@ public abstract class Pessoa {
     }
 
     public Data getDataNascimento() {
-         return this.dataNascimento;
+        return this.dataNascimento;
     }
 
     public void setDataNascimento(int dia, int mes, int ano) {
@@ -46,7 +46,7 @@ public abstract class Pessoa {
     }
 
     public void setEndereco(Endereco endereco) {
-       this.endereco = endereco;
+        this.endereco = endereco;
     }
 
     public String getSexo() {
@@ -63,6 +63,13 @@ public abstract class Pessoa {
 
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
+    }
+
+    public String printPessoa() {
+        String Data = this.nome + ";" + this.cpf + ";" + this.dataNascimento.printData() + ";"
+                + this.endereco.printEndereco() + ";" + this.sexo + ";" + this.estadoCivil;
+
+        return Data;
     }
 
 }

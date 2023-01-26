@@ -43,7 +43,8 @@ public class Data {
     }
 
     public static Data dataAtual() {
-        Data atual = new Data(LocalDateTime.now().getDayOfMonth(), LocalDateTime.now().getMonthValue(), LocalDateTime.now().getYear());
+        Data atual = new Data(LocalDateTime.now().getDayOfMonth(), LocalDateTime.now().getMonthValue(),
+                LocalDateTime.now().getYear());
         return atual;
     }
 
