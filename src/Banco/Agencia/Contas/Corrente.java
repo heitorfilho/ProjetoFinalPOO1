@@ -1,4 +1,4 @@
-package Banco.Contas;
+package Banco.Agencia.Contas;
 
 import Util.Data;
 
