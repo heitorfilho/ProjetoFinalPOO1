@@ -3,7 +3,7 @@ package Util;
 import java.util.*;
 // import java.util.InputMismatchException;
 
-public class ValidaCPF {
+public interface ValidaCPF {
     public static boolean validacpf(String cpf) {
         if (cpf.equals("00000000000") ||
                 cpf.equals("11111111111") ||
