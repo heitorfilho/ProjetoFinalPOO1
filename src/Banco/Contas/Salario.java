@@ -14,16 +14,21 @@ public class Salario extends Conta {
         this.limiteTransferencia = limiteTransferencia;
     }
 
-    public float getLimiteSaque() {
-        return this.limiteSaque;
-    }
+    public float getLimiteSaque(int senha) throws IllegalArgumentException {
+        if (this.senha == senha)
+            return this.limiteSaque;
+        throw new IllegalArgumentException("Senha incorreta");
 
-    public float getLimiteTransferencia() {
-        return this.limiteTransferencia;
     }
 
     public void setLimiteChequeEspecial(float limiteSaque) {
         this.limiteSaque = limiteSaque;
+    }
+
+    public float getLimiteTransferencia(int senha) throws IllegalArgumentException {
+        if (this.senha == senha)
+            return this.limiteTransferencia;
+        throw new IllegalArgumentException("Senha incorreta");
     }
 
     public void setLimiteTransferencia(float limiteTransferencia) {
