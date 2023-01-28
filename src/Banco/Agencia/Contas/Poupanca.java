@@ -9,9 +9,9 @@ public class Poupanca extends Conta {
     private float rendimentoMesAtual;
 
     public Poupanca(int nroConta, int senha, float saldo, boolean conjunta,
-            Cliente Cliente_primario, Agencia agencia,
+            Cliente cliente_primario, Agencia agencia,
             Data aberturaConta) {
-        super(nroConta, senha, saldo, conjunta, Cliente_primario, agencia, aberturaConta);
+        super(nroConta, senha, saldo, conjunta, cliente_primario, agencia, aberturaConta);
         this.rendimentoMesAtual = 0.5f;
     }
 

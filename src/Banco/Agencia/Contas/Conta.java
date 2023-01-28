@@ -69,6 +69,18 @@ public abstract class Conta {
         return this.ultimaMovimentacao;
     }
 
+    public boolean getConjunta() {
+        return this.conjunta;
+    }
+
+    public Cliente getClientePrimario() {
+        return this.clientePrimario;
+    }
+
+    public Agencia getAgencia() {
+        return this.agencia;
+    }
+
     public void setNroConta(int nroConta) {
         this.nroConta = nroConta;
     }
@@ -245,9 +257,12 @@ public abstract class Conta {
          */
     }
 
-    // CRIA CONTA//
-    public void criaConta(Scanner sc) {
-        try {
+    ///////////////////////////
+    /////// Cria Conta ///////
+    /////////////////////////
+
+    public void criaConta(Agencia agenciaConta) {
+        try(Scanner sc = new Scanner(System.in)) {
             System.out.println("Digite o numero da conta?");
             this.nroConta = sc.nextInt();
 
@@ -278,8 +293,73 @@ public abstract class Conta {
             } else {
                 System.out.println("Opcap invalida, a conta sera unitaria");
                 conjunta = false;
-
             }
+
+            if(this.conjunta == true) {
+                System.out.println("O primeiro cliente ja existe?");
+                System.out.println("1-Sim");
+                System.out.println("2-Nao");
+                int opcaoCliente = sc.nextInt();
+                if (opcaoCliente == 1) {
+                    System.out.println("Digite o CPF do cliente");
+                    String cpf = sc.next();
+                    Cliente cliente = new Cliente();
+                    //cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de dados
+                    this.clientePrimario = cliente;
+                } else if (opcaoCliente == 2) {
+                    Cliente clientePrimario = new Cliente(); //Atualizar para Cliente(Agencia);
+                    //clientePrimario.criaCliente(); Metodo para criar o cliente no banco de dados
+                    this.clientePrimario = clientePrimario;
+                    
+                } else {
+                    System.out.println("Opcao invalida, o cliente sera criado");
+                }
+                System.out.println("O segundo cliente ja existe?");
+                System.out.println("1-Sim");
+                System.out.println("2-Nao");
+                int opcaoCliente2 = sc.nextInt();
+                if (opcaoCliente2 == 1) {
+                    System.out.println("Digite o CPF do cliente");
+                    String cpf = sc.next(); // Busca sera por cpf?
+                    Cliente clienteSecundario = new Cliente();
+                    //cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de dados
+                    this.clienteSecundario = clienteSecundario;
+                } else if (opcaoCliente2 == 2) {
+                    Cliente clienteSecundario = new Cliente(); //Atualizar para Cliente(Agencia);
+                    //clienteSecundario.criaCliente(); Metodo para criar o cliente no banco de dados
+                    this.clienteSecundario = clienteSecundario;
+                    
+                } else {
+                    System.out.println("Opcao invalida, o cliente sera criado");
+                }
+                
+            }else{
+                System.out.println("O primeiro cliente ja existe?");
+                System.out.println("1-Sim");
+                System.out.println("2-Nao");
+                int opcaoCliente = sc.nextInt();
+                if (opcaoCliente == 1) {
+                    System.out.println("Digite o CPF do cliente");
+                    String cpf = sc.next();
+                    Cliente cliente = new Cliente();
+                    //cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de dados
+                    this.clientePrimario = cliente;
+                } else if (opcaoCliente == 2) {
+                    Cliente clientePrimario = new Cliente(); //Atualizar para Cliente(Agencia);
+                    //clientePrimario.criaCliente(); Metodo para criar o cliente no banco de dados
+                    this.clientePrimario = clientePrimario;
+                    
+                } else {
+                    System.out.println("Opcao invalida, o cliente sera criado");
+                }
+            }
+
+            this.agencia = agenciaConta;
+
+            //FALTA MOVIMENTACOES//
+
+            System.out.println("2-Conta criada com Sucesso!!");
+
         } catch (Exception e) {
             // TODO: handle exception
         }

@@ -1,5 +1,7 @@
 package Banco.Agencia.Contas;
 
+import Banco.Agencia.Agencia;
+import Banco.Agencia.Clientes.Cliente;
 import Util.Data;
 
 public class Salario extends Conta {
@@ -7,9 +9,9 @@ public class Salario extends Conta {
     private float limiteSaque;
     private float limiteTransferencia;
 
-    public Salario(int nroConta, int senha, float saldo, Data aberturaConta, float limiteSaque,
-            float limiteTransferencia) {
-        super(nroConta, senha, saldo, aberturaConta);
+    public Salario(int nroConta, int senha, float saldo, boolean conjunta, Cliente cliente_primario, Agencia agencia,
+            Data aberturaConta, float limiteSaque, float limiteTransferencia) {
+        super(nroConta, senha, saldo, conjunta, cliente_primario, agencia, aberturaConta);
         this.limiteSaque = limiteSaque;
         this.limiteTransferencia = limiteTransferencia;
     }
