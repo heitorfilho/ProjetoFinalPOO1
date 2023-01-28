@@ -4,7 +4,9 @@ import java.util.*;
 // import java.util.InputMismatchException;
 
 public interface ValidaCPF {
-    public static boolean validacpf(String cpf) {
+    public static boolean validaCPF(String cpf) {
+
+        // CPF's formados por sequencias de numeros iguais sao considerados invalidos
         if (cpf.equals("00000000000") ||
                 cpf.equals("11111111111") ||
                 cpf.equals("22222222222") || cpf.equals("33333333333") ||
@@ -62,7 +64,7 @@ public interface ValidaCPF {
         }
     }
 
-    public static String imprimecpf(String cpf) {
+    public static String imprimeCPF(String cpf) {
         return (cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "." +
                 cpf.substring(6, 9) + "-" + cpf.substring(9, 11));
     }

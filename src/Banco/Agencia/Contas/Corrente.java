@@ -2,39 +2,41 @@ package Banco.Agencia.Contas;
 
 import Util.Data;
 
-public class Corrente extends Conta{
+public class Corrente extends Conta {
 
-    private float limiteChequeEspecial;
-    private float taxaAdministrativa;
+    private float limCheque;
+    private float taxaAdmin;
 
-    public Corrente(int nroConta, int senha, float saldo, Data aberturaConta, float limiteChequeEspecial, float taxaAdministrativa){ // Precisa fazer alteracao para Data
+    public Corrente(int nroConta, int senha, float saldo, Data aberturaConta, float limCheque,
+            float taxaAdmin) { // Precisa fazer alteracao para Data
         super(nroConta, senha, saldo, aberturaConta);
-        this.limiteChequeEspecial = limiteChequeEspecial;
-        this.taxaAdministrativa = taxaAdministrativa;
+        this.limCheque = limCheque;
+        // this.limCheque = 0;
+        this.taxaAdmin = taxaAdmin;
+        // this.taxaAdmin = 30f;
     }
 
-    public float getLimiteChequeEspecial(){
-        return this.limiteChequeEspecial;
+    public float getLimCheque() {
+        return this.limCheque;
     }
 
-    public float getTaxaAdministrativa(){
-        return this.taxaAdministrativa;
+    public float getTaxaAdmin() {
+        return this.taxaAdmin;
     }
 
-    public void setLimiteChequeEspecial(float limiteChequeEspecial){
-        this.limiteChequeEspecial = limiteChequeEspecial;
+    public void setLimCheque(float limCheque) {
+        this.limCheque = limCheque;
     }
 
-    public void setTaxaAdministrativa(float taxaAdministrativa){
-        this.taxaAdministrativa = taxaAdministrativa;
+    public void setTaxaAdmin(float taxaAdmin) {
+        this.taxaAdmin = taxaAdmin;
     }
 
-    public String printConta(){
+    public String printConta() {
         super.printConta();
-        String data = this.limiteChequeEspecial + ";" + this.taxaAdministrativa + ";";
+        String data = this.limCheque + ";" + this.taxaAdmin + ";";
 
         return data;
     }
 
-    
 }
