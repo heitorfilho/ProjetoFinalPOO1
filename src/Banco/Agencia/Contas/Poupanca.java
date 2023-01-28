@@ -1,26 +1,34 @@
 package Banco.Agencia.Contas;
 
 import Util.Data;
+import Banco.Agencia.Agencia;
+import Banco.Agencia.Clientes.Cliente;
 
-public class Poupanca extends Conta{
+public class Poupanca extends Conta {
 
     private float rendimentoMesAtual;
 
-    public Poupanca(int nroConta, int senha, float saldo, Data aberturaConta){ //Mudar apos atualizar conta
-        super(nroConta, senha, saldo, aberturaConta);
+    public Poupanca(int nroConta, int senha, float saldo, boolean conjunta,
+            Cliente Cliente_primario, Agencia agencia,
+            Data aberturaConta) {
+        super(nroConta, senha, saldo, conjunta, Cliente_primario, agencia, aberturaConta);
         this.rendimentoMesAtual = 0.5f;
-
     }
 
-    public float getRendimentoMesAtual(){
+    public float getRendimentoMesAtual() {
         return this.rendimentoMesAtual;
     }
 
-    public void setRendimentoMesAtual(float rendimentoMesAtual){
+    public void setRendimentoMesAtual(float rendimentoMesAtual) {
         this.rendimentoMesAtual = rendimentoMesAtual;
     }
 
-    public String printConta(){
+    public void aplicarRendimento() {
+        Float valor = this.saldo * this.rendimentoMesAtual;
+        this.saldo += valor;
+    }
+
+    public String printConta() {
         super.printConta();
         String data = this.rendimentoMesAtual + ";";
 

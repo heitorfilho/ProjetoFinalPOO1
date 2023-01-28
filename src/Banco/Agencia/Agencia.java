@@ -17,18 +17,18 @@ public class Agencia {
     private Gerente gerenteAgencia;
     private LinkedList<Conta> contas;
     private LinkedList<Funcionario> funcionarios;
-    // private LinkedList<Pessoa> pessoas;
+    // private LinkedList<Pessoa> Funcionarios;
     // private LinkedList<Cliente> clientes;
 
 
-    public Agencia(String nomeAgencia, int numeroAgencia, Endereco enderecoAgencia){
+    public Agencia(String nomeAgencia, int numeroAgencia){
         this.nomeAgencia = nomeAgencia;
         this.numeroAgencia = numeroAgencia;
-        this.enderecoAgencia = enderecoAgencia;
         this.contas = new LinkedList<Conta>();
         this.funcionarios = new LinkedList<Funcionario>();
         // this.clientes = new LinkedList<Cliente>();
     }
+    
     public Agencia(String nomeAgencia, int numeroAgencia, Endereco enderecoAgencia, Gerente gerenteAgencia){
         this.nomeAgencia = nomeAgencia;
         this.numeroAgencia = numeroAgencia;
@@ -104,18 +104,5 @@ public class Agencia {
         this.contas.add(contaNova);
         //contaNova.criaConta(this);
     }
-
-///////////////////////////////////
-    /*
-    Banco.criaConta(); //Banco.java
-    qual agencia? = 1 //Banco.java
-    conta vai ser oq? = corrente //Banco.java
-    conta cont1; //Banco.java
-    cont1 = new ContaCorrente(); //Banco.java
-    agencia1.criaContaCorrente(cont1); //Banco.java - Agencia.java - ContaCorrente.java
-
-    Banco CancoDoHeitor = new Banco();
-    */
-///////////////////////////////////
     
 }
