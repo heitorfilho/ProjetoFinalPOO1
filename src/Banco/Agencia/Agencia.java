@@ -59,7 +59,7 @@ public class Agencia {
 
     public void setGerenteAgencia(Gerente gerente){
         this.gerenteAgencia = gerente;
-        gerente.setAgecencia(this);
+        gerente.setAgencia(this);
     }
     
     public LinkedList<Conta> getContas(){
@@ -90,5 +90,32 @@ public class Agencia {
         this.enderecoAgencia = enderecoAgencia;
     }
 
+    public void criaContaCorrente(Conta contaNova){
+        this.contas.add(contaNova);
+        //contaNova.criaConta(this);
+    }
+
+    public void criaContaPoupanca(Conta contaNova){
+        this.contas.add(contaNova);
+        //contaNova.criaConta(this);
+    }
+
+    public void criaContaSalario(Conta contaNova){
+        this.contas.add(contaNova);
+        //contaNova.criaConta(this);
+    }
+
+///////////////////////////////////
+    /*
+    Banco.criaConta(); //Banco.java
+    qual agencia? = 1 //Banco.java
+    conta vai ser oq? = corrente //Banco.java
+    conta cont1; //Banco.java
+    cont1 = new ContaCorrente(); //Banco.java
+    agencia1.criaContaCorrente(cont1); //Banco.java - Agencia.java - ContaCorrente.java
+
+    Banco CancoDoHeitor = new Banco();
+    */
+///////////////////////////////////
     
 }

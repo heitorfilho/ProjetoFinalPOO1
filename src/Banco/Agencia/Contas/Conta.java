@@ -18,7 +18,7 @@ public abstract class Conta {
     // protected LinkedList<Movimentacao> movimentacoes;
     // private Agencia agencia;
 
-    // Conta única
+    // Conta unica
     public Conta(int nroConta, int senha, float saldo, /*
                                                         * boolean conjunta, Clientes Cliente_primario, int Num_Agencia,
                                                         */ Data aberturaConta) {

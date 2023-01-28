@@ -24,10 +24,10 @@ public class Gerente extends Funcionario{
     }
 
     public Agencia getAgenciaGerenciada() {
-        return this.agenciaGerenciada;
+        return this.agenciaGerenciada; 
     }
 
-    public void setAgecencia(Agencia agencia){
+    public void setAgencia(Agencia agencia){
         this.agenciaGerenciada = agencia;
     }
     
