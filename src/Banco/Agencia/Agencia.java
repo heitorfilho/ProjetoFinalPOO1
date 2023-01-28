@@ -57,8 +57,9 @@ public class Agencia {
         return this.gerenteAgencia;
     }
 
-    public void setGerenteAgencia(Gerente gerenteAgencia){
-        this.gerenteAgencia = gerenteAgencia;
+    public void setGerenteAgencia(Gerente gerente){
+        this.gerenteAgencia = gerente;
+        gerente.setAgecencia(this);
     }
     
     public LinkedList<Conta> getContas(){
