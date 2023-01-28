@@ -35,9 +35,9 @@ public abstract class Conta {
         // this.Movimentacoes = new LinkedList< >();
     }
 
-    ////////////////////////////////////////////
+    /////////////////////////////
     ///// GETTERS E SETTERS /////
-    //////////////////////////////////////////
+    /////////////////////////////
 
     public int getNroConta() {
         return this.nroConta;
@@ -121,15 +121,17 @@ public abstract class Conta {
     }
 
     public void desativarConta(int senha) {
-        Scanner sc = new Scanner(System.in);
-        if (verificarSenha(senha) && this.estado == true) {
-            System.out.println("Deseja realmente desativar a conta? (S/N)");
-            String opcao = sc.nextLine();
-            if (opcao.equals("S") || opcao.equals("s")) {
-                this.setEstado(false);
-                System.out.println("Conta desativada com sucesso!");
+        try (Scanner sc = new Scanner(System.in);){  
+            if (verificarSenha(senha) && this.estado == true) {
+                System.out.println("Deseja realmente desativar a conta? (S/N)");
+                String opcao = sc.nextLine();
+                if (opcao.equals("S") || opcao.equals("s")) {
+                    this.setEstado(false);
+                    System.out.println("Conta desativada com sucesso!");
+                }
             }
-            sc.close();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -162,7 +164,7 @@ public abstract class Conta {
             this.saldo += valor;
             this.ultimaMovimentacao = Data.dataAtual();
             System.out.println("Depósito realizado com sucesso!");
-            
+
         } else if (verificarSenha(senha) == false) {
             throw new IllegalArgumentException("Senha incorreta!");
         } else if (this.estado == false) {
@@ -170,6 +172,22 @@ public abstract class Conta {
         }
     }
 
-    
-    
+    public void consultarSaldo(int senha) throws IllegalArgumentException {
+        if(verificarSenha(senha) || this.estado == true){
+            System.out.println(this.getSaldo());
+        } else {
+            throw new IllegalArgumentException("Senha incorreta!");
+        }
+    }
+
+    public void efetuarPag(float valor, int senha, String tipo){
+        if(verificarSenha(senha)){
+            if(this.saldo >= valor){
+                this.saldo -= valor;
+                this.ultimaMovimentacao = Data.dataAtual();
+            } else {
+                throw new IllegalArgumentException("Saldo insuficiente!");
+            } 
+        }
+    }
 }

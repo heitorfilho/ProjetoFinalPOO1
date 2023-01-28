@@ -8,6 +8,7 @@ import Util.*;
 
 public class Cliente extends Pessoa {
     private String escolaridade;
+    // private Agencia agenciaCadastrada;
 
     public Cliente(String nome, String cpf, String sexo, Data dataNascimento, Endereco endereco, String estadoCivil,
             String escolaridade) {
