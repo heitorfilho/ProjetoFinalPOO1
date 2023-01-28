@@ -358,8 +358,6 @@ public abstract class Conta {
 
             //FALTA MOVIMENTACOES//
 
-            System.out.println("2-Conta criada com Sucesso!!");
-
         } catch (Exception e) {
             // TODO: handle exception
         }
