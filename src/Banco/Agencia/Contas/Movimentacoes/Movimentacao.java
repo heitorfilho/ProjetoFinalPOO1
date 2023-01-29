@@ -7,22 +7,30 @@ import Util.Data;
 public class Movimentacao {
 
     private Data dataTransacao;
-    private float valorTransacao;
-    private String canalTransacao; // internet banking, caixa eletronico ou caixa fisico -> tambem pode fazer um metodo para descobrir qual eh o canal
+    private float valor;
+    private String canalTransacao; // internet banking, caixa eletronico ou caixa fisico
     private String tipoTransacao; // saque, deposito, consultar saldo e efetuar pagamento
-    //private Conta contaAssociada; -> necessario ser uma conta corrente
+    private int numContaDestinatario;
+    private int numAgenciaDestinatario;
+    private int numBancoDestinatario;
+    // private Conta contaAssociada; -> necessario ser uma conta corrente
 
-    public Movimentacao(Data dataTransacao, float valorTransacao, String canalTransacao, String tipoTransacao) {
+    public Movimentacao(Data dataTransacao, float valor, String canalTransacao, String tipoTransacao) {
         this.dataTransacao = dataTransacao;
-        this.valorTransacao = valorTransacao;
+        this.valor = valor;
         this.canalTransacao = canalTransacao;
         this.tipoTransacao = tipoTransacao;
     }
 
-    public Movimentacao() {
-        this.valorTransacao = 0;
-        this.canalTransacao = "";
-        this.tipoTransacao = "";
+    // Construtor default
+    public Movimentacao() { // nao precisa de this, pois nao tem nenhum atributo com o mesmo nome
+        dataTransacao = Data.dataAtual();
+        valor = 0f;
+        canalTransacao = "n/a"; // n/a = not applicable
+        tipoTransacao = "n/a"; // n/a = not applicable
+        numContaDestinatario = 0;
+        numAgenciaDestinatario = 0;
+        numBancoDestinatario = 0;
     }
 
     /////////////////////////////
@@ -33,8 +41,8 @@ public class Movimentacao {
         return this.dataTransacao;
     }
 
-    public float getValorTransacao() {
-        return this.valorTransacao;
+    public float getValor() {
+        return this.valor;
     }
 
     public String getCanalTransacao() {
@@ -45,12 +53,24 @@ public class Movimentacao {
         return this.tipoTransacao;
     }
 
+    public int getNumContaDestinatario() {
+        return this.numContaDestinatario;
+    }
+
+    public int getNumAgenciaDestinatario() {
+        return this.numAgenciaDestinatario;
+    }
+
+    public void setNumBancoDestinatario(int numBancoDestinatario) {
+        this.numBancoDestinatario = numBancoDestinatario;
+    }
+
     public void setDataTransacao(Data dataTransacao) {
         this.dataTransacao = dataTransacao;
     }
 
-    public void setValorTransacao(float valorTransacao) {
-        this.valorTransacao = valorTransacao;
+    public void setValor(float valor) {
+        this.valor = valor;
     }
 
     public void setCanalTransacao(String canalTransacao) {
@@ -60,17 +80,47 @@ public class Movimentacao {
     public void setTipoTransacao(String tipoTransacao) {
         this.tipoTransacao = tipoTransacao;
     }
-    
+
+    public void setNumContaDestinatario(int numContaDestinatario) {
+        this.numContaDestinatario = numContaDestinatario;
+    }
+
+    public void setNumAgenciaDestinatario(int numAgenciaDestinatario) {
+        this.numAgenciaDestinatario = numAgenciaDestinatario;
+    }
+
+    public int getNumBancoDestinatario() {
+        return this.numBancoDestinatario;
+    }
+
+    ///////////////////////////
+    ///// SAIDA DE DADOS /////
+    /////////////////////////
+
     public String printMovimentacoes() {
-        String data = this.dataTransacao + ";" + this.valorTransacao + ";" + this.canalTransacao + ";" + this.tipoTransacao;
+        String data = dataTransacao.printData() + ";" + valor + ";" + canalTransacao + ";"
+                + tipoTransacao + ";" + numContaDestinatario + ";" + numAgenciaDestinatario + ";"
+                + numBancoDestinatario;
         return data;
     }
 
-    public void TipoCanalTransacao(){ //Metodo para descobrir qual eh o canal de transacao
-        try(Scanner sc = new Scanner(System.in)){
+    public void imprimeMovimentacoes() {
+        System.out.printf("Data: %s -> Valor: %.2f -> Tipo: %s" + dataTransacao.printData(), valor,
+                tipoTransacao);
+
+    }
+
+    /////////////////////////////
+    ///// METODOS AUXILIARES /////
+    /////////////////////////////
+
+    // desnecessario Heitor...
+    public void TipoCanalTransacao() { // Metodo para descobrir qual eh o canal de transacao
+        try (Scanner sc = new Scanner(System.in)) {
             int opcao = 4;
             while (opcao != 1 || opcao != 2 || opcao != 3) {
-                System.out.println("Qual o canal de saque? (1 - Internet Banking, 2 - Caixa Eletronico, 3 - Caixa Fisico)");
+                System.out.println(
+                        "Qual o canal de saque? (1 - Internet Banking, 2 - Caixa Eletronico, 3 - Caixa Fisico)");
                 opcao = sc.nextInt();
                 switch (opcao) {
                     case 1:
@@ -87,7 +137,7 @@ public class Movimentacao {
                         break;
                 }
             }
-            
+
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -97,46 +147,100 @@ public class Movimentacao {
     /// TIPOS DE MOVIMENTACAO ///
     /////////////////////////////
 
-    public void saque(float valorTransacao, Data dataTransacao) { //Cria movimentacao de saque
-        this.valorTransacao = valorTransacao;
-        this.dataTransacao = dataTransacao;
-        this.TipoCanalTransacao(); 
+    public void mov(Float valor) { // método auxiliar para criar movimentacao de qualquer tipo
+        this.dataTransacao = Data.dataAtual();
+        this.valor = valor;
+        this.TipoCanalTransacao();
+    }
+
+    public void saque(Float valor) { // Cria movimentacao de saque
+        mov(valor);
         this.tipoTransacao = "Saque";
     }
 
-    public void deposito(float valorTransacao, Data dataTransacao) { //Cria movimentacao de deposito
-        this.valorTransacao = valorTransacao;
-        this.dataTransacao = dataTransacao;
-        this.TipoCanalTransacao(); 
+    public void deposito(Float valor) { // Cria movimentacao de deposito
+        mov(valor);
         this.tipoTransacao = "Deposito";
     }
 
-    public void consulta(Data dataTransacao) { //Cria movimentacao de consulta
-        this.valorTransacao = 0;
-        this.dataTransacao = dataTransacao;
-        this.TipoCanalTransacao(); 
+    public void consulta(Data dataTransacao) { // Cria movimentacao de consulta
+        mov(valor);
         this.tipoTransacao = "Consulta";
     }
 
-    public void pagamento(float valorTransacao, Data dataTransacao) { //Cria movimentacao de pagamento
-        this.valorTransacao = valorTransacao;
-        this.dataTransacao = dataTransacao;
-        this.TipoCanalTransacao(); 
+    public void pagamento(Float valor) { // Cria movimentacao de pagamento
+        mov(valor);
         this.tipoTransacao = "Pagamento";
     }
 
-    public void transferencia(float valorTransacao, Data dataTransacao) { //Cria movimentacao de transferencia
-        this.valorTransacao = valorTransacao;
-        this.dataTransacao = dataTransacao;
-        this.TipoCanalTransacao(); 
+    public void rendimento(Float valor) { // Cria movimentacao de rendimento
+        mov(valor);
+        this.tipoTransacao = "Rendimento";
+    }
+
+    public void transferencia(Float valor, int numBancoDestinatario, int numAgenciaDestinatario, int numContaDestinatario) { // Cria movimentacao de transferencia
+        mov(valor);
         this.tipoTransacao = "Transferencia";
+        this.numBancoDestinatario = numBancoDestinatario;
+        this.numAgenciaDestinatario = numAgenciaDestinatario;
+        this.numContaDestinatario = numContaDestinatario;
     }
 
-    public void receberTransferencia(float valorTransacao, Data dataTransacao) { //Cria movimentacao de receber transferencia
-        this.valorTransacao = valorTransacao;
-        this.dataTransacao = dataTransacao;
-        this.TipoCanalTransacao(); 
+    public void receberTransferencia(Float valor, int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem) { // Cria movimentacao de receber transferencia
+        mov(valor);
         this.tipoTransacao = "Receber Transferencia";
+        this.numBancoDestinatario = numBancoOrigem;
+        this.numAgenciaDestinatario = numAgenciaOrigem;
+        this.numContaDestinatario = numContaOrigem;
     }
 
+    /*
+     * public void saque(float valor, Data dataTransacao) { // Cria
+     * movimentacao de saque
+     * this.valor = valor;
+     * this.dataTransacao = dataTransacao;
+     * this.TipoCanalTransacao();
+     * this.tipoTransacao = "Saque";
+     * }
+     * 
+     * public void deposito(float valor, Data dataTransacao) { // Cria
+     * movimentacao de deposito
+     * this.valor = valor;
+     * this.dataTransacao = dataTransacao;
+     * this.TipoCanalTransacao();
+     * this.tipoTransacao = "Deposito";
+     * }
+     * 
+     * public void consulta(Data dataTransacao) { // Cria movimentacao de consulta
+     * this.valor = 0;
+     * this.dataTransacao = dataTransacao;
+     * this.TipoCanalTransacao();
+     * this.tipoTransacao = "Consulta";
+     * }
+     * 
+     * public void pagamento(float valor, Data dataTransacao) { // Cria
+     * movimentacao de pagamento
+     * this.valor = valor;
+     * this.dataTransacao = dataTransacao;
+     * this.TipoCanalTransacao();
+     * this.tipoTransacao = "Pagamento";
+     * }
+     * 
+     * public void transferencia(float valor, Data dataTransacao) { // Cria
+     * movimentacao de transferencia
+     * this.valor = valor;
+     * this.dataTransacao = dataTransacao;
+     * this.TipoCanalTransacao();
+     * this.tipoTransacao = "Transferencia";
+     * }
+     * 
+     * public void receberTransferencia(float valor, Data dataTransacao) {
+     * // Cria movimentacao de receber
+     * // transferencia
+     * this.valor = valor;
+     * this.dataTransacao = dataTransacao;
+     * this.TipoCanalTransacao();
+     * this.tipoTransacao = "Receber Transferencia";
+     * }
+     */
 }

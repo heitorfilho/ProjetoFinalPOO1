@@ -8,23 +8,23 @@ import Banco.Agencia.Contas.Movimentacoes.Movimentacao;
 
 public abstract class Conta {
 
-    protected int nroConta;
+    protected int numConta;
     protected int senha;
     protected float saldo;
     protected boolean estado;
     protected Data aberturaConta;
     protected Data ultimaMovimentacao;
     protected boolean conjunta;
-    protected Cliente clientePrimario; //protected int cpfClientePrimario
+    protected Cliente clientePrimario; // protected int cpfClientePrimario
     protected Cliente clienteSecundario;
     protected LinkedList<Movimentacao> movimentacoes;
     private Agencia agencia; // agencia que a conta pertence
 
     // Conta unica
-    public Conta(int nroConta, int senha, float saldo, boolean conjunta,
+    public Conta(int numConta, int senha, float saldo, boolean conjunta,
             Cliente Cliente_primario, Agencia agencia,
             Data aberturaConta) {
-        this.nroConta = nroConta;
+        this.numConta = numConta;
         this.senha = senha;
         this.saldo = saldo;
         this.agencia = agencia;
@@ -46,8 +46,8 @@ public abstract class Conta {
     ///// GETTERS E SETTERS /////
     /////////////////////////////
 
-    public int getNroConta() {
-        return this.nroConta;
+    public int getnumConta() {
+        return this.numConta;
     }
 
     public int getSenha() {
@@ -82,8 +82,8 @@ public abstract class Conta {
         return this.agencia;
     }
 
-    public void setNroConta(int nroConta) {
-        this.nroConta = nroConta;
+    public void setnumConta(int numConta) {
+        this.numConta = numConta;
     }
 
     public void setSenha(int senha) {
@@ -111,7 +111,7 @@ public abstract class Conta {
     }
 
     public String printConta() {
-        String data = this.estado + ";" + this.nroConta + ";" + this.saldo + ";" + this.aberturaConta.printData() +
+        String data = this.estado + ";" + this.numConta + ";" + this.saldo + ";" + this.aberturaConta.printData() +
                 ";" + this.ultimaMovimentacao.printData();
 
         return data;
@@ -182,9 +182,9 @@ public abstract class Conta {
             if (this.saldo >= valor)
                 this.saldo -= valor;
             this.ultimaMovimentacao = Data.dataAtual();
-            
+
             Movimentacao Nova = new Movimentacao();
-            Nova.saque(valor, this.ultimaMovimentacao);
+            Nova.saque(valor);
             this.movimentacoes.add(Nova);
 
             System.out.println("Saque realizado com sucesso!");
@@ -202,11 +202,11 @@ public abstract class Conta {
                 throw new IllegalArgumentException("Valor inválido!");
             this.saldo += valor;
             this.ultimaMovimentacao = Data.dataAtual();
-            
+
             Movimentacao Nova = new Movimentacao();
-            Nova.deposito(valor, this.ultimaMovimentacao);
+            Nova.deposito(valor);
             this.movimentacoes.add(Nova);
-            
+
             System.out.println("Depósito realizado com sucesso!");
 
         } else if (verificarSenha(senha) == false) {
@@ -218,13 +218,17 @@ public abstract class Conta {
 
     public void consultarSaldo(int senha) throws IllegalArgumentException {
         if (verificarSenha(senha) || this.estado == true) {
-            System.out.println(this.getSaldo());
-            this.ultimaMovimentacao = Data.dataAtual();
-            Movimentacao Nova = new Movimentacao();
-            Nova.consulta(this.ultimaMovimentacao);
-            this.movimentacoes.add(Nova);
+            System.out.println("O saldo atual é: " + this.getSaldo());
 
-        } else {
+            /*
+             * Consulta não é uma movimentação
+             * this.ultimaMovimentacao = Data.dataAtual();
+             * Movimentacao Nova = new Movimentacao();
+             * Nova.consulta(this.ultimaMovimentacao);
+             * this.movimentacoes.add(Nova);
+             */
+
+        } else { // tratar o erro depois
             throw new IllegalArgumentException("Senha incorreta!");
         }
     }
@@ -234,11 +238,11 @@ public abstract class Conta {
             if (this.saldo >= valor) {
                 this.saldo -= valor;
                 this.ultimaMovimentacao = Data.dataAtual();
-                
+
                 Movimentacao Nova = new Movimentacao();
-                Nova.pagamento(valor, this.ultimaMovimentacao);
+                Nova.pagamento(valor);
                 this.movimentacoes.add(Nova);
-                
+
             } else {
                 throw new IllegalArgumentException("Saldo insuficiente!");
             }
@@ -247,7 +251,7 @@ public abstract class Conta {
         }
     }
 
-    public void efetuarTransf(int nroBanco, int numeroAgencia, int nroConta, float valor, int senha) {
+    public void efetuarTransf(int numBanco, int numAgencia, int numConta, float valor, int senha) {
         if (verificarSenha(senha)) {
             if (valor <= 0) {
                 throw new IllegalArgumentException("Valor inválido!");
@@ -255,11 +259,11 @@ public abstract class Conta {
             if (this.saldo >= valor) {
                 this.saldo -= valor;
                 this.ultimaMovimentacao = Data.dataAtual();
-                
+
                 Movimentacao Nova = new Movimentacao();
-                Nova.transferencia(valor, this.ultimaMovimentacao);
+                Nova.transferencia(valor, numBanco, numAgencia, numConta);
                 this.movimentacoes.add(Nova);
-                
+
             } else {
                 throw new IllegalArgumentException("Saldo insuficiente!");
             }
@@ -268,14 +272,24 @@ public abstract class Conta {
         }
     }
 
-    public void receberTranf(int nroBanco, int numeroAgencia, int nroConta, float valor) {
+    public void receberTranf(int numBanco, int numAgencia, int numConta, float valor) {
         this.saldo += valor;
         this.ultimaMovimentacao = Data.dataAtual();
-        
+
         Movimentacao Nova = new Movimentacao();
-        Nova.receberTransferencia(valor, this.ultimaMovimentacao);
+        Nova.receberTransferencia(valor, numBanco, numAgencia, numConta);
         this.movimentacoes.add(Nova);
-        
+
+    }
+
+    public void historicoMovimentacoes(int senha) {
+        if (verificarSenha(senha)) {
+            for (Movimentacao movimentacao : movimentacoes) {
+                System.out.println(movimentacao);
+            }
+        } else {
+            throw new IllegalArgumentException("Senha incorreta!");
+        }
     }
 
     ///////////////////////////
@@ -283,9 +297,9 @@ public abstract class Conta {
     /////////////////////////
 
     public void criaConta(Agencia agenciaConta) {
-        try(Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Digite o numero da conta?");
-            this.nroConta = sc.nextInt();
+            this.numConta = sc.nextInt();
 
             System.out.println("Digite a senha");
             this.senha = sc.nextInt();
@@ -316,7 +330,7 @@ public abstract class Conta {
                 conjunta = false;
             }
 
-            if(this.conjunta == true) {
+            if (this.conjunta == true) {
                 System.out.println("O primeiro cliente ja existe?");
                 System.out.println("1-Sim");
                 System.out.println("2-Nao");
@@ -325,13 +339,14 @@ public abstract class Conta {
                     System.out.println("Digite o CPF do cliente");
                     String cpf = sc.next();
                     Cliente cliente = new Cliente();
-                    //cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de dados
+                    // cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de
+                    // dados
                     this.clientePrimario = cliente;
                 } else if (opcaoCliente == 2) {
-                    Cliente clientePrimario = new Cliente(); //Atualizar para Cliente(Agencia);
-                    //clientePrimario.criaCliente(); Metodo para criar o cliente no banco de dados
+                    Cliente clientePrimario = new Cliente(); // Atualizar para Cliente(Agencia);
+                    // clientePrimario.criaCliente(); Metodo para criar o cliente no banco de dados
                     this.clientePrimario = clientePrimario;
-                    
+
                 } else {
                     System.out.println("Opcao invalida, o cliente sera criado");
                 }
@@ -343,18 +358,20 @@ public abstract class Conta {
                     System.out.println("Digite o CPF do cliente");
                     String cpf = sc.next(); // Busca sera por cpf?
                     Cliente clienteSecundario = new Cliente();
-                    //cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de dados
+                    // cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de
+                    // dados
                     this.clienteSecundario = clienteSecundario;
                 } else if (opcaoCliente2 == 2) {
-                    Cliente clienteSecundario = new Cliente(); //Atualizar para Cliente(Agencia);
-                    //clienteSecundario.criaCliente(); Metodo para criar o cliente no banco de dados
+                    Cliente clienteSecundario = new Cliente(); // Atualizar para Cliente(Agencia);
+                    // clienteSecundario.criaCliente(); Metodo para criar o cliente no banco de
+                    // dados
                     this.clienteSecundario = clienteSecundario;
-                    
+
                 } else {
                     System.out.println("Opcao invalida, o cliente sera criado");
                 }
-                
-            }else{
+
+            } else {
                 System.out.println("O primeiro cliente ja existe?");
                 System.out.println("1-Sim");
                 System.out.println("2-Nao");
@@ -363,13 +380,14 @@ public abstract class Conta {
                     System.out.println("Digite o CPF do cliente");
                     String cpf = sc.next();
                     Cliente cliente = new Cliente();
-                    //cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de dados
+                    // cliente = cliente.buscaCliente(cpf); Metodo para buscar o cliente no banco de
+                    // dados
                     this.clientePrimario = cliente;
                 } else if (opcaoCliente == 2) {
-                    Cliente clientePrimario = new Cliente(); //Atualizar para Cliente(Agencia);
-                    //clientePrimario.criaCliente(); Metodo para criar o cliente no banco de dados
+                    Cliente clientePrimario = new Cliente(); // Atualizar para Cliente(Agencia);
+                    // clientePrimario.criaCliente(); Metodo para criar o cliente no banco de dados
                     this.clientePrimario = clientePrimario;
-                    
+
                 } else {
                     System.out.println("Opcao invalida, o cliente sera criado");
                 }
@@ -377,7 +395,7 @@ public abstract class Conta {
 
             this.agencia = agenciaConta;
 
-            //FALTA MOVIMENTACOES//
+            // FALTA MOVIMENTACOES//
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -391,10 +409,10 @@ public abstract class Conta {
     public String saidaArquivo() {
         String segundoTitularCPF = "";
 
-        if (conjunta)
+        if (conjunta) // Se a conta for conjunta, o segundo titular sera o cliente secundario
             segundoTitularCPF = clienteSecundario.getCpf();
 
-        String data = nroConta + ";" + senha + ";" + saldo + ";" + aberturaConta + ";" + ultimaMovimentacao + ";"
+        String data = numConta + ";" + senha + ";" + saldo + ";" + aberturaConta + ";" + ultimaMovimentacao + ";"
                 + conjunta + ";" + estado + ";" + clientePrimario.getCpf() + ";" + segundoTitularCPF + ";"
                 + aberturaConta.printData() + ";" + ultimaMovimentacao.printData() + ";"
                 + ultimaMovimentacao.printData() + ";";
@@ -403,7 +421,7 @@ public abstract class Conta {
     }
 
     public void print() {
-        System.out.println("Numero da conta: " + this.nroConta);
+        System.out.println("Numero da conta: " + this.numConta);
         System.out.println("Saldo: " + this.saldo);
         System.out.println("Data de abertura: " + this.aberturaConta);
         System.out.println("Data da ultima movimentacao: " + this.ultimaMovimentacao);
@@ -411,9 +429,41 @@ public abstract class Conta {
         System.out.println("Conta ativa: " + this.estado);
     }
 
+    public void imprime() {
+        System.out.println("Agencia: " + this.numConta + "Conta: " + this.numConta + "Senha: " + this.senha);
+    }
+
+    
     //////////////////////////////
     ///// SALVAR E CARREGAR /////
     ////////////////////////////
 
-    
+    public void atualizarContas() { // Metodo para atualizar as contas no banco de dados
+        this.saldo = 0;
+        for (Movimentacao movimentacao : movimentacoes) {
+            Movimentacao percorre = movimentacao;
+
+            if (percorre.getTipoTransacao() == "Saque") { // percorre.getTipoTransacao().equals("Saque")
+                this.saldo += percorre.getValor();
+                this.ultimaMovimentacao = percorre.getDataTransacao();
+            } else if (percorre.getTipoTransacao() == "Deposito") {
+                this.saldo -= percorre.getValor();
+                this.ultimaMovimentacao = percorre.getDataTransacao();
+            } else if (percorre.getTipoTransacao() == "Pagamento") {
+                this.saldo -= percorre.getValor();
+                this.ultimaMovimentacao = percorre.getDataTransacao();
+            } else if (percorre.getTipoTransacao() == "Transferencia") {
+                this.saldo -= percorre.getValor();
+                this.ultimaMovimentacao = percorre.getDataTransacao();
+            } else if (percorre.getTipoTransacao() == "Recebimento") {
+                this.saldo += percorre.getValor();
+                this.ultimaMovimentacao = percorre.getDataTransacao();
+            } else if (percorre.getTipoTransacao() == "Rendimento") {
+                this.saldo += percorre.getValor();
+                this.ultimaMovimentacao = percorre.getDataTransacao();
+            } else {
+                System.out.println("Erro ao atualizar conta");
+            }
+        }
+    }
 }
