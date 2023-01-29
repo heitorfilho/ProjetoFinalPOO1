@@ -4,6 +4,7 @@ import java.util.*;
 import Util.*;
 import Banco.Agencia.Agencia;
 import Banco.Agencia.Clientes.Cliente;
+import Banco.Agencia.Contas.Movimentacoes.Movimentacao;
 
 public abstract class Conta {
 
@@ -16,7 +17,7 @@ public abstract class Conta {
     protected boolean conjunta;
     protected Cliente clientePrimario; //protected int cpfClientePrimario
     protected Cliente clienteSecundario;
-    // protected LinkedList<Movimentacao> movimentacoes;
+    protected LinkedList<Movimentacao> movimentacoes;
     private Agencia agencia; // agencia que a conta pertence
 
     // Conta unica
@@ -34,7 +35,7 @@ public abstract class Conta {
         // this.clientePrimario = clientePrimario;
         // this.clienteSecundario = null;
         ultimaMovimentacao = new Data(0, 0, 0);
-        // this.Movimentacoes = new LinkedList< >();
+        this.movimentacoes = new LinkedList<>();
     }
 
     public Conta() {
@@ -181,11 +182,11 @@ public abstract class Conta {
             if (this.saldo >= valor)
                 this.saldo -= valor;
             this.ultimaMovimentacao = Data.dataAtual();
-            /*
-             * Movimentacoes Nova = new Movimentacoes();
-             * Nova.sacar(valor);
-             * this.Movimentacoes.add(Nova);
-             */
+            
+            Movimentacao Nova = new Movimentacao();
+            Nova.saque(valor, this.ultimaMovimentacao);
+            this.movimentacoes.add(Nova);
+
             System.out.println("Saque realizado com sucesso!");
 
         } else if (verificarSenha(senha) == false) {
@@ -201,11 +202,11 @@ public abstract class Conta {
                 throw new IllegalArgumentException("Valor inválido!");
             this.saldo += valor;
             this.ultimaMovimentacao = Data.dataAtual();
-            /*
-             * Movimentacoes Nova = new Movimentacoes();
-             * Nova.depositar(valor);
-             * this.Movimentacoes.add(Nova);
-             */
+            
+            Movimentacao Nova = new Movimentacao();
+            Nova.deposito(valor, this.ultimaMovimentacao);
+            this.movimentacoes.add(Nova);
+            
             System.out.println("Depósito realizado com sucesso!");
 
         } else if (verificarSenha(senha) == false) {
@@ -218,6 +219,11 @@ public abstract class Conta {
     public void consultarSaldo(int senha) throws IllegalArgumentException {
         if (verificarSenha(senha) || this.estado == true) {
             System.out.println(this.getSaldo());
+            this.ultimaMovimentacao = Data.dataAtual();
+            Movimentacao Nova = new Movimentacao();
+            Nova.consulta(this.ultimaMovimentacao);
+            this.movimentacoes.add(Nova);
+
         } else {
             throw new IllegalArgumentException("Senha incorreta!");
         }
@@ -228,11 +234,11 @@ public abstract class Conta {
             if (this.saldo >= valor) {
                 this.saldo -= valor;
                 this.ultimaMovimentacao = Data.dataAtual();
-                /*
-                 * Movimentacoes Nova = new Movimentacoes();
-                 * Nova.realizarPag(valor, TipoPagamento);
-                 * this.Movimentacoes.add(Nova);
-                 */
+                
+                Movimentacao Nova = new Movimentacao();
+                Nova.pagamento(valor, this.ultimaMovimentacao);
+                this.movimentacoes.add(Nova);
+                
             } else {
                 throw new IllegalArgumentException("Saldo insuficiente!");
             }
@@ -249,11 +255,11 @@ public abstract class Conta {
             if (this.saldo >= valor) {
                 this.saldo -= valor;
                 this.ultimaMovimentacao = Data.dataAtual();
-                /*
-                 * Movimentacoes Nova = new Movimentacoes();
-                 * Nova.tranferir(valor, Numbanco, numAgencia, NumConta);
-                 * this.Movimentacoes.add(Nova);
-                 */
+                
+                Movimentacao Nova = new Movimentacao();
+                Nova.transferencia(valor, this.ultimaMovimentacao);
+                this.movimentacoes.add(Nova);
+                
             } else {
                 throw new IllegalArgumentException("Saldo insuficiente!");
             }
@@ -265,11 +271,11 @@ public abstract class Conta {
     public void receberTranf(int nroBanco, int numeroAgencia, int nroConta, float valor) {
         this.saldo += valor;
         this.ultimaMovimentacao = Data.dataAtual();
-        /*
-         * Movimentacoes Nova = new Movimentacoes();
-         * Nova.ReceberTransferencia(valor, Numbanco, numAgencia, NumConta);
-         * this.Movimentacoes.add(Nova);
-         */
+        
+        Movimentacao Nova = new Movimentacao();
+        Nova.receberTransferencia(valor, this.ultimaMovimentacao);
+        this.movimentacoes.add(Nova);
+        
     }
 
     ///////////////////////////
