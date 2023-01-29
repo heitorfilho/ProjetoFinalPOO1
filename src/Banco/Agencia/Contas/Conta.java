@@ -19,15 +19,15 @@ public abstract class Conta {
     protected Cliente clienteSecundario;
     protected LinkedList<Movimentacao> movimentacoes;
     private Agencia agencia; // agencia que a conta pertence
+    protected int numAgencia;
 
     // Conta unica
     public Conta(int numConta, int senha, float saldo, boolean conjunta,
-            Cliente Cliente_primario, Agencia agencia,
-            Data aberturaConta) {
+            Cliente Cliente_primario, int numAgencia, Data aberturaConta) {
         this.numConta = numConta;
         this.senha = senha;
         this.saldo = saldo;
-        this.agencia = agencia;
+        // this.agencia = agencia;
         this.aberturaConta = aberturaConta;
         this.ultimaMovimentacao = aberturaConta;
         this.estado = true;
@@ -86,6 +86,10 @@ public abstract class Conta {
         return this.clientePrimario;
     }
 
+    public Cliente getClienteSecundario() {
+        return this.clienteSecundario;
+    }
+
     public Agencia getAgencia() {
         return this.agencia;
     }
@@ -110,6 +114,14 @@ public abstract class Conta {
         this.aberturaConta = aberturaConta;
     }
 
+    public void setClientePrimario(Cliente clientePrimario) {
+        this.clientePrimario = clientePrimario;
+    }
+
+    public void setClienteSecundario(Cliente clienteSecundario) {
+        this.clienteSecundario = clienteSecundario;
+    }
+    
     public void setUltimaMovimentacao(Data ultimaMovimentacao) {
         this.ultimaMovimentacao = ultimaMovimentacao;
     }

@@ -12,10 +12,10 @@ public class Corrente extends Conta {
     private float limCheque;
     private float taxaAdmin;
 
-    public Corrente(int nroConta, int senha, float saldo, boolean conjunta,
-    Cliente Cliente_primario, Agencia agencia,
-    Data aberturaConta) { // Precisa fazer alteracao para Data
-        super(nroConta, senha, saldo, conjunta, Cliente_primario, agencia, aberturaConta);
+    public Corrente(int numConta, int senha, float saldo, boolean conjunta,
+            Cliente clientePrimario, int numAgencia,
+            Data aberturaConta, float limite, float taxAdmin) { // Precisa fazer alteracao para Data
+        super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta);
         this.limCheque = 0;
         this.taxaAdmin = 30f;
     }
@@ -43,18 +43,18 @@ public class Corrente extends Conta {
         return data;
     }
 
-    //CRIA CONTA//
+    // CRIA CONTA//
 
     @Override
     public void criaConta(Agencia agenciaConta) {
-        try(Scanner sc = new Scanner(System.in)) {
+        try (Scanner sc = new Scanner(System.in)) {
             super.criaConta(agenciaConta);
             System.out.println("Digite o limite de cheque especial:");
             float novoLimite = sc.nextFloat();
-            if(novoLimite > this.getSaldo()){ //limite de cheque especial nao pode ser maior que o saldo no momento de criacao da conta
+            if (novoLimite > this.getSaldo()) { // limite de cheque especial nao pode ser maior que o saldo no momento
+                                                // de criacao da conta
                 this.limCheque = this.getSaldo();
-            }
-            else{
+            } else {
                 this.limCheque = novoLimite;
             }
             System.out.println("A taxa de administração e de 30 reais.");

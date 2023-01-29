@@ -8,10 +8,10 @@ public class Poupanca extends Conta {
 
     private float rendimentoMesAtual;
 
-    public Poupanca(int nroConta, int senha, float saldo, boolean conjunta,
-            Cliente cliente_primario, Agencia agencia,
-            Data aberturaConta) {
-        super(nroConta, senha, saldo, conjunta, cliente_primario, agencia, aberturaConta);
+    public Poupanca(int numConta, int senha, float saldo, boolean conjunta,
+            Cliente clientePrimario, int numAgencia,
+            Data aberturaConta, float rendimentoMesAtual) {
+        super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta);
         this.rendimentoMesAtual = 0.5f;
     }
 
@@ -35,10 +35,10 @@ public class Poupanca extends Conta {
         return data;
     }
 
-    //CRIA CONTA//
+    // CRIA CONTA//
 
     @Override
-    public void criaConta(Agencia agencia){
+    public void criaConta(Agencia agencia) {
         super.criaConta(agencia);
         this.rendimentoMesAtual = 0.5f;
         System.out.println("O rendimento mensal atual eh de 0.5%");

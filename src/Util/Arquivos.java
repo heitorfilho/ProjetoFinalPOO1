@@ -76,6 +76,89 @@ public class Arquivos {
     ///// ARQUIVO PARA CONTAS /////
     ////////////////////////////////
 
+    public static LinkedList<Conta> carregarContas(int numeroAgencia, LinkedList<Cliente> clientes) {
+        String numAgencia = String.valueOf(numeroAgencia);
+        LinkedList<Conta> contas = new LinkedList<>();
+
+        try {
+            FileReader ent = new FileReader(BaseDeDados + "\\Contas\\" + numAgencia + "Contas.csv");
+            try (BufferedReader br = new BufferedReader(ent)) {
+                String linha;
+                String[] campos = null;
+                while ((linha = br.readLine()) != null) {
+                    campos = linha.split(";");
+                    Data AberturaConta = new Data(Integer.parseInt(campos[9]), Integer.parseInt(campos[10]),
+                            Integer.parseInt(campos[11]));
+                    Data UltimaMovimentacao = new Data(Integer.parseInt(campos[12]), Integer.parseInt(campos[13]),
+                            Integer.parseInt(campos[14]));
+                    Cliente Primario = new Cliente();
+                    Cliente Secundario = new Cliente();
+                    boolean CPF_Encontrado = false;
+
+                    for (int i = 0; i < clientes.size(); i++) {
+                        Cliente Percorre = clientes.get(i);
+                        if (Percorre.getCpf().equals(campos[6])) {
+                            Primario = Percorre;
+                            CPF_Encontrado = true;
+                        } else if (Percorre.getCpf().equals(campos[7])) {
+                            Secundario = Percorre;
+                        }
+
+                    }
+
+                    if (!CPF_Encontrado)
+                        throw new IllegalArgumentException("Cliente não encontrado");
+
+                    Conta nova;
+                    switch (campos[0]) {
+                        case "Corrente":
+                            nova = new Corrente(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), Primario,
+                                    Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]),
+                                    Float.parseFloat(campos[16]));
+                            if (Boolean.parseBoolean(campos[5])) {
+                                nova.setClienteSecundario(Secundario);
+                            }
+                            nova.setUltimaMovimentacao(UltimaMovimentacao);
+                            contas.add(nova);
+                            break;
+                        case "Poupanca":
+                            nova = new Poupanca(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), Primario,
+                                    Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]));
+                            if (Boolean.parseBoolean(campos[5])) {
+                                nova.setClienteSecundario(Secundario);
+                            }
+                            nova.setUltimaMovimentacao(UltimaMovimentacao);
+                            contas.add(nova);
+                            break;
+                        case "Salario":
+                            nova = new Salario(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), Primario,
+                                    Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]),
+                                    Float.parseFloat(campos[16]));
+                            if (Boolean.parseBoolean(campos[5])) {
+                                nova.setClienteSecundario(Secundario);
+                            }
+                            nova.setUltimaMovimentacao(UltimaMovimentacao);
+                            contas.add(nova);
+                            break;
+                        default:
+                            break;
+
+                    }
+                }
+                br.close();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException erro) {
+            System.out.println(" Arquivo nao encontrado ou corrompido:" + numAgencia + "Contas.csv");
+        }
+        return contas;
+    }
+
+
     public static void salvarArquivoConta(int numeroAgencia, LinkedList<Conta> contas) {
         String numAgencia = String.valueOf(numeroAgencia);
         try {
