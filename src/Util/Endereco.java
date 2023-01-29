@@ -7,12 +7,12 @@ public class Endereco {
     private String estado;
     private String cidade;
     private String bairro;
-    private String cep;
+    private int cep;
     private String rua;
-    private String numero;
+    private int numero;
     private String complemento;
 
-    public Endereco(String pais, String estado, String cidade, String bairro, String cep, String rua, String numero,
+    public Endereco(String pais, String estado, String cidade, String bairro, int cep, String rua, int numero,
             String complemento) {
         this.pais = pais;
         this.estado = estado;
@@ -56,11 +56,11 @@ public class Endereco {
         this.bairro = bairro;
     }
 
-    public String getCep() {
+    public int getCep() {
         return this.cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(int cep) {
         this.cep = cep;
     }
 
@@ -72,11 +72,11 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public String getNumero() {
+    public int getNumero() {
         return this.numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(int numero) {
         this.numero = numero;
     }
 
@@ -105,11 +105,11 @@ public class Endereco {
             System.out.println("Digite o bairro: ");
             this.bairro = sc.nextLine();
             System.out.println("Digite o CEP: ");
-            this.cep = sc.nextLine();
+            this.cep = sc.nextInt();
             System.out.println("Digite a rua: ");
             this.rua = sc.nextLine();
             System.out.println("Digite o numero: ");
-            this.numero = sc.nextLine();
+            this.numero = sc.nextInt();
             System.out.println("Digite complemento: ");
             this.complemento = sc.nextLine();
         }
