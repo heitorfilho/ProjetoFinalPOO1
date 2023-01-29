@@ -14,11 +14,11 @@ public class Cliente extends Pessoa {
     private String escolaridade;
     private Agencia agenciaCadastrada;
 
-    public Cliente(String nome, String cpf, String sexo, Data dataNascimento, Endereco endereco, String estadoCivil,
-            String escolaridade, Agencia agenciaCadastrada) {
-        super(nome, cpf, sexo, dataNascimento, endereco, estadoCivil);
+    public Cliente(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
+            String escolaridade/*, Agencia agenciaCadastrada*/) {
+        super(nome, cpf,dataNascimento, endereco, sexo, estadoCivil);
         this.escolaridade = escolaridade;
-        this.agenciaCadastrada = agenciaCadastrada;
+        //this.agenciaCadastrada = agenciaCadastrada;
     }
 
     public Cliente() { // Construtor default
