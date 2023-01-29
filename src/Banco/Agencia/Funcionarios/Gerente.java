@@ -16,7 +16,8 @@ public class Gerente extends Funcionario {
     public Gerente(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
             String numCarteiraTrab, String cargo, float salario, int dataIngresso, int rg_num, String rg_uf,
             boolean formacaoBasica, Data dataIngressoGerente, Agencia agenciaGerenciada, boolean estaEmUmaAgencia) {
-        super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil, numCarteiraTrab, "Gerente", salario, dataIngresso, rg_num, rg_uf);
+        super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil, numCarteiraTrab, "Gerente", salario, dataIngresso,
+                rg_num, rg_uf);
         this.dataIngressoGerente = dataIngressoGerente;
         this.agenciaGerenciada = agenciaGerenciada;
         this.formacaoBasica = formacaoBasica;
@@ -29,44 +30,44 @@ public class Gerente extends Funcionario {
     }
 
     public Gerente() { // Construtor default
-        super(null, null, null, null, null, null, null, 0, null, null, 0, 0);
-    }
-
-    public Agencia getAgenciaGerenciada() {
-        return this.agenciaGerenciada;
-    }
-
-    public void setAgencia(Agencia agencia) { // Agencia agencia
-        this.agenciaGerenciada = agencia;
-        // this.estaEmUmaAgencia = true;
+        super(null, null, null, null, null, null, null, null, 0, 0, 0, null);
     }
 
     public Data getdataIngressoGerente() {
         return this.dataIngressoGerente;
     }
 
-    public void setdataIngressoGerente(Data dataIngressoGerente) {
-        this.dataIngressoGerente = dataIngressoGerente;
-    }
-
     public boolean getFormacaoBasica() {
         return this.formacaoBasica;
-    }
-
-    public void setFormacaoBasica(boolean formacaoBasica) {
-        this.formacaoBasica = formacaoBasica;
     }
 
     public boolean getEstaEmUmaAgencia() {
         return this.estaEmUmaAgencia;
     }
 
+    public static float getComissaoGerente() {
+        return comissaoGerente;
+    }
+
+    public Agencia getAgenciaGerenciada() {
+        return this.agenciaGerenciada;
+    }
+
+    public void setdataIngressoGerente(Data dataIngressoGerente) {
+        this.dataIngressoGerente = dataIngressoGerente;
+    }
+
+    public void setFormacaoBasica(boolean formacaoBasica) {
+        this.formacaoBasica = formacaoBasica;
+    }
+
     public void setEstaEmUmaAgencia(boolean estaEmUmaAgencia) {
         this.estaEmUmaAgencia = estaEmUmaAgencia;
     }
 
-    public static float getComissaoGerente() {
-        return comissaoGerente;
+    public void setAgencia(Agencia agencia) { // Agencia agencia
+        this.agenciaGerenciada = agencia;
+        // this.estaEmUmaAgencia = true;
     }
 
     public static void setComissaoGerente(float comissaoGerente) {
