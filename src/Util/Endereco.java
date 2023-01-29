@@ -1,5 +1,7 @@
 package Util;
 
+import java.util.Scanner;
+
 public class Endereco {
     private String pais;
     private String estado;
@@ -90,5 +92,26 @@ public class Endereco {
         String Data = rua + "; " + numero + "; " + complemento + "; "
                 + bairro + "; " + cidade + "; " + estado + "; " + pais + "; " + cep;
         return Data;
+    }
+
+    public void cadastraEndereco() {
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("Digite o pais: ");
+            this.pais = sc.nextLine();
+            System.out.println("Digite o estado: ");
+            this.estado = sc.nextLine();
+            System.out.println("Digite a cidade: ");
+            this.cidade = sc.nextLine();
+            System.out.println("Digite o bairro: ");
+            this.bairro = sc.nextLine();
+            System.out.println("Digite o CEP: ");
+            this.cep = sc.nextLine();
+            System.out.println("Digite a rua: ");
+            this.rua = sc.nextLine();
+            System.out.println("Digite o numero: ");
+            this.numero = sc.nextLine();
+            System.out.println("Digite complemento: ");
+            this.complemento = sc.nextLine();
+        }
     }
 }

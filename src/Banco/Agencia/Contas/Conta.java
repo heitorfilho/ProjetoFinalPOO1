@@ -15,9 +15,9 @@ public abstract class Conta {
     protected Data ultimaMovimentacao;
     protected boolean conjunta;
     protected Cliente clientePrimario; //protected int cpfClientePrimario
-    protected Cliente clienteSecundario; // agencia que a conta pertence
+    protected Cliente clienteSecundario;
     // protected LinkedList<Movimentacao> movimentacoes;
-    private Agencia agencia;
+    private Agencia agencia; // agencia que a conta pertence
 
     // Conta unica
     public Conta(int nroConta, int senha, float saldo, boolean conjunta,
@@ -120,6 +120,7 @@ public abstract class Conta {
     //// AVALIAR ACESSO /////
     //// VALIDAR CONTA /////
     //// DESATIVAR CONTA //
+    // ADICIONAR CLIENTE //
     //////////////////////
 
     public boolean verificarSenha(int senha) {
@@ -130,12 +131,12 @@ public abstract class Conta {
         }
     }
 
-    public void verificaConjunta() {
-        // if (this.conjunta == true) {
-        // if (this.clienteSecundario == null) {
-        // this.estado = false;
-        // }
-        // }
+    public boolean verificaConjunta() {
+        if (this.conjunta == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void desativarConta(int senha) {
@@ -150,6 +151,20 @@ public abstract class Conta {
             }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void adicionarCliente(Cliente cliente) {
+        if (this.conjunta == true) {
+            if (this.clientePrimario == null) {
+                this.clientePrimario = cliente;
+            } else if (this.clienteSecundario == null) {
+                this.clienteSecundario = cliente;
+            } else {
+                System.out.println("Conta conjunta já possui dois clientes!");
+            }
+        } else {
+            System.out.println("Conta não é conjunta!");
         }
     }
 

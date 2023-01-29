@@ -1,5 +1,8 @@
 package Banco.Agencia.Funcionarios;
 
+import java.util.Scanner;
+
+import Banco.Agencia.Agencia;
 import Util.Data;
 import Util.Endereco;
 import Util.Pessoa;
@@ -89,5 +92,46 @@ public class Funcionario extends Pessoa {
 
     public String printGerente() { // caso funcioanrio que nao seja gerente queira acessar os dados do gerente
         throw new IllegalAccessError("Acesso negado!");
+    }
+
+    public void cadastraFuncionario(){
+        super.cadastraPessoa();
+        try(Scanner sc = new Scanner(System.in);) {
+            System.out.println("Digite o numero da carteira de trabalho: ");
+            this.nroCarteiraTrabalho = sc.nextLine();
+            System.out.println("Digite a UF do RG: ");
+            this.rg_uf = sc.nextLine();
+            System.out.println("Digite o numero do RG: ");
+            this.rg_num = sc.nextInt();
+            System.out.println("Digite o cargo: ");
+            this.cargo = sc.nextLine();
+            System.out.println("Digite o salario: ");
+            this.salario = sc.nextFloat();
+            System.out.println("Digite o ano de ingresso: ");
+            this.anoIngresso = sc.nextInt();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    public void cadastraFuncionarioGerente(){ // Para cadastrar um gerente nao eh necessario informar o cargo
+        super.cadastraPessoa();
+        try(Scanner sc = new Scanner(System.in);) {
+            System.out.println("Digite o numero da carteira de trabalho: ");
+            this.nroCarteiraTrabalho = sc.nextLine();
+            System.out.println("Digite a UF do RG: ");
+            this.rg_uf = sc.nextLine();
+            System.out.println("Digite o numero do RG: ");
+            this.rg_num = sc.nextInt();
+            this.cargo = "Gerente";
+            System.out.println("Digite o salario: ");
+            this.salario = sc.nextFloat();
+            System.out.println("Digite o ano de ingresso: ");
+            this.anoIngresso = sc.nextInt();
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 }

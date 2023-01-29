@@ -1,5 +1,7 @@
 package Util;
 
+import java.util.Scanner;
+
 public abstract class Pessoa {
     private String nome;
     private String cpf;
@@ -72,4 +74,24 @@ public abstract class Pessoa {
         return Data;
     }
 
+    public void cadastraPessoa() {
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("Digite o nome: ");
+            this.nome = sc.nextLine();
+            System.out.println("Digite o CPF: ");
+            this.cpf = sc.nextLine();
+            System.out.println("Digite o sexo: ");
+            this.sexo = sc.nextLine();
+            System.out.println("Digite o estado civil: ");
+            this.estadoCivil = sc.nextLine();
+            System.out.println("Digite o dia de nascimento: ");
+            int dia = sc.nextInt();
+            System.out.println("Digite o mês de nascimento: ");
+            int mes = sc.nextInt();
+            System.out.println("Digite o ano de nascimento: ");
+            int ano = sc.nextInt();
+            this.dataNascimento = new Data(dia, mes, ano);
+            this.endereco.cadastraEndereco();
+        }
+    }
 }
