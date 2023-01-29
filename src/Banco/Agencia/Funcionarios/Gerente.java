@@ -36,7 +36,7 @@ public class Gerente extends Funcionario {
         return this.agenciaGerenciada;
     }
 
-    public void setAgencia(Agencia agencia) {
+    public void setAgencia(Agencia agencia) { // Agencia agencia
         this.agenciaGerenciada = agencia;
         // this.estaEmUmaAgencia = true;
     }
@@ -68,7 +68,7 @@ public class Gerente extends Funcionario {
     @Override
     public String printFuncionario() {
         String data = super.printFuncionario() + ";" + this.dataIngressoGerente.printData() + ";" + // this.agenciaGerenciada.print();
-               "Formacao basica: " + this.formacaoBasica + ";" + "Gerente esta em uma agencia: " + this.estaEmUmaAgencia + ";";
+               "Formação básica: " + this.formacaoBasica + ";" + "Gerente esta em uma agencia: " + this.estaEmUmaAgencia + ";";
 
         return data;
 

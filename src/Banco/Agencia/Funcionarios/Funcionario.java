@@ -1,6 +1,5 @@
 package Banco.Agencia.Funcionarios;
 
-
 import Util.Data;
 import Util.Endereco;
 import Util.Pessoa;
@@ -84,11 +83,11 @@ public class Funcionario extends Pessoa {
         return data;
     }
 
-    public void printTodosFunc(){
-        System.out.println(this.getNome() + " - " + this.getCpf() +  " - " + this.getCargo());
+    public void printTodosFunc() {
+        System.out.println(this.getNome() + " - " + this.getCpf() + " - " + this.getCargo());
     }
 
-    public String printGerente(){
+    public String printGerente() { // caso funcioanrio que nao seja gerente queira acessar os dados do gerente
         throw new IllegalAccessError("Acesso negado!");
     }
 }

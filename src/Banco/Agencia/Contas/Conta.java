@@ -14,7 +14,7 @@ public abstract class Conta {
     protected Data aberturaConta;
     protected Data ultimaMovimentacao;
     protected boolean conjunta;
-    protected Cliente clientePrimario;
+    protected Cliente clientePrimario; //protected int cpfClientePrimario
     protected Cliente clienteSecundario; // agencia que a conta pertence
     // protected LinkedList<Movimentacao> movimentacoes;
     private Agencia agencia;

@@ -14,7 +14,7 @@ public class Agencia {
     private int numeroAgencia;
     private String nomeAgencia;
     private Endereco enderecoAgencia;
-    private Gerente gerenteAgencia;
+    private Gerente gerente;
     private LinkedList<Conta> contas;
     private LinkedList<Funcionario> funcionarios;
     // private LinkedList<Pessoa> Funcionarios;
@@ -24,16 +24,18 @@ public class Agencia {
     public Agencia(String nomeAgencia, int numeroAgencia){
         this.nomeAgencia = nomeAgencia;
         this.numeroAgencia = numeroAgencia;
-        this.contas = new LinkedList<Conta>();
-        this.funcionarios = new LinkedList<Funcionario>();
+        this.contas = new LinkedList<>();
+        this.funcionarios = new LinkedList<>();
         // this.clientes = new LinkedList<Cliente>();
     }
     
-    public Agencia(String nomeAgencia, int numeroAgencia, Endereco enderecoAgencia, Gerente gerenteAgencia){
+    public Agencia(String nomeAgencia, int numeroAgencia, Endereco enderecoAgencia, Gerente gerente){
         this.nomeAgencia = nomeAgencia;
         this.numeroAgencia = numeroAgencia;
         this.enderecoAgencia = enderecoAgencia;
-        this.gerenteAgencia = gerenteAgencia;
+        this.gerente = gerente;
+        gerente.setAgencia(this);
+        //gerente.setEstaEmUmaAgencia(true);
         this.contas = new LinkedList<Conta>();
         this.funcionarios = new LinkedList<Funcionario>();
         // this.clientes = new LinkedList<Cliente>();
@@ -53,12 +55,12 @@ public class Agencia {
         return this.enderecoAgencia;
     }
 
-    public Gerente getGerenteAgencia(){
-        return this.gerenteAgencia;
+    public Gerente getGerente(){
+        return this.gerente;
     }
 
-    public void setGerenteAgencia(Gerente gerente){
-        this.gerenteAgencia = gerente;
+    public void setGerente(Gerente gerente){
+        this.gerente = gerente;
         gerente.setAgencia(this);
     }
     
