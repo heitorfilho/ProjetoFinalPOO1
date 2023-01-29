@@ -73,8 +73,57 @@ public class Arquivos {
     }
 
     //////////////////////////////////
-    //// ARQUIVO PARA AGENCIAS   ////
+    ///// ARQUIVO PARA CONTAS /////
     ////////////////////////////////
+
+    public static void salvarArquivoConta(int numeroAgencia, LinkedList<Conta> contas) {
+        String numAgencia = String.valueOf(numeroAgencia);
+        try {
+            FileWriter arq = new FileWriter(BaseDeDados + "\\Contas\\" + numAgencia + "Contas.csv");
+            PrintWriter out = new PrintWriter(arq);
+            try {
+                for (Conta conta : contas) {
+                    String linha = conta.printConta();
+                    out.println(linha);
+                }
+            } catch (NullPointerException erro) {
+                System.out.println("Não possui nenhum registro" + erro);
+            }
+            out.close();
+            arq.close();
+        } catch (IOException erro) {
+            System.out.println("Erro na escrita dos dados das contas" + erro);
+        }
+
+    }
+
+    //////////////////////////////////
+    //// ARQUIVO PARA AGENCIAS ////
+    ////////////////////////////////
+
+    public static LinkedList<Agencia> carregarAgencias() {
+        LinkedList<Agencia> agencias = new LinkedList<>();
+
+        try {
+            FileReader ent = new FileReader(BaseDeDados + "Agencias.csv");
+            BufferedReader br = new BufferedReader(ent);
+            String linha;
+            String[] campos = null;
+            while ((linha = br.readLine()) != null) {
+                campos = linha.split(";");
+                Agencia nova = new Agencia(campos[0], Integer.parseInt(campos[1]));
+                Endereco endAgencia = new Endereco(campos[2], Integer.parseInt(campos[3]), campos[4], campos[5],
+                        campos[6], campos[7], campos[8], Integer.parseInt(campos[9]));
+                nova.setEnderecoAgencia(endAgencia);
+                agencias.add(nova);
+            }
+            br.close();
+            ent.close();
+        } catch (IOException erro) {
+            System.out.println("Arquivo nao encontrado ou corrompido: Agencias.csv" + erro);
+        }
+        return agencias;
+    }
 
     public static void salvarArquivoAgencia(LinkedList<Agencia> agencias) {
 
@@ -96,13 +145,6 @@ public class Arquivos {
         }
 
     }
-
-
-
-
-
-
-
 
     //////////////////////////////////
     //// ARQUIVO PARA FUNCIONARIOS //
