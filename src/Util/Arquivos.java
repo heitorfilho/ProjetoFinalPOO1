@@ -5,7 +5,7 @@ import java.util.*;
 
 import javax.annotation.processing.Filer;
 
-import Util.Exceptions.*;
+// import Util.Exceptions.*;
 
 import Banco.Agencia.Agencia;
 import Banco.Agencia.Contas.Conta;
@@ -36,11 +36,13 @@ public class Arquivos {
                     String linha = cliente.printCliente();
                     out.println(linha);
                 } 
-            } catch(PonteiroNuloException erro) {
-                System.out.println("Não possui nenhum registro") 
-            } out.close();
-        } catch(LeituraEscritaException erro) {
-            System.out.println("Erro na escrita dos dados dos clientes")
+            } catch(NullPointerException erro) {
+                System.out.println("Não possui nenhum registro" + erro);
+            } 
+            out.close(); 
+            arq.close();
+        } catch(IOException erro) {
+            System.out.println("Erro na escrita dos dados dos clientes" + erro);
         }
         
     }
@@ -58,9 +60,11 @@ public class Arquivos {
                 Data dataNascimento = new Data(Integer.parseInt(campos[2]), Integer.parseInt(campos[3]), Integer.parseInt(campos[4]));
                 Endereco endCliente = new Endereco(campos[5], campos[6], campos[7], campos[8], Integer.parseInt(campos[9]), linha, Integer.parseInt(campos[10]), campos[11]);
                 clientes.add(new Cliente(campos[0], campos[1], dataNascimento, endCliente, campos[13], campos[14], campos[15]));
-            } br.close();
-        } catch(LeituraEscritaException erro){
-            System.out.println("Erro na leitura dos dados dos clientes")
+            } 
+            br.close();
+            ent.close();
+        } catch(IOException erro){
+            System.out.println("Erro na leitura dos dados dos clientes" + erro);
         }
         return clientes;
     }
