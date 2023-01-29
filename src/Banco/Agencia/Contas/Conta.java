@@ -46,7 +46,7 @@ public abstract class Conta {
     ///// GETTERS E SETTERS /////
     /////////////////////////////
 
-    public int getnumConta() {
+    public int getNumConta() {
         return this.numConta;
     }
 
@@ -56,6 +56,10 @@ public abstract class Conta {
 
     public float getSaldo() {
         return this.saldo;
+    }
+
+    public boolean isEstado() {
+        return this.estado;
     }
 
     public boolean getEstado() {
@@ -70,6 +74,10 @@ public abstract class Conta {
         return this.ultimaMovimentacao;
     }
 
+    public boolean isConjunta() {
+        return this.conjunta;
+    }
+
     public boolean getConjunta() {
         return this.conjunta;
     }
@@ -82,7 +90,7 @@ public abstract class Conta {
         return this.agencia;
     }
 
-    public void setnumConta(int numConta) {
+    public void setNumConta(int numConta) {
         this.numConta = numConta;
     }
 
@@ -104,10 +112,6 @@ public abstract class Conta {
 
     public void setUltimaMovimentacao(Data ultimaMovimentacao) {
         this.ultimaMovimentacao = ultimaMovimentacao;
-    }
-
-    public boolean isEstado() {
-        return this.estado;
     }
 
     public String printConta() {
@@ -420,7 +424,7 @@ public abstract class Conta {
         return data;
     }
 
-    public void print() {
+    public void imprime() {
         System.out.println("Numero da conta: " + this.numConta);
         System.out.println("Saldo: " + this.saldo);
         System.out.println("Data de abertura: " + this.aberturaConta);
@@ -429,11 +433,11 @@ public abstract class Conta {
         System.out.println("Conta ativa: " + this.estado);
     }
 
-    public void imprime() {
+    public void print() {
         System.out.println("Agencia: " + this.numConta + "Conta: " + this.numConta + "Senha: " + this.senha);
     }
 
-    
+
     //////////////////////////////
     ///// SALVAR E CARREGAR /////
     ////////////////////////////

@@ -78,6 +78,10 @@ public class Funcionario extends Pessoa {
         this.anoIngresso = anoIngresso;
     }
 
+    public void printFunc() {
+        System.out.println(this.getNome() + " - " + this.getCpf() + " - " + this.getCargo());
+    }
+
     public String printFuncionario() {
         String data = printPessoa() + ";" + this.nroCarteiraTrabalho + ";" + this.rg_num + ";" + this.rg_uf + ";"
                 + this.cargo + ";" + this.salario + ";" + this.anoIngresso;
@@ -85,17 +89,13 @@ public class Funcionario extends Pessoa {
         return data;
     }
 
-    public void printTodosFunc() {
-        System.out.println(this.getNome() + " - " + this.getCpf() + " - " + this.getCargo());
-    }
-
     public String printGerente() { // caso funcioanrio que nao seja gerente queira acessar os dados do gerente
         throw new IllegalAccessError("Acesso negado!");
     }
 
-    public void cadastraFuncionario(){
+    public void cadastraFuncionario() {
         super.cadastraPessoa();
-        try(Scanner sc = new Scanner(System.in);) {
+        try (Scanner sc = new Scanner(System.in);) {
             System.out.println("Digite o numero da carteira de trabalho: ");
             this.nroCarteiraTrabalho = sc.nextLine();
             System.out.println("Digite a UF do RG: ");
@@ -114,9 +114,9 @@ public class Funcionario extends Pessoa {
         }
     }
 
-    public void cadastraFuncionarioGerente(){ // Para cadastrar um gerente nao eh necessario informar o cargo
+    public void cadastraFuncionarioGerente() { // Para cadastrar um gerente nao eh necessario informar o cargo
         super.cadastraPessoa();
-        try(Scanner sc = new Scanner(System.in);) {
+        try (Scanner sc = new Scanner(System.in);) {
             System.out.println("Digite o numero da carteira de trabalho: ");
             this.nroCarteiraTrabalho = sc.nextLine();
             System.out.println("Digite a UF do RG: ");
@@ -128,13 +128,14 @@ public class Funcionario extends Pessoa {
             this.salario = sc.nextFloat();
             System.out.println("Digite o ano de ingresso: ");
             this.anoIngresso = sc.nextInt();
-            
+
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
 
-    public void calculaSalario(){ // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento de 10%
+    public void calculaSalario() { // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento
+                                   // de 10%
         if ((2023 - this.anoIngresso) >= 15) {
             this.salario = this.salario + (this.salario * 0.1f);
         }
