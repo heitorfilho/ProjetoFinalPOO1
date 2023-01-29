@@ -59,8 +59,8 @@ public class Arquivos {
                 campos = linha.split(";");
                 Data dataNascimento = new Data(Integer.parseInt(campos[2]), Integer.parseInt(campos[3]),
                         Integer.parseInt(campos[4]));
-                Endereco endCliente = new Endereco(campos[5], campos[6], campos[7], campos[8],
-                        Integer.parseInt(campos[9]), linha, Integer.parseInt(campos[10]), campos[11]);
+                Endereco endCliente = new Endereco(campos[5], Integer.parseInt(campos[6]), campos[7], campos[8],
+                        campos[9], campos[10], campos[11], Integer.parseInt(campos[12]));
                 clientes.add(new Cliente(campos[0], campos[1], dataNascimento, endCliente, campos[13], campos[14],
                         campos[15]));
             }
@@ -73,10 +73,42 @@ public class Arquivos {
     }
 
     //////////////////////////////////
+    //// ARQUIVO PARA AGENCIAS   ////
+    ////////////////////////////////
+
+    public static void salvarArquivoAgencia(LinkedList<Agencia> agencias) {
+
+        try {
+            FileWriter arq = new FileWriter(BaseDeDados + "Agencias.csv");
+            PrintWriter out = new PrintWriter(arq);
+            try {
+                for (Agencia agencia : agencias) {
+                    String linha = agencia.printAgencia();
+                    out.println(linha);
+                }
+            } catch (NullPointerException erro) {
+                System.out.println("Não possui nenhum registro" + erro);
+            }
+            out.close();
+            arq.close();
+        } catch (IOException erro) {
+            System.out.println("Erro na escrita dos dados das agencias" + erro);
+        }
+
+    }
+
+
+
+
+
+
+
+
+    //////////////////////////////////
     //// ARQUIVO PARA FUNCIONARIOS //
     ////////////////////////////////
 
-    public static LinkedList<Funcionario> carregarFuncionarios(int numAgencia) {
+    public static LinkedList<Pessoa> carregarFuncionarios(int numAgencia) {
         LinkedList<Pessoa> funcionarios = new LinkedList<>();
         String numeroAgencia = String.valueOf(numAgencia);
 
@@ -92,45 +124,108 @@ public class Arquivos {
                         Integer.parseInt(campos[4]));
                 Datas[1] = new Data(Integer.parseInt(campos[18]), Integer.parseInt(campos[19]),
                         Integer.parseInt(campos[20]));
-                Endereco End = new Endereco(campos[5], Integer.parseInt(campos[6]), campos[7], campos[8], campos[9], campos[10], campos[11], Integer.parseInt(campos[12]));
+                Endereco End = new Endereco(campos[5], Integer.parseInt(campos[6]), campos[7], campos[8], campos[9],
+                        campos[10], campos[11], Integer.parseInt(campos[12]));
                 if (campos[16].equals("Gerente")) {
-                    Datas[2] = new Data(Integer.parseInt(campos[26]), Integer.parseInt(campos[27]), Integer.parseInt(campos[28]));
+                    Datas[2] = new Data(Integer.parseInt(campos[26]), Integer.parseInt(campos[27]),
+                            Integer.parseInt(campos[28]));
 
-                    Funcionario novo = new Gerente(campos[0], campos[1], Datas[0], End, campos[13], campos[14], Integer.parseInt(campos[15]), Float.parseFloat(campos[17]), Datas[1], Integer.parseInt(campos[21]), campos[22], Boolean.parseBoolean(campos[23]), Datas[2]);
-                            funcionarios.add(novo);
+                    Funcionario novo = new Gerente(campos[0], campos[1], Datas[0], End, campos[13], campos[14],
+                            Integer.parseInt(campos[15]), Float.parseFloat(campos[17]), Datas[1],
+                            Integer.parseInt(campos[21]), campos[22], Boolean.parseBoolean(campos[23]), Datas[2]);
+                    funcionarios.add(novo);
                 } else {
                     Funcionario novo = new Funcionario(campos[0], campos[1], Datas[0], End, campos[13], campos[14],
                             Integer.parseInt(campos[15]), campos[16], Float.parseFloat(campos[17]), Datas[1],
                             Integer.parseInt(campos[21]), campos[22]);
-                            funcionarios.add(novo);
+                    funcionarios.add(novo);
                 }
             }
             br.close();
+            ent.close();
         } catch (IOException erro) {
-            System.out.println(" Arquivo nao encontrado ou corrompido: Funcionarios.csv");
+            System.out.println("Arquivo nao encontrado ou corrompido: Funcionarios.csv" + erro);
         }
         return funcionarios;
     }
 
-    public static void salvarArquivoFuncionario(LinkedList<Funcionario> funcionarios) {
-
+    public static void SalvarArquivoFuncionarios(int numeroAgencia, LinkedList<Pessoa> funcionarios) {
+        String numAgencia = String.valueOf(numeroAgencia);
         try {
-            FileWriter arq = new FileWriter(BaseDeDados + "Funcionarios.csv");
+            FileWriter arq = new FileWriter(BaseDeDados + "\\Funcionarios\\" + numAgencia + "Funcionarios.csv");
             PrintWriter out = new PrintWriter(arq);
             try {
-                for (Funcionario funcionario : funcionarios) {
-                    String linha = funcionario.printFuncionario();
+                for (int i = 0; i < funcionarios.size(); i++) {
+                    Funcionario percorre = (Funcionario) funcionarios.get(i);
+                    String linha;
+
+                    if (percorre.getCargo().equals("Gerente"))
+                        linha = percorre.printGerente();
+                    else
+                        linha = percorre.printFuncionario();
                     out.println(linha);
                 }
-            } catch (NullPointerException erro) {
-                System.out.println("Não possui nenhum registro" + erro);
+            } catch (NullPointerException e) {
             }
             out.close();
             arq.close();
         } catch (IOException erro) {
-            System.out.println("Erro na escrita dos dados dos funcionarios" + erro);
+            System.out.println("Erro na escritas dos dados dos funcionarios" + erro);
         }
-
     }
 
+    //////////////////////////////////
+    //// ARQUIVO PARA MOVIMENTACOES /
+    ////////////////////////////////
+
+    public static LinkedList<Movimentacao> carregarMovimentacoes(int numeroConta, int numeroAgencia) {
+        String numAgencia = String.valueOf(numeroAgencia);
+        String numConta = String.valueOf(numeroConta);
+        LinkedList<Movimentacao> movimentacoes = new LinkedList<>();
+
+        try {
+
+            FileReader ent = new FileReader(
+                    BaseDeDados + "\\Contas\\Movimentacoes\\" + numAgencia + numConta + "Movimentacoes.csv");
+            BufferedReader br = new BufferedReader(ent);
+            String linha;
+            String[] campos = null;
+            while ((linha = br.readLine()) != null) {
+                campos = linha.split(";");
+                Data nova = new Data(Integer.parseInt(campos[0]), Integer.parseInt(campos[1]),
+                        Integer.parseInt(campos[2]));
+                Movimentacao mov = new Movimentacao(nova, Float.parseFloat(campos[3]), campos[4],
+                        (campos[5]), Integer.parseInt(campos[6]), Integer.parseInt(campos[7]),
+                        Integer.parseInt(campos[8]));
+                movimentacoes.add(mov);
+            }
+            br.close();
+        } catch (IOException erro) {
+            System.out.println("Arquivo nao encontrado ou corrompido:" + numAgencia + numConta + "Movimentacoes.csv");
+        }
+        return movimentacoes;
+    }
+
+    public static void salvarArquivoMovimentacoes(int numeroConta, int numeroAgencia,
+            LinkedList<Movimentacao> movimentacoes) {
+        String numAgencia = String.valueOf(numeroConta);
+        String numConta = String.valueOf(numeroAgencia);
+
+        try {
+            FileWriter arq = new FileWriter(
+                    BaseDeDados + "\\Contas\\Movimentacoes\\" + numAgencia + numConta + "Movimentacoes.csv");
+            PrintWriter out = new PrintWriter(arq);
+            try {
+                for (int i = 0; i < movimentacoes.size(); i++) {
+                    String linha = movimentacoes.get(i).printMovimentacoes();
+                    out.println(linha);
+                }
+            } catch (NullPointerException e) {
+            }
+            out.close();
+            arq.close();
+        } catch (IOException erro) {
+            System.out.println("Erro na escrita dos dados" + numAgencia + numConta + "Movimentacoes.csv");
+        }
+    }
 }

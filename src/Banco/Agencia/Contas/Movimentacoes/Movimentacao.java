@@ -15,7 +15,9 @@ public class Movimentacao {
     private int numBancoDestinatario;
     // private Conta contaAssociada; -> necessario ser uma conta corrente
 
-    public Movimentacao(Data dataTransacao, float valor, String canalTransacao, String tipoTransacao) {
+    public Movimentacao(Data dataTransacao, float valor, String canalTransacao, String tipoTransacao,
+            int numContaDestinatario,
+            int numAgenciaDestinatario, int numBancoDestinatario) {
         this.dataTransacao = dataTransacao;
         this.valor = valor;
         this.canalTransacao = canalTransacao;
@@ -178,7 +180,8 @@ public class Movimentacao {
         this.tipoTransacao = "Rendimento";
     }
 
-    public void transferencia(Float valor, int numBancoDestinatario, int numAgenciaDestinatario, int numContaDestinatario) { // Cria movimentacao de transferencia
+    public void transferencia(Float valor, int numBancoDestinatario, int numAgenciaDestinatario,
+            int numContaDestinatario) { // Cria movimentacao de transferencia
         mov(valor);
         this.tipoTransacao = "Transferencia";
         this.numBancoDestinatario = numBancoDestinatario;
@@ -186,7 +189,11 @@ public class Movimentacao {
         this.numContaDestinatario = numContaDestinatario;
     }
 
-    public void receberTransferencia(Float valor, int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem) { // Cria movimentacao de receber transferencia
+    public void receberTransferencia(Float valor, int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem) { // Cria
+                                                                                                                  // movimentacao
+                                                                                                                  // de
+                                                                                                                  // receber
+                                                                                                                  // transferencia
         mov(valor);
         this.tipoTransacao = "Receber Transferencia";
         this.numBancoDestinatario = numBancoOrigem;

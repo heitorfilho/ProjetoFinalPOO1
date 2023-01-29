@@ -8,15 +8,15 @@ import Util.Pessoa;
 
 public class Funcionario extends Pessoa {
 
-    private String numCarteiraTrab;
+    private int numCarteiraTrab;
     private String cargo;
     private float salario;
-    private int dataIngresso;
+    private Data dataIngresso;
     private int rg_num; // numeros do RG
     private String rg_uf; // UF do RG
 
     public Funcionario(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
-            String numCarteiraTrab, String cargo, float salario, int dataIngresso, int rg_num, String rg_uf) {
+            int numCarteiraTrab, String cargo, float salario, Data dataIngresso, int rg_num, String rg_uf) {
         super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil);
         this.numCarteiraTrab = numCarteiraTrab;
         this.cargo = cargo;
@@ -30,7 +30,7 @@ public class Funcionario extends Pessoa {
         super(null, null, null, null, null, null);
     }
 
-    public String getNumCarteiraTrab() {
+    public int getNumCarteiraTrab() {
         return this.numCarteiraTrab;
     }
 
@@ -42,7 +42,7 @@ public class Funcionario extends Pessoa {
         return this.salario;
     }
 
-    public int getDataIngresso() {
+    public Data getDataIngresso() {
         return this.dataIngresso;
     }
 
@@ -54,7 +54,7 @@ public class Funcionario extends Pessoa {
         return this.rg_uf;
     }
 
-    public void setNumCarteiraTrab(String numCarteiraTrab) {
+    public void setNumCarteiraTrab(int numCarteiraTrab) {
         this.numCarteiraTrab = numCarteiraTrab;
     }
 
@@ -74,7 +74,7 @@ public class Funcionario extends Pessoa {
         this.rg_uf = rg_uf;
     }
 
-    public void setDataIngresso(int dataIngresso) {
+    public void setDataIngresso(Data dataIngresso) {
         this.dataIngresso = dataIngresso;
     }
 
@@ -89,7 +89,7 @@ public class Funcionario extends Pessoa {
         return data;
     }
 
-    public String printGerente() { // caso funcioanrio que nao seja gerente queira acessar os dados do gerente
+    public String printGerente() throws IllegalAccessError { // Apenas um gerente pode imprimir os dados de gerente
         throw new IllegalAccessError("Acesso negado!");
     }
 
@@ -97,7 +97,7 @@ public class Funcionario extends Pessoa {
         super.cadastraPessoa();
         try (Scanner sc = new Scanner(System.in);) {
             System.out.println("Digite o numero da carteira de trabalho: ");
-            this.numCarteiraTrab = sc.nextLine();
+            this.numCarteiraTrab = sc.nextInt();
             System.out.println("Digite a UF do RG: ");
             this.rg_uf = sc.nextLine();
             System.out.println("Digite o numero do RG: ");
@@ -106,8 +106,8 @@ public class Funcionario extends Pessoa {
             this.cargo = sc.nextLine();
             System.out.println("Digite o salario: ");
             this.salario = sc.nextFloat();
-            System.out.println("Digite o ano de ingresso: ");
-            this.dataIngresso = sc.nextInt();
+            System.out.println("Digite a data de ingresso: ");
+            // this.dataIngresso = sc.next();
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -118,7 +118,7 @@ public class Funcionario extends Pessoa {
         super.cadastraPessoa();
         try (Scanner sc = new Scanner(System.in);) {
             System.out.println("Digite o numero da carteira de trabalho: ");
-            this.numCarteiraTrab = sc.nextLine();
+            this.numCarteiraTrab = sc.nextInt();
             System.out.println("Digite a UF do RG: ");
             this.rg_uf = sc.nextLine();
             System.out.println("Digite o numero do RG: ");
@@ -127,7 +127,7 @@ public class Funcionario extends Pessoa {
             System.out.println("Digite o salario: ");
             this.salario = sc.nextFloat();
             System.out.println("Digite o ano de ingresso: ");
-            this.dataIngresso = sc.nextInt();
+            // this.dataIngresso = sc.nextInt();
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -136,8 +136,8 @@ public class Funcionario extends Pessoa {
 
     public void calculaSalario() { // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento
                                    // de 10%
-        if ((2023 - this.dataIngresso) >= 15) {
+        /*if ((2023 - this.dataIngresso) >= 15) {
             this.salario = this.salario + (this.salario * 0.1f);
-        }
+        }*/
     }
 }

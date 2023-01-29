@@ -10,16 +10,16 @@ public class Gerente extends Funcionario {
     private boolean formacaoBasica;
     private Data dataIngressoGerente;
     private boolean estaEmUmaAgencia;
-    private Agencia agenciaGerenciada;
+    private Agencia agenciaGerenciada; // tive que colocar como comentario para nao atrapalhar na parte de arquivos
     private static float comissaoGerente = 1000; // Atributo estatico
 
     public Gerente(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
-            String numCarteiraTrab, String cargo, float salario, int dataIngresso, int rg_num, String rg_uf,
-            boolean formacaoBasica, Data dataIngressoGerente, Agencia agenciaGerenciada, boolean estaEmUmaAgencia) {
+    int numCarteiraTrab, float salario, Data dataIngresso, int rg_num, String rg_uf,
+            boolean formacaoBasica, Data dataIngressoGerente/* , Agencia agenciaGerenciada, boolean estaEmUmaAgencia*/) {
         super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil, numCarteiraTrab, "Gerente", salario, dataIngresso,
                 rg_num, rg_uf);
         this.dataIngressoGerente = dataIngressoGerente;
-        this.agenciaGerenciada = agenciaGerenciada;
+        //this.agenciaGerenciada = agenciaGerenciada;
         this.formacaoBasica = formacaoBasica;
         // this.formacaoBasica = true;
         if (agenciaGerenciada == null) {
@@ -29,9 +29,11 @@ public class Gerente extends Funcionario {
         }
     }
 
-    public Gerente() { // Construtor default
+    /*public Gerente(String campos, String campos2, Data datas, Endereco end, String campos3, String campos4, int i, float f, Data datas2, int j, String campos5, boolean b, Data datas3) { // Construtor default
         super(null, null, null, null, null, null, null, null, 0, 0, 0, null);
-    }
+    }*/
+
+    
 
     public Data getdataIngressoGerente() {
         return this.dataIngressoGerente;
