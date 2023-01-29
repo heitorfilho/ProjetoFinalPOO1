@@ -8,74 +8,74 @@ import Util.Pessoa;
 
 public class Funcionario extends Pessoa {
 
-    private String nroCarteiraTrabalho;
-    private int rg_num; // numeros do RG
-    private String rg_uf; // UF do RG
+    private String numCarteiraTrab;
     private String cargo;
     private float salario;
-    private int anoIngresso;
+    private int dataIngresso;
+    private int rg_num; // numeros do RG
+    private String rg_uf; // UF do RG
 
     public Funcionario(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
-            String nroCarteiraTrabalho, int rg_num, String rg_uf, String cargo, float salario, int anoIngresso) {
+            String numCarteiraTrab, String cargo, float salario, int dataIngresso, int rg_num, String rg_uf) {
         super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil);
-        this.nroCarteiraTrabalho = nroCarteiraTrabalho;
-        this.rg_num = rg_num;
-        this.rg_uf = rg_uf;
+        this.numCarteiraTrab = numCarteiraTrab;
         this.cargo = cargo;
         this.salario = salario;
-        this.anoIngresso = anoIngresso;
+        this.rg_num = rg_num;
+        this.rg_uf = rg_uf;
+        this.dataIngresso = dataIngresso;
     }
 
     public Funcionario() {
         super(null, null, null, null, null, null);
     }
 
-    public String getNroCarteiraTrabalho() {
-        return this.nroCarteiraTrabalho;
-    }
-
-    public void setNroCarteiraTrabalho(String nroCarteiraTrabalho) {
-        this.nroCarteiraTrabalho = nroCarteiraTrabalho;
-    }
-
-    public int getRg_num() {
-        return this.rg_num;
-    }
-
-    public void setRg_num(int rg_num) {
-        this.rg_num = rg_num;
-    }
-
-    public String getRg_uf() {
-        return this.rg_uf;
-    }
-
-    public void setRg_uf(String rg_uf) {
-        this.rg_uf = rg_uf;
+    public String getNumCarteiraTrab() {
+        return this.numCarteiraTrab;
     }
 
     public String getCargo() {
         return this.cargo;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
     public float getSalario() {
         return this.salario;
+    }
+
+    public int getDataIngresso() {
+        return this.dataIngresso;
+    }
+
+    public int getRg_num() {
+        return this.rg_num;
+    }
+
+    public String getRg_uf() {
+        return this.rg_uf;
+    }
+
+    public void setNumCarteiraTrab(String numCarteiraTrab) {
+        this.numCarteiraTrab = numCarteiraTrab;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public void setSalario(float salario) {
         this.salario = salario;
     }
 
-    public int getAnoIngresso() {
-        return this.anoIngresso;
+    public void setRg_num(int rg_num) {
+        this.rg_num = rg_num;
     }
 
-    public void setAnoIngresso(int anoIngresso) {
-        this.anoIngresso = anoIngresso;
+    public void setRg_uf(String rg_uf) {
+        this.rg_uf = rg_uf;
+    }
+
+    public void setDataIngresso(int dataIngresso) {
+        this.dataIngresso = dataIngresso;
     }
 
     public void printFunc() {
@@ -83,8 +83,8 @@ public class Funcionario extends Pessoa {
     }
 
     public String printFuncionario() {
-        String data = printPessoa() + ";" + this.nroCarteiraTrabalho + ";" + this.rg_num + ";" + this.rg_uf + ";"
-                + this.cargo + ";" + this.salario + ";" + this.anoIngresso;
+        String data = printPessoa() + ";" + this.numCarteiraTrab + ";" + this.rg_num + ";" + this.rg_uf + ";"
+                + this.cargo + ";" + this.salario + ";" + this.dataIngresso;
 
         return data;
     }
@@ -97,7 +97,7 @@ public class Funcionario extends Pessoa {
         super.cadastraPessoa();
         try (Scanner sc = new Scanner(System.in);) {
             System.out.println("Digite o numero da carteira de trabalho: ");
-            this.nroCarteiraTrabalho = sc.nextLine();
+            this.numCarteiraTrab = sc.nextLine();
             System.out.println("Digite a UF do RG: ");
             this.rg_uf = sc.nextLine();
             System.out.println("Digite o numero do RG: ");
@@ -107,7 +107,7 @@ public class Funcionario extends Pessoa {
             System.out.println("Digite o salario: ");
             this.salario = sc.nextFloat();
             System.out.println("Digite o ano de ingresso: ");
-            this.anoIngresso = sc.nextInt();
+            this.dataIngresso = sc.nextInt();
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -118,7 +118,7 @@ public class Funcionario extends Pessoa {
         super.cadastraPessoa();
         try (Scanner sc = new Scanner(System.in);) {
             System.out.println("Digite o numero da carteira de trabalho: ");
-            this.nroCarteiraTrabalho = sc.nextLine();
+            this.numCarteiraTrab = sc.nextLine();
             System.out.println("Digite a UF do RG: ");
             this.rg_uf = sc.nextLine();
             System.out.println("Digite o numero do RG: ");
@@ -127,7 +127,7 @@ public class Funcionario extends Pessoa {
             System.out.println("Digite o salario: ");
             this.salario = sc.nextFloat();
             System.out.println("Digite o ano de ingresso: ");
-            this.anoIngresso = sc.nextInt();
+            this.dataIngresso = sc.nextInt();
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -136,7 +136,7 @@ public class Funcionario extends Pessoa {
 
     public void calculaSalario() { // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento
                                    // de 10%
-        if ((2023 - this.anoIngresso) >= 15) {
+        if ((2023 - this.dataIngresso) >= 15) {
             this.salario = this.salario + (this.salario * 0.1f);
         }
     }

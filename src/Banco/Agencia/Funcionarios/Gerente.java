@@ -7,19 +7,16 @@ import Util.Data;
 import Util.Endereco;
 
 public class Gerente extends Funcionario {
-
-    private Data dataIngressoGerente;
-    private Agencia agenciaGerenciada;
     private boolean formacaoBasica;
+    private Data dataIngressoGerente;
     private boolean estaEmUmaAgencia;
-    private static float comissaoGerente = 1000; //Atributo estatico
+    private Agencia agenciaGerenciada;
+    private static float comissaoGerente = 1000; // Atributo estatico
 
-    public Gerente(String nome, String cpf, String sexo, Data dataNascimento, Endereco endereco, String estadoCivil,
-            String nroCarteiraTrabalho, int rg_num,
-            String rg_uf, float salario, int anoIngresso, Data dataIngressoGerente, Agencia agenciaGerenciada,
-            boolean formacaoBasica, boolean estaEmUmaAgencia) {
-        super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil, nroCarteiraTrabalho, rg_num, rg_uf, "Gerente",
-                salario, anoIngresso);
+    public Gerente(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
+            String numCarteiraTrab, String cargo, float salario, int dataIngresso, int rg_num, String rg_uf,
+            boolean formacaoBasica, Data dataIngressoGerente, Agencia agenciaGerenciada, boolean estaEmUmaAgencia) {
+        super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil, numCarteiraTrab, "Gerente", salario, dataIngresso, rg_num, rg_uf);
         this.dataIngressoGerente = dataIngressoGerente;
         this.agenciaGerenciada = agenciaGerenciada;
         this.formacaoBasica = formacaoBasica;
@@ -79,14 +76,15 @@ public class Gerente extends Funcionario {
     @Override
     public String printFuncionario() {
         String data = super.printFuncionario() + ";" + this.dataIngressoGerente.printData() + ";" + // this.agenciaGerenciada.print();
-               "Formação básica: " + this.formacaoBasica + ";" + "Gerente esta em uma agencia: " + this.estaEmUmaAgencia + ";";
+                "Formação básica: " + this.formacaoBasica + ";" + "Gerente esta em uma agencia: "
+                + this.estaEmUmaAgencia + ";";
 
         return data;
 
     }
 
-    public void cadastraGerente(Agencia agencia){
-        try(Scanner sc = new Scanner(System.in)) {
+    public void cadastraGerente(Agencia agencia) {
+        try (Scanner sc = new Scanner(System.in)) {
             super.cadastraFuncionarioGerente();
             System.out.println("Digite a data de ingresso do gerente: ");
             System.out.println("Dia: ");
@@ -108,14 +106,14 @@ public class Gerente extends Funcionario {
             }
             this.estaEmUmaAgencia = true;
             System.out.println("Gerente cadastrado com sucesso!");
-            
+
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
 
     @Override
-    public void calculaSalario(){ // Metodo calcula salario especifico para gerente
+    public void calculaSalario() { // Metodo calcula salario especifico para gerente
         super.calculaSalario();
         this.setSalario(this.getSalario() + Gerente.comissaoGerente);
     }
