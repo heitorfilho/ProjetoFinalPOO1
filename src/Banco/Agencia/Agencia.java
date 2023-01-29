@@ -10,7 +10,7 @@ import Util.*;
 
 public class Agencia {
 
-    private int numeroAgencia;
+    private int numAgencia;
     private String nomeAgencia;
     private Endereco enderecoAgencia;
     private Gerente gerente;
@@ -19,17 +19,17 @@ public class Agencia {
     // private LinkedList<Pessoa> Funcionarios;
     // private LinkedList<Cliente> clientes;
 
-    public Agencia(String nomeAgencia, int numeroAgencia) {
+    public Agencia(String nomeAgencia, int numAgencia) {
         this.nomeAgencia = nomeAgencia;
-        this.numeroAgencia = numeroAgencia;
+        this.numAgencia = numAgencia;
         this.contas = new LinkedList<>();
         this.funcionarios = new LinkedList<>();
         // this.clientes = new LinkedList<Cliente>();
     }
 
-    public Agencia(String nomeAgencia, int numeroAgencia, Endereco enderecoAgencia, Gerente gerente) {
+    public Agencia(String nomeAgencia, int numAgencia, Endereco enderecoAgencia, Gerente gerente) {
         this.nomeAgencia = nomeAgencia;
-        this.numeroAgencia = numeroAgencia;
+        this.numAgencia = numAgencia;
         this.enderecoAgencia = enderecoAgencia;
         this.gerente = gerente;
         gerente.setAgencia(this);
@@ -43,8 +43,8 @@ public class Agencia {
     ///// GETTERS E SETTERS /////
     /////////////////////////////
 
-    public int getNumeroAgencia() {
-        return this.numeroAgencia;
+    public int getNumAgencia() {
+        return this.numAgencia;
     }
 
     public String getNomeAgencia() {
@@ -84,12 +84,48 @@ public class Agencia {
         this.nomeAgencia = nomeAgencia;
     }
 
-    public void setNumeroAgencia(int numeroAgencia) {
-        this.numeroAgencia = numeroAgencia;
+    public void setNumAgencia(int numAgencia) {
+        this.numAgencia = numAgencia;
     }
 
     public void setEnderecoAgencia(Endereco enderecoAgencia) {
         this.enderecoAgencia = enderecoAgencia;
+    }
+
+    ///////////////////////
+    ///// SAIDA DE DADOS /
+    /////////////////////
+
+    public void printNomeLocalizacao() {
+        System.out.println(nomeAgencia + ": " + enderecoAgencia.getRua() + ", " + enderecoAgencia.getNumero() + ", "
+                + enderecoAgencia.getCidade() + ", " + enderecoAgencia.getEstado() + ", " + enderecoAgencia.getPais()
+                + ", " + enderecoAgencia.getCep());
+    }
+
+    public void LocalizaAgencia(String Cidade, String Estado) {
+        if (this.enderecoAgencia.getCidade().equals(Cidade) && this.enderecoAgencia.getEstado().equals(Estado)) {
+            printNomeLocalizacao();
+        }
+    }
+
+    public void LocalizaAgencia(String Bairro, String Cidade, String Estado) {
+        if (this.enderecoAgencia.getBairro() == Bairro && this.enderecoAgencia.getCidade().equals(Cidade)
+                && this.enderecoAgencia.getEstado().equals(Estado)) {
+            printNomeLocalizacao();
+        }
+    }
+
+    public void LocalizaAgencia(String Estado) {
+        if (this.enderecoAgencia.getEstado().equals(Estado)) {
+            printNomeLocalizacao();
+        }
+    }
+
+    public String printAgencia() {
+        String Data = this.nomeAgencia + ";" +
+                this.numAgencia + ";" +
+                enderecoAgencia.printEndereco();
+        return Data;
     }
 
     /////////////////////////
@@ -133,7 +169,6 @@ public class Agencia {
         return pos;
     }
 
-
     ///////////////////
     ///// CONTAS /////
     /////////////////
@@ -154,11 +189,13 @@ public class Agencia {
         throw new IllegalArgumentException("Conta não encontrada");
     }
 
-    public boolean enviarTranferencia(int numConta, float valor, int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem) {
+    public boolean enviarTranferencia(int numConta, float valor, int numBancoOrigem, int numAgenciaOrigem,
+            int numContaOrigem) {
         for (Conta conta : this.contas) {
             if (conta.getNumConta() == numConta) {
                 if (conta.getNumConta() == numConta) {
-                    conta.receberTranf(numBancoOrigem, numAgenciaOrigem, numContaOrigem, valor);;
+                    conta.receberTranf(numBancoOrigem, numAgenciaOrigem, numContaOrigem, valor);
+                    ;
                     return true;
                 }
             }
