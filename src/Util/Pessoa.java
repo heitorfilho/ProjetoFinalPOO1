@@ -10,7 +10,7 @@ public abstract class Pessoa {
     private String sexo;
     private String estadoCivil;
 
-    public Pessoa(String nome, String cpf, String sexo, Data dataNascimento, Endereco endereco, String estadoCivil) {
+    public Pessoa(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
