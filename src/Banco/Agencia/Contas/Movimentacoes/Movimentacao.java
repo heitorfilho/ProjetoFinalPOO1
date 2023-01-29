@@ -10,6 +10,7 @@ public class Movimentacao {
     private float valorTransacao;
     private String canalTransacao; // internet banking, caixa eletronico ou caixa fisico -> tambem pode fazer um metodo para descobrir qual eh o canal
     private String tipoTransacao; // saque, deposito, consultar saldo e efetuar pagamento
+    //private Conta contaAssociada; -> necessario ser uma conta corrente
 
     public Movimentacao(Data dataTransacao, float valorTransacao, String canalTransacao, String tipoTransacao) {
         this.dataTransacao = dataTransacao;

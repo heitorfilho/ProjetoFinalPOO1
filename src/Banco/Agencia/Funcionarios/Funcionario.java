@@ -2,7 +2,6 @@ package Banco.Agencia.Funcionarios;
 
 import java.util.Scanner;
 
-import Banco.Agencia.Agencia;
 import Util.Data;
 import Util.Endereco;
 import Util.Pessoa;
@@ -132,6 +131,12 @@ public class Funcionario extends Pessoa {
             
         } catch (Exception e) {
             // TODO: handle exception
+        }
+    }
+
+    public void calculaSalario(){ // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento de 10%
+        if ((2023 - this.anoIngresso) >= 15) {
+            this.salario = this.salario + (this.salario * 0.1f);
         }
     }
 }

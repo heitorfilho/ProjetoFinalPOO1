@@ -12,6 +12,7 @@ public class Gerente extends Funcionario {
     private Agencia agenciaGerenciada;
     private boolean formacaoBasica;
     private boolean estaEmUmaAgencia;
+    private static float comissaoGerente = 1000; //Atributo estatico
 
     public Gerente(String nome, String cpf, String sexo, Data dataNascimento, Endereco endereco, String estadoCivil,
             String nroCarteiraTrabalho, int rg_num,
@@ -67,6 +68,14 @@ public class Gerente extends Funcionario {
         this.estaEmUmaAgencia = estaEmUmaAgencia;
     }
 
+    public static float getComissaoGerente() {
+        return comissaoGerente;
+    }
+
+    public static void setComissaoGerente(float comissaoGerente) {
+        Gerente.comissaoGerente = comissaoGerente;
+    }
+
     @Override
     public String printFuncionario() {
         String data = super.printFuncionario() + ";" + this.dataIngressoGerente.printData() + ";" + // this.agenciaGerenciada.print();
@@ -103,6 +112,12 @@ public class Gerente extends Funcionario {
         } catch (Exception e) {
             // TODO: handle exception
         }
+    }
+
+    @Override
+    public void calculaSalario(){ // Metodo calcula salario especifico para gerente
+        super.calculaSalario();
+        this.setSalario(this.getSalario() + Gerente.comissaoGerente);
     }
 
 }
