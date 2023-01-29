@@ -97,11 +97,11 @@ public class Agencia {
     ///////////////////////
 
     public void removerGerenteAtual() {
-        // em breve
+        // em
     }
 
     public void adicionarNovoGerente() {
-        // em breve
+
     }
 
     public boolean isFuncionarioDaAgencia(Funcionario funcionario) { // Verifica se o funcionário está na agência
