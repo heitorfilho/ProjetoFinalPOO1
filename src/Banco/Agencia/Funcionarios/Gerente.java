@@ -10,16 +10,18 @@ public class Gerente extends Funcionario {
     private boolean formacaoBasica;
     private Data dataIngressoGerente;
     private boolean estaEmUmaAgencia;
+    private int numAgenciaGerenciada;
     private Agencia agenciaGerenciada; // tive que colocar como comentario para nao atrapalhar na parte de arquivos
     private static float comissaoGerente = 1000; // Atributo estatico
 
     public Gerente(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
-    int numCarteiraTrab, float salario, Data dataIngresso, int rg_num, String rg_uf,
-            boolean formacaoBasica, Data dataIngressoGerente/* , Agencia agenciaGerenciada, boolean estaEmUmaAgencia*/) {
+            int numCarteiraTrab, float salario, Data dataIngresso, int rg_num, String rg_uf,
+            boolean formacaoBasica,
+            Data dataIngressoGerente/* , Agencia agenciaGerenciada, boolean estaEmUmaAgencia */) {
         super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil, numCarteiraTrab, "Gerente", salario, dataIngresso,
                 rg_num, rg_uf);
         this.dataIngressoGerente = dataIngressoGerente;
-        //this.agenciaGerenciada = agenciaGerenciada;
+        // this.agenciaGerenciada = agenciaGerenciada;
         this.formacaoBasica = formacaoBasica;
         // this.formacaoBasica = true;
         if (agenciaGerenciada == null) {
@@ -29,11 +31,9 @@ public class Gerente extends Funcionario {
         }
     }
 
-    /*public Gerente(String campos, String campos2, Data datas, Endereco end, String campos3, String campos4, int i, float f, Data datas2, int j, String campos5, boolean b, Data datas3) { // Construtor default
-        super(null, null, null, null, null, null, null, null, 0, 0, 0, null);
-    }*/
-
-    
+    public Gerente() { // Construtor default
+        super(null, null, null, null, null, null, 0, null, 0, null, 0, null);
+    }
 
     public Data getdataIngressoGerente() {
         return this.dataIngressoGerente;
@@ -67,10 +67,14 @@ public class Gerente extends Funcionario {
         this.estaEmUmaAgencia = estaEmUmaAgencia;
     }
 
-    public void setAgencia(Agencia agencia) { // Agencia agencia
-        this.agenciaGerenciada = agencia;
-        // this.estaEmUmaAgencia = true;
+    public void setAgencia(int numAgenciaGerenciada) {
+        this.numAgenciaGerenciada = numAgenciaGerenciada;
     }
+
+    // public void setAgencia(Agencia agencia) { // Agencia agencia
+    // this.agenciaGerenciada = agencia;
+    // this.estaEmUmaAgencia = true;
+    // }
 
     public static void setComissaoGerente(float comissaoGerente) {
         Gerente.comissaoGerente = comissaoGerente;

@@ -15,7 +15,7 @@ public class Agencia {
     private Endereco enderecoAgencia;
     private Gerente gerente;
     private LinkedList<Conta> contas;
-    private LinkedList<Funcionario> funcionarios;
+    private LinkedList<Pessoa> funcionarios;
     // private LinkedList<Pessoa> Funcionarios;
     // private LinkedList<Cliente> clientes;
 
@@ -32,10 +32,10 @@ public class Agencia {
         this.numAgencia = numAgencia;
         this.enderecoAgencia = enderecoAgencia;
         this.gerente = gerente;
-        gerente.setAgencia(this);
+        gerente.setAgencia(this.numAgencia);
         // gerente.setEstaEmUmaAgencia(true);
         this.contas = new LinkedList<Conta>();
-        this.funcionarios = new LinkedList<Funcionario>();
+        this.funcionarios = new LinkedList<Pessoa>();
         // this.clientes = new LinkedList<Cliente>();
     }
 
@@ -59,16 +59,11 @@ public class Agencia {
         return this.gerente;
     }
 
-    public void setGerente(Gerente gerente) {
-        this.gerente = gerente;
-        gerente.setAgencia(this);
-    }
-
     public LinkedList<Conta> getContas() {
         return this.contas;
     }
 
-    public LinkedList<Funcionario> getFuncionarios() {
+    public LinkedList<Pessoa> getFuncionarios() {
         return this.funcionarios;
     }
 
@@ -76,8 +71,13 @@ public class Agencia {
         this.contas = contas;
     }
 
-    public void setFuncionarios(LinkedList<Funcionario> funcionarios) {
+    public void setFuncionarios(LinkedList<Pessoa> funcionarios) {
         this.funcionarios = funcionarios;
+    }
+
+    public void setGerente(Gerente novo, Funcionario AntigoCargo) {
+        RemoverGerenteAtual();
+        adicionarNovoGerente(novo, AntigoCargo);
     }
 
     public void setNomeAgencia(String nomeAgencia) {
@@ -128,42 +128,97 @@ public class Agencia {
         return Data;
     }
 
+    //////////////////////////////////
+    //// SALVAR E CARREGAR DADOS ////
+    ///////////////////////////////
+
+    public void CarregarArquivos(LinkedList<Cliente> clientes) {
+        carregar_Contas(clientes);
+        carregar_Funcionario();
+    }
+
+    public void carregar_Funcionario() {
+        this.funcionarios = Arquivos.carregarFuncionarios(this.numAgencia);
+        for (int i = 0; i < funcionarios.size(); i++) {
+            try {
+                Gerente encontra = (Gerente) funcionarios.get(i);
+                if (encontra.getCargo().equals("Gerente")) {
+                    this.gerente = encontra;
+                }
+            } catch (ClassCastException e) {
+                continue; // Não é gerente então não faz nada e continua o loop
+            }
+        }
+    }
+
+    public void carregar_Contas(LinkedList<Cliente> Clientes) {
+        this.contas = Arquivos.carregarContas(this.numAgencia, Clientes);
+        for (int i = 0; i < contas.size(); i++) {
+            contas.get(i).CarregarMovimentacoes();
+        }
+    }
+
+    public void SalvarArquivo() {
+        Arquivos.salvarArquivoConta(numAgencia, contas);
+        for (int i = 0; i < contas.size(); i++) {
+            contas.get(i).SalvarMovimentacoes();
+        }
+        Arquivos.SalvarArquivoFuncionarios(numAgencia, funcionarios);
+    }
+
     /////////////////////////
     ///// FUNCIONÁRIOS /////
     ///////////////////////
 
-    public void removerGerenteAtual() {
-        // em
-    }
-
-    public void adicionarNovoGerente() {
-
-    }
-
-    public boolean isFuncionarioDaAgencia(Funcionario funcionario) { // Verifica se o funcionário está na agência
-        boolean isFuncionario = false;
-        for (Funcionario func : this.funcionarios) {
-            if (func.equals(funcionario)) {
-                isFuncionario = true;
+    public void adicionarNovoGerente(Gerente novo, Funcionario AntigoCargo) { // Adiciona um novo gerente na agência
+        for (int j = 0; j < funcionarios.size(); j++) {
+            Funcionario TempFunc = (Funcionario) funcionarios.get(j);
+            if (TempFunc.equals(AntigoCargo)) {
+                funcionarios.remove(j);
+                funcionarios.add(j, novo);
+                novo.setAgencia(this.numAgencia);
+                novo.setEstaEmUmaAgencia(true);
+                this.gerente = novo;
                 break;
             }
         }
-        return isFuncionario;
+        Arquivos.SalvarArquivoFuncionarios(numAgencia, funcionarios);
     }
 
-    public int encontrarFuncionario(int pos) { // Encontra o funcionário na lista de funcionários
-        // int pos = -1;
+    public void RemoverGerenteAtual() {
+        if (this.gerente != null) {
+            for (int i = 0; i < funcionarios.size(); i++) {
+                try {
+                    Gerente percorre = (Gerente) funcionarios.get(i);
+                    if (percorre.getCpf().equals(this.gerente.getCpf())) {
+                        percorre.setAgencia(0);
+                        percorre.setEstaEmUmaAgencia(false);
+                        percorre.setCargo("Antigo Gerente");
+                        funcionarios.remove(i);
+                        funcionarios.add(i, percorre);
+                    }
+                } catch (ClassCastException e) {
+                    continue;
+                }
+            }
+            Arquivos.SalvarArquivoFuncionarios(numAgencia, funcionarios);
+        }
+    }
 
-        // for(Funcionario funcionario : this.funcionarios){
+    public boolean isFuncionarioDaAgencia(Funcionario procurado) {
+        for (int i = 0; i < funcionarios.size(); i++) {
+            if (funcionarios.get(i).equals(procurado)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int encontrarFuncionario(int pos) {
         for (int j = 0; j < funcionarios.size(); j++) {
-            // Funcionario atual = funcionario;
-            // if(atual.getNome().equals(funcionario.getNome()) &&
-            // atual.getCpf().equals(funcionario.getCpf())){
-            // pos = this.funcionarios.indexOf(funcionario);
-            // break;
-            Funcionario atual = (Funcionario) funcionarios.get(j);
+            Funcionario Atual = (Funcionario) funcionarios.get(j);
             System.out.print(pos + " - ");
-            atual.printFunc();
+            Atual.printFunc();
             pos++;
         }
         return pos;
