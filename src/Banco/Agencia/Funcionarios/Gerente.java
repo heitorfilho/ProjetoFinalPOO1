@@ -1,6 +1,6 @@
 package Banco.Agencia.Funcionarios;
 
-import java.util.Scanner;
+// import java.util.Scanner;
 
 import Banco.Agencia.Agencia;
 import Util.Data;
@@ -51,6 +51,10 @@ public class Gerente extends Funcionario {
         return comissaoGerente;
     }
 
+    public int getNumAgenciaGerenciada() {
+        return this.numAgenciaGerenciada;
+    }
+    
     public Agencia getAgenciaGerenciada() {
         return this.agenciaGerenciada;
     }
@@ -90,39 +94,40 @@ public class Gerente extends Funcionario {
 
     }
 
-    public void cadastraGerente(Agencia agencia) {
-        try (Scanner sc = new Scanner(System.in)) {
-            super.cadastraFuncionarioGerente();
-            System.out.println("Digite a data de ingresso do gerente: ");
-            System.out.println("Dia: ");
-            int dia = sc.nextInt();
-            System.out.println("Mês: ");
-            int mes = sc.nextInt();
-            System.out.println("Ano: ");
-            int ano = sc.nextInt();
-            this.dataIngressoGerente = new Data(dia, mes, ano);
-            this.agenciaGerenciada = agencia;
-            System.out.println("O gerente possui formação básica?");
-            System.out.println("1 - Sim");
-            System.out.println("2 - Não");
-            int opcao = sc.nextInt();
-            if (opcao == 1) {
-                this.formacaoBasica = true;
-            } else {
-                this.formacaoBasica = false;
-            }
-            this.estaEmUmaAgencia = true;
-            System.out.println("Gerente cadastrado com sucesso!");
-
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-
     @Override
     public void calculaSalario() { // Metodo calcula salario especifico para gerente
         super.calculaSalario();
         this.setSalario(this.getSalario() + Gerente.comissaoGerente);
     }
+    /*
+     * public void cadastraGerente(Agencia agencia) {
+     * try (Scanner sc = new Scanner(System.in)) {
+     * super.cadastraFuncionarioGerente();
+     * System.out.println("Digite a data de ingresso do gerente: ");
+     * System.out.println("Dia: ");
+     * int dia = sc.nextInt();
+     * System.out.println("Mês: ");
+     * int mes = sc.nextInt();
+     * System.out.println("Ano: ");
+     * int ano = sc.nextInt();
+     * this.dataIngressoGerente = new Data(dia, mes, ano);
+     * this.agenciaGerenciada = agencia;
+     * System.out.println("O gerente possui formação básica?");
+     * System.out.println("1 - Sim");
+     * System.out.println("2 - Não");
+     * int opcao = sc.nextInt();
+     * if (opcao == 1) {
+     * this.formacaoBasica = true;
+     * } else {
+     * this.formacaoBasica = false;
+     * }
+     * this.estaEmUmaAgencia = true;
+     * System.out.println("Gerente cadastrado com sucesso!");
+     * 
+     * } catch (Exception e) {
+     * // TODO: handle exception
+     * }
+     * }
+     */
 
 }
