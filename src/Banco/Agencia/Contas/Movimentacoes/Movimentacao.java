@@ -149,6 +149,9 @@ public class Movimentacao {
     /// TIPOS DE MOVIMENTACAO ///
     /////////////////////////////
 
+    // Float eh um objeto, nao um tipo primitivo, que
+    // pode ser null para representar um valor desconhecido
+    // | _ |
     public void mov(Float valor) { // método auxiliar para criar movimentacao de qualquer tipo
         this.dataTransacao = Data.dataAtual();
         this.valor = valor;
@@ -189,65 +192,11 @@ public class Movimentacao {
         this.numContaDestinatario = numContaDestinatario;
     }
 
-    public void receberTransferencia(Float valor, int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem) { // Cria
-                                                                                                                  // movimentacao
-                                                                                                                  // de
-                                                                                                                  // receber
-                                                                                                                  // transferencia
+    public void receberTransferencia(Float valor, int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem) {
         mov(valor);
         this.tipoTransacao = "Receber Transferencia";
         this.numBancoDestinatario = numBancoOrigem;
         this.numAgenciaDestinatario = numAgenciaOrigem;
         this.numContaDestinatario = numContaOrigem;
     }
-
-    /*
-     * public void saque(float valor, Data dataTransacao) { // Cria
-     * movimentacao de saque
-     * this.valor = valor;
-     * this.dataTransacao = dataTransacao;
-     * this.TipoCanalTransacao();
-     * this.tipoTransacao = "Saque";
-     * }
-     * 
-     * public void deposito(float valor, Data dataTransacao) { // Cria
-     * movimentacao de deposito
-     * this.valor = valor;
-     * this.dataTransacao = dataTransacao;
-     * this.TipoCanalTransacao();
-     * this.tipoTransacao = "Deposito";
-     * }
-     * 
-     * public void consulta(Data dataTransacao) { // Cria movimentacao de consulta
-     * this.valor = 0;
-     * this.dataTransacao = dataTransacao;
-     * this.TipoCanalTransacao();
-     * this.tipoTransacao = "Consulta";
-     * }
-     * 
-     * public void pagamento(float valor, Data dataTransacao) { // Cria
-     * movimentacao de pagamento
-     * this.valor = valor;
-     * this.dataTransacao = dataTransacao;
-     * this.TipoCanalTransacao();
-     * this.tipoTransacao = "Pagamento";
-     * }
-     * 
-     * public void transferencia(float valor, Data dataTransacao) { // Cria
-     * movimentacao de transferencia
-     * this.valor = valor;
-     * this.dataTransacao = dataTransacao;
-     * this.TipoCanalTransacao();
-     * this.tipoTransacao = "Transferencia";
-     * }
-     * 
-     * public void receberTransferencia(float valor, Data dataTransacao) {
-     * // Cria movimentacao de receber
-     * // transferencia
-     * this.valor = valor;
-     * this.dataTransacao = dataTransacao;
-     * this.TipoCanalTransacao();
-     * this.tipoTransacao = "Receber Transferencia";
-     * }
-     */
 }

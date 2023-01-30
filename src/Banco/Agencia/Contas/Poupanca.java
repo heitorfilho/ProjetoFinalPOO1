@@ -3,6 +3,7 @@ package Banco.Agencia.Contas;
 import Util.Data;
 import Banco.Agencia.Agencia;
 import Banco.Agencia.Clientes.Cliente;
+import Banco.Agencia.Contas.Movimentacoes.*;
 
 public class Poupanca extends Conta {
 
@@ -31,6 +32,9 @@ public class Poupanca extends Conta {
     public void aplicarRendimento() {
         Float valor = this.saldo * this.rendimentoMesAtual;
         this.saldo += valor;
+        Movimentacao nova = new Movimentacao();
+        nova.rendimento(valor);
+        movimentacoes.add(nova);
     }
 
     public String printConta() {
