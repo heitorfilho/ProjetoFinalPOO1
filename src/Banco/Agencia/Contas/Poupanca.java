@@ -15,6 +15,11 @@ public class Poupanca extends Conta {
         this.rendimentoMesAtual = 0.5f;
     }
 
+    @Override
+    public String saidaArquivo() {
+        return "Poupanca;"+ super.saidaArquivo() + ";" + this.rendimentoMesAtual ;
+    }
+    
     public float getRendimentoMesAtual() {
         return this.rendimentoMesAtual;
     }

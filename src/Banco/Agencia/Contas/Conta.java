@@ -121,7 +121,7 @@ public abstract class Conta {
     public void setClienteSecundario(Cliente clienteSecundario) {
         this.clienteSecundario = clienteSecundario;
     }
-    
+
     public void setUltimaMovimentacao(Data ultimaMovimentacao) {
         this.ultimaMovimentacao = ultimaMovimentacao;
     }
@@ -235,15 +235,6 @@ public abstract class Conta {
     public void consultarSaldo(int senha) throws IllegalArgumentException {
         if (verificarSenha(senha) || this.estado == true) {
             System.out.println("O saldo atual é: " + this.getSaldo());
-
-            /*
-             * Consulta não é uma movimentação
-             * this.ultimaMovimentacao = Data.dataAtual();
-             * Movimentacao Nova = new Movimentacao();
-             * Nova.consulta(this.ultimaMovimentacao);
-             * this.movimentacoes.add(Nova);
-             */
-
         } else { // tratar o erro depois
             throw new IllegalArgumentException("Senha incorreta!");
         }
@@ -449,10 +440,18 @@ public abstract class Conta {
         System.out.println("Agencia: " + this.numConta + "Conta: " + this.numConta + "Senha: " + this.senha);
     }
 
-
     //////////////////////////////
     ///// SALVAR E CARREGAR /////
     ////////////////////////////
+
+    public void CarregarMovimentacoes() {
+        this.movimentacoes = Arquivos.carregarMovimentacoes(numConta, numAgencia);
+        atualizarContas();
+    }
+
+    public void SalvarMovimentacoes() {
+        Arquivos.salvarArquivoMovimentacoes(numAgencia, numConta, movimentacoes);
+    }
 
     public void atualizarContas() { // Metodo para atualizar as contas no banco de dados
         this.saldo = 0;

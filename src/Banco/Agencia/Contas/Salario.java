@@ -19,6 +19,11 @@ public class Salario extends Conta {
         this.limiteTransferencia = limiteTransferencia;
     }
 
+    @Override
+    public String saidaArquivo() {
+        return "Salario;" + super.saidaArquivo() + ";" + this.limiteSaque + ";" + this.limiteTransferencia;
+    }
+
     public float getLimiteSaque(int senha) throws IllegalArgumentException {
         if (this.senha == senha)
             return this.limiteSaque;

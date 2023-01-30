@@ -91,17 +91,17 @@ public class Arquivos {
                             Integer.parseInt(campos[11]));
                     Data UltimaMovimentacao = new Data(Integer.parseInt(campos[12]), Integer.parseInt(campos[13]),
                             Integer.parseInt(campos[14]));
-                    Cliente Primario = new Cliente();
-                    Cliente Secundario = new Cliente();
+                    Cliente primario = new Cliente();
+                    Cliente secundario = new Cliente();
                     boolean CPF_Encontrado = false;
 
-                    for (int i = 0; i < clientes.size(); i++) {
-                        Cliente Percorre = clientes.get(i);
-                        if (Percorre.getCpf().equals(campos[6])) {
-                            Primario = Percorre;
+                    for (Cliente cliente : clientes) {
+                        Cliente percorre = cliente;
+                        if (percorre.getCpf().equals(campos[6])) {
+                            primario = percorre;
                             CPF_Encontrado = true;
-                        } else if (Percorre.getCpf().equals(campos[7])) {
-                            Secundario = Percorre;
+                        } else if (percorre.getCpf().equals(campos[7])) {
+                            secundario = percorre;
                         }
 
                     }
@@ -113,32 +113,32 @@ public class Arquivos {
                     switch (campos[0]) {
                         case "Corrente":
                             nova = new Corrente(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
-                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), Primario,
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), primario,
                                     Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]),
                                     Float.parseFloat(campos[16]));
                             if (Boolean.parseBoolean(campos[5])) {
-                                nova.setClienteSecundario(Secundario);
+                                nova.setClienteSecundario(secundario);
                             }
                             nova.setUltimaMovimentacao(UltimaMovimentacao);
                             contas.add(nova);
                             break;
                         case "Poupanca":
                             nova = new Poupanca(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
-                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), Primario,
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), primario,
                                     Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]));
                             if (Boolean.parseBoolean(campos[5])) {
-                                nova.setClienteSecundario(Secundario);
+                                nova.setClienteSecundario(secundario);
                             }
                             nova.setUltimaMovimentacao(UltimaMovimentacao);
                             contas.add(nova);
                             break;
                         case "Salario":
                             nova = new Salario(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
-                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), Primario,
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), primario,
                                     Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]),
                                     Float.parseFloat(campos[16]));
                             if (Boolean.parseBoolean(campos[5])) {
-                                nova.setClienteSecundario(Secundario);
+                                nova.setClienteSecundario(secundario);
                             }
                             nova.setUltimaMovimentacao(UltimaMovimentacao);
                             contas.add(nova);
@@ -149,15 +149,14 @@ public class Arquivos {
                     }
                 }
                 br.close();
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+            } catch (NumberFormatException e) { // função para tratar o erro de conversão de string para int
+                e.printStackTrace(); // imprime o erro 
             }
         } catch (IOException erro) {
             System.out.println(" Arquivo nao encontrado ou corrompido:" + numAgencia + "Contas.csv");
         }
         return contas;
     }
-
 
     public static void salvarArquivoConta(int numeroAgencia, LinkedList<Conta> contas) {
         String numAgencia = String.valueOf(numeroAgencia);

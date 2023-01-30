@@ -20,6 +20,11 @@ public class Corrente extends Conta {
         this.taxaAdmin = 30f;
     }
 
+    @Override
+    public String saidaArquivo() {
+        String data = "Salario;" + super.saidaArquivo() + ";" + this.limCheque + ";" + this.taxaAdmin;
+        return data;
+    }
     public float getLimCheque() {
         return this.limCheque;
     }
