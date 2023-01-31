@@ -79,13 +79,12 @@ public class Funcionario extends Pessoa {
     }
 
     public void printFunc() {
-        System.out.println(this.getNome() + " - " + this.getCpf() + " - " + this.getCargo());
+        System.out.println(this.getNome() + " ; " + this.getCpf() + " ; " + this.getCargo());
     }
 
     public String printFuncionario() {
-        String data = printPessoa() + ";" + this.numCarteiraTrab + ";" + this.rg_num + ";" + this.rg_uf + ";"
-                + this.cargo + ";" + this.salario + ";" + this.dataIngresso;
-
+        String data = printPessoa() + " ; " + this.numCarteiraTrab + " ; " + this.cargo + " ; " + this.salario + " ; "
+                + this.dataIngresso + " ; " + this.rg_num + " ; " + this.rg_uf + " ; ";
         return data;
     }
 

@@ -96,28 +96,28 @@ public class Agencia {
     ///// SAIDA DE DADOS /
     /////////////////////
 
-    public void printNomeLocalizacao() {
+    public void localizaAgencia() { // localiza a agencia sem parametros, imprime todos os dados
         System.out.println(nomeAgencia + ": " + enderecoAgencia.getRua() + ", " + enderecoAgencia.getNumero() + ", "
                 + enderecoAgencia.getCidade() + ", " + enderecoAgencia.getEstado() + ", " + enderecoAgencia.getPais()
                 + ", " + enderecoAgencia.getCep());
     }
 
-    public void LocalizaAgencia(String Cidade, String Estado) {
-        if (this.enderecoAgencia.getCidade().equals(Cidade) && this.enderecoAgencia.getEstado().equals(Estado)) {
-            printNomeLocalizacao();
-        }
-    }
-
-    public void LocalizaAgencia(String Bairro, String Cidade, String Estado) {
+    public void localizaAgencia(String Bairro, String Cidade, String Estado) { // localiza por bairro, cidade e estado
         if (this.enderecoAgencia.getBairro() == Bairro && this.enderecoAgencia.getCidade().equals(Cidade)
                 && this.enderecoAgencia.getEstado().equals(Estado)) {
-            printNomeLocalizacao();
+            localizaAgencia();
         }
     }
 
-    public void LocalizaAgencia(String Estado) {
+    public void localizaAgencia(String Cidade, String Estado) { // sobrecarga, apenas com a cidade e o estado
+        if (this.enderecoAgencia.getCidade().equals(Cidade) && this.enderecoAgencia.getEstado().equals(Estado)) {
+            localizaAgencia();
+        }
+    }
+
+    public void localizaAgencia(String Estado) { // sobrecarga do metodo localizaAgencia, apenas com o estado
         if (this.enderecoAgencia.getEstado().equals(Estado)) {
-            printNomeLocalizacao();
+            localizaAgencia();
         }
     }
 

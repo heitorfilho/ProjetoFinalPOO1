@@ -194,17 +194,17 @@ public class Banco {
         // Dados Pessoais
         System.out.printf("Gênero: ");
         String sexo = scan.nextLine();
-        System.out.printf("Estado Civil: ");
+        System.out.printf("estado Civil: ");
         String estadoCivil = scan.nextLine();
 
         // Endereço
         System.out.printf("Endereco\nPais: ");
         String pais = scan.nextLine();
-        System.out.printf("Estado: ");
+        System.out.printf("estado: ");
         String estado = scan.nextLine();
-        System.out.printf("Cidade: ");
+        System.out.printf("cidade: ");
         String cidade = scan.nextLine();
-        System.out.printf("Bairro: ");
+        System.out.printf("bairro: ");
         String bairro = scan.nextLine();
         System.out.printf("Rua: ");
         String rua = scan.nextLine();
@@ -249,6 +249,158 @@ public class Banco {
         agencias.get(indice).getFuncionarios().add(novo);
         agencias.get(indice).salvarArquivo();
 
+    }
+
+    private void promoverAGerente(Scanner scan) { // Promove um funcionário a gerente
+        System.out.println("Escolha um funcionário");
+        try {
+            Funcionario funcionarioAtual = (Funcionario) encontrarFuncionario(scan); // Encontra o funcionário atual
+            System.out.printf("Possui Formação básica em Gerência? \n1 -> Sim \n2 ou mais -> Não\n");
+            int temp = scan.nextInt();
+
+            boolean formacaoBasica;
+            if (temp == 1) { // Se o funcionário possui formação básica em gerência
+                formacaoBasica = true;
+            } else {
+                formacaoBasica = false;
+            }
+
+            Data dataIngressoGerente = Data.dataAtual();
+
+            String linha = funcionarioAtual.printFuncionario();
+            String[] campos = linha.split(";");
+
+            Data dataNascimento = new Data(Integer.parseInt(campos[2]), Integer.parseInt(campos[3]),
+                    Integer.parseInt(campos[4]));
+
+            Data ingresso = new Data(Integer.parseInt(campos[18]), Integer.parseInt(campos[19]),
+                    Integer.parseInt(campos[20]));
+
+            Endereco end = new Endereco(campos[5], Integer.parseInt(campos[6]), campos[7], campos[8], campos[9],
+                    campos[10], campos[11], Integer.parseInt(campos[12]));
+
+            Gerente novo = new Gerente(campos[0],
+                    campos[1], dataNascimento, end, campos[13], campos[14], Integer.parseInt(campos[15]),
+                    Float.parseFloat(campos[17]), ingresso, Integer.parseInt(campos[21]), campos[22], formacaoBasica,
+                    dataIngressoGerente);
+
+            for (int i = 0; i < agencias.size(); i++) {
+                if (agencias.get(i).isFuncionarioDaAgencia(funcionarioAtual)) {
+                    agencias.get(i).setGerente(novo, funcionarioAtual);
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println(e.getSuppressed());
+        }
+    }
+
+    public void encontrarFunc(int pos) { // Encontra um funcionário com a posição
+        System.out.println("N -> Nome, CPF");
+        for (Agencia agencia : agencias) {
+            agencia.localizaAgencia();
+            pos = agencia.encontrarFuncionario(pos);
+        }
+
+    }
+
+    public void encontrarFunc() { // Sobrecarga do método anterior, para não precisar passar a posição
+        System.out.println("N -> Nome, CPF");
+        for (Agencia agencia : agencias) {
+            int pos = 1;
+            agencia.localizaAgencia();
+            pos = agencia.encontrarFuncionario(pos);
+        }
+    }
+
+    // ------------------------------------------------------------ //
+    // -------------------------AGÊNCIAS-------------------------- //
+    // ---------------------------------------------------------- //
+
+    public void encontrarAgenciasProx(Scanner Scan) {
+        int opcao = 1;
+        String estado;
+        String cidade;
+        String bairro;
+
+        while (opcao != 0) {
+            System.out.println("Deseja buscar por: ");
+            System.out.println("1 - Estado");
+            System.out.println("2 - Cidade e Estado");
+            System.out.println("3 - Bairro, Cidade e Estado");
+            System.out.println("4 - Mostrar todas");
+            System.out.println("0 - Voltar");
+            try {
+                opcao = Scan.nextInt();
+                Scan.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Digite um número de 0 a 4");
+                break;
+            }
+            switch (opcao) {
+                case 0:
+                    break;
+                case 1:
+                    System.out.println("Qual o estado?");
+                    estado = Scan.nextLine();
+                    encontrarAgenciasProx(estado);
+                    opcao = 0;
+                    break;
+                case 2:
+                    System.out.println("Qual o estado?");
+                    estado = Scan.nextLine();
+                    System.out.println("Qual a cidade?");
+                    cidade = Scan.nextLine();
+                    encontrarAgenciasProx(cidade, estado);
+                    opcao = 0;
+                    break;
+                case 3:
+                    System.out.println("Qual o estado?");
+                    estado = Scan.nextLine();
+                    System.out.println("Qual a cidade?");
+                    cidade = Scan.nextLine();
+                    System.out.println("Qual bairro?");
+                    bairro = Scan.nextLine();
+                    encontrarAgenciasProx(bairro, cidade, estado);
+                    opcao = 0;
+                    break;
+                case 4:
+                    encontrarAgenciasProx();
+                    opcao = 0;
+                    break;
+                default:
+                    System.out.println("Opcao Inválida, tente novamente");
+                    break;
+
+            }
+        }
+
+    }
+
+    // Métodos para encontrar agências próximas, com sobrecarga dos parâmetros
+    private void encontrarAgenciasProx(String Bairro, String Cidade, String Estado) {
+        for (Agencia agencia : agencias) {
+            agencia.localizaAgencia(Bairro, Cidade, Estado);
+        }
+    }
+
+    private void encontrarAgenciasProx(String Cidade, String Estado) {
+        for (Agencia agencia : agencias) {
+            agencia.localizaAgencia(Cidade, Estado);
+        }
+    }
+
+    private void encontrarAgenciasProx(String Estado) {
+        for (Agencia agencia : agencias) {
+            agencia.localizaAgencia(Estado);
+        }
+    }
+
+    public void encontrarAgenciasProx() {
+        for (Agencia agencia : agencias) {
+            agencia.localizaAgencia();
+        }
     }
 
 }
