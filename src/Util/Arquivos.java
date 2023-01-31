@@ -20,9 +20,9 @@ public class Arquivos {
 
     public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programação Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
 
-    // ------------------------------ //
-    // ----ARQUIVO PARA CLIENTES---- //
-    // ---------------------------- //
+    // ------------------------------------------------------------ //
+    // -------------------ARQUIVO-PARA-CLIENTES------------------- //
+    // ---------------------------------------------------------- //
 
     public static void salvarArquivoCliente(LinkedList<Cliente> clientes) {
 
@@ -70,9 +70,9 @@ public class Arquivos {
         return clientes;
     }
 
-    // ------------------------------ //
-    // -----ARQUIVO PARA CONTAS----- //
-    // ---------------------------- //
+    // ------------------------------------------------------------ //
+    // -------------------ARQUIVO-PARA-CONTAS--------------------- //
+    // ---------------------------------------------------------- //
 
     public static LinkedList<Conta> carregarContas(int numeroAgencia, LinkedList<Cliente> clientes) {
         String numAgencia = String.valueOf(numeroAgencia);
@@ -177,9 +177,9 @@ public class Arquivos {
 
     }
 
-    // -------------------------------- //
-    // -----ARQUIVO PARA AGÊNCIAS----- //
-    // ------------------------------ //
+    // ------------------------------------------------------------ //
+    // -------------------ARQUIVO-PARA-AGENCIAS------------------- //
+    // ---------------------------------------------------------- //
 
     public static LinkedList<Agencia> carregarAgencias() {
         LinkedList<Agencia> agencias = new LinkedList<>();
@@ -226,9 +226,9 @@ public class Arquivos {
 
     }
 
-    // ------------------------------------- //
-    // -----ARQUIVO PARA FUNCIONÁRIOS------ //
-    // ----------------------------------- //
+    // ------------------------------------------------------------ //
+    // -------------------ARQUIVO-PARA-FUNCIONARIOS--------------- //
+    // ---------------------------------------------------------- //
 
     public static LinkedList<Pessoa> carregarFuncionarios(int numAgencia) {
         LinkedList<Pessoa> funcionarios = new LinkedList<>();
@@ -296,9 +296,9 @@ public class Arquivos {
         }
     }
 
-    // ------------------------------------- //
-    // -----ARQUIVO PARA MOVIMENTAÇÕES----- //
-    // ----------------------------------- //
+    // ------------------------------------------------------------ //
+    // -------------------ARQUIVO-PARA-MOVIMENTACOES-------------- //
+    // ---------------------------------------------------------- //
 
     public static LinkedList<Movimentacao> carregarMovimentacoes(int numeroConta, int numeroAgencia) {
         String numAgencia = String.valueOf(numeroAgencia);
