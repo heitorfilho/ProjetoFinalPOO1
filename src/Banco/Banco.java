@@ -480,6 +480,13 @@ public class Banco {
     // -------------------------CLIENTES-------------------------- //
     // ---------------------------------------------------------- //
 
+    public int encontrarCliente(String CPF){
+        for(Cliente cliente : clientes){
+            if(cliente.getCpf().equals(CPF)){
+                return clientes.indexOf(cliente);
+            }
+        } return -1;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
