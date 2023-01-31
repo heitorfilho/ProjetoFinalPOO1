@@ -3,7 +3,6 @@ package Banco.Agencia.Contas;
 import java.util.*;
 import Util.*;
 import Util.Exceptions.SaldoInsuficienteException;
-import Banco.Agencia.Agencia;
 import Banco.Agencia.Clientes.Cliente;
 import Banco.Agencia.Contas.Movimentacoes.Movimentacao;
 
