@@ -87,7 +87,7 @@ public class Gerente extends Funcionario {
     @Override
     public String printFuncionario() {
         String data = super.printFuncionario() + ";" + this.dataIngressoGerente.printData() + ";" + // this.agenciaGerenciada.print();
-                "Formação básica: " + this.formacaoBasica + ";" + "Gerente esta em uma agencia: "
+                "Formacao basica: " + this.formacaoBasica + ";" + "Gerente esta em uma agencia: "
                 + this.estaEmUmaAgencia + ";";
 
         return data;
@@ -96,38 +96,14 @@ public class Gerente extends Funcionario {
 
     @Override
     public void calculaSalario() { // Metodo calcula salario especifico para gerente
-        super.calculaSalario();
-        this.setSalario(this.getSalario() + Gerente.comissaoGerente);
+
+        if(this.getSalarioAjustado() != true){
+            super.calculaSalario();
+            this.setSalario(this.getSalario() + Gerente.comissaoGerente);
+        }
+        else{
+            System.out.println("Gerente ja teve seu salario ajustado");
+        }
     }
-    /*
-     * public void cadastraGerente(Agencia agencia) {
-     * try (Scanner sc = new Scanner(System.in)) {
-     * super.cadastraFuncionarioGerente();
-     * System.out.println("Digite a data de ingresso do gerente: ");
-     * System.out.println("Dia: ");
-     * int dia = sc.nextInt();
-     * System.out.println("Mês: ");
-     * int mes = sc.nextInt();
-     * System.out.println("Ano: ");
-     * int ano = sc.nextInt();
-     * this.dataIngressoGerente = new Data(dia, mes, ano);
-     * this.agenciaGerenciada = agencia;
-     * System.out.println("O gerente possui formação básica?");
-     * System.out.println("1 - Sim");
-     * System.out.println("2 - Não");
-     * int opcao = sc.nextInt();
-     * if (opcao == 1) {
-     * this.formacaoBasica = true;
-     * } else {
-     * this.formacaoBasica = false;
-     * }
-     * this.estaEmUmaAgencia = true;
-     * System.out.println("Gerente cadastrado com sucesso!");
-     * 
-     * } catch (IllegalArgumentException e) {
-     * // System.out.println(e.getMessage());
-     * }
-     * }
-     */
 
 }

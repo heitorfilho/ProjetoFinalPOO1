@@ -14,6 +14,7 @@ public class Funcionario extends Pessoa {
     private Data dataIngresso;
     private int rg_num; // numeros do RG
     private String rg_uf; // UF do RG
+    private boolean salarioAjustado;
 
     public Funcionario(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
             int numCarteiraTrab, String cargo, float salario, Data dataIngresso, int rg_num, String rg_uf) {
@@ -52,6 +53,10 @@ public class Funcionario extends Pessoa {
 
     public String getRg_uf() {
         return this.rg_uf;
+    }
+
+    public boolean getSalarioAjustado(){
+        return this.salarioAjustado;
     }
 
     public void setNumCarteiraTrab(int numCarteiraTrab) {
@@ -133,10 +138,19 @@ public class Funcionario extends Pessoa {
         }
     }
 
-    public void calculaSalario() { // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento
-                                   // de 10%
-        /*if ((2023 - this.dataIngresso) >= 15) {
-            this.salario = this.salario + (this.salario * 0.1f);
-        }*/
+    // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento
+    // de 10% verificando se ja foi aumentado anteriormente
+    public void calculaSalario() {
+        if(this.salarioAjustado != true){
+            if (this.dataIngresso.getAno() < 2008) {
+            this.salario = this.salario * 1.1f;
+            this.salarioAjustado = true;
+            } else{
+                System.out.println("Funcionario nao tem direito a aumento por tempo de servico!");
+            }
+        }
+         else {
+            System.out.println("Funcionario ja recebeu aumento por tempo de servico!");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package Banco.Agencia.Contas.Movimentacoes;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Util.Data;
@@ -116,7 +117,6 @@ public class Movimentacao {
     ///// METODOS AUXILIARES /////
     /////////////////////////////
 
-    // desnecessario Heitor...
     public void TipoCanalTransacao() { // Metodo para descobrir qual eh o canal de transacao
         try (Scanner sc = new Scanner(System.in)) {
             int opcao = 4;
@@ -140,8 +140,8 @@ public class Movimentacao {
                 }
             }
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (InputMismatchException e) {
+            System.out.println(e.getMessage());
         }
     }
 

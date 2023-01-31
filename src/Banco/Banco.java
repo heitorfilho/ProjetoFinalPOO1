@@ -4,6 +4,7 @@ import java.util.*;
 import Banco.Agencia.*;
 import Util.*;
 import Banco.Agencia.Clientes.*;
+import Banco.Agencia.Contas.*;
 import Banco.Agencia.Funcionarios.*;
 
 public class Banco {
@@ -79,7 +80,7 @@ public class Banco {
                     break;
                 case 2:
                     try {
-                        // cadastraFuncionario(scan);
+                        cadastrarFuncionario(scan);
                     } catch (IllegalArgumentException e) {
                         System.out.println("Erro ao cadastrar funcionario");
                         System.out.println(e.getMessage());
@@ -90,7 +91,7 @@ public class Banco {
                     opcao = 0;
                     break;
                 case 3:
-                    // promoverGerente(scan);
+                    promoverAGerente(scan);
                     opcao = 0;
                     break;
                 case 4:
@@ -105,19 +106,19 @@ public class Banco {
                     opcao = 0;
                     break;
                 case 5:
-                    // encontrarFuncionario();
+                    encontrarFunc();
                     opcao = 1;
                     break;
                 case 6:
-                    // listaClientes();
+                    listarClientes();
                     opcao = 1;
                     break;
                 case 7:
-                    // listaContas();
+                    listarContas();
                     opcao = 1;
                     break;
                 case 8:
-                    // encontrarAgenciasProx();
+                    encontrarAgenciasProx();
                     opcao = 1;
                     break;
                 default:
@@ -131,20 +132,7 @@ public class Banco {
     }
 
     public void acessoFuncionario(Scanner scan) {
-        System.out.println("Digite o nome do funcionario");
-        String nome = scan.nextLine();
-        System.out.println("Digite a senha do funcionario");
-        String senha = scan.nextLine();
-
-        for (Agencia agencia : agencias) {
-            for (Pessoa funcionario : agencia.getFuncionarios()) {
-                if (funcionario.getNome().equals(nome) && funcionario.getSenha().equals(senha)) {
-                    // funcionario.areaDoFuncionario(scan);
-                    return;
-                }
-            }
-        }
-        System.out.println("Funcionario nao encontrado");
+        System.out.println("Acesso ao sistema esta em manutencao no momento, tente novamente mais tarde");
     }
 
     public Pessoa encontrarFuncionario(Scanner scan) throws IllegalArgumentException {
@@ -175,7 +163,7 @@ public class Banco {
     }
 
     public void cadastrarFuncionario(Scanner scan) {
-        // encontrarAgenciasProx();
+        encontrarAgenciasProx();
 
         int indice = scan.nextInt() - 1;
         scan.nextLine();
@@ -239,7 +227,7 @@ public class Banco {
         System.out.printf("Numero da Carteira de Trabalho: ");
         int numCarteiraTrab = scan.nextInt();
 
-        // Criação dos objetos
+        // Criaçao dos objetos
         Endereco endereco = new Endereco(pais, numero, cidade, bairro, rua, complemento, estado, cep);
         Data dataNascimento = new Data(dia, mes, ano);
         Funcionario novo = new Funcionario(nome, cpf, dataNascimento, endereco, sexo, estadoCivil,
@@ -255,11 +243,11 @@ public class Banco {
         System.out.println("Escolha um funcionario");
         try {
             Funcionario funcionarioAtual = (Funcionario) encontrarFuncionario(scan); // Encontra o funcionario atual
-            System.out.printf("Possui Formação básica em Gerência? \n1 -> Sim \n2 ou mais -> Não\n");
+            System.out.printf("Possui Formaçao básica em Gerência? \n1 -> Sim \n2 ou mais -> Nao\n");
             int temp = scan.nextInt();
 
             boolean formacaoBasica;
-            if (temp == 1) { // Se o funcionario possui formação básica em gerência
+            if (temp == 1) { // Se o funcionario possui formaçao básica em gerência
                 formacaoBasica = true;
             } else {
                 formacaoBasica = false;
@@ -296,7 +284,7 @@ public class Banco {
         }
     }
 
-    public void encontrarFunc(int pos) { // Encontra um funcionario com a posição
+    public void encontrarFunc(int pos) { // Encontra um funcionario com a posiçao
         System.out.println("N -> Nome, CPF");
         for (Agencia agencia : agencias) {
             agencia.localizaAgencia();
@@ -305,7 +293,7 @@ public class Banco {
 
     }
 
-    public void encontrarFunc() { // Sobrecarga do método anterior, para nao precisar passar a posição
+    public void encontrarFunc() { // Sobrecarga do método anterior, para nao precisar passar a posiçao
         System.out.println("N -> Nome, CPF");
         for (Agencia agencia : agencias) {
             int pos = 1;
@@ -445,7 +433,7 @@ public class Banco {
         }
     }
 
-    public int indiceAgencia(Scanner scan) { // informa as agencias disponiveis e retorna a escolhar
+    public int indiceAgencia(Scanner scan) { // informa as agencias disponiveis e retorna a escolhida
         int numAgencia = 0;
 
         while (true) { // Encontrar o indice da Agencia;
@@ -457,7 +445,7 @@ public class Banco {
                 break;
             } else
                 System.out.println("Opcao indisponivel, tente novamente");
-                break;
+            break;
         }
         return numAgencia;
     }
@@ -480,25 +468,325 @@ public class Banco {
     // -------------------------CLIENTES-------------------------- //
     // ---------------------------------------------------------- //
 
-    public int encontrarCliente(String CPF){
-        for(Cliente cliente : clientes){
-            if(cliente.getCpf().equals(CPF)){
+    public void cadastrarCliente(Scanner scan, String cpf) {
+        int opcao = 3;
+
+        while (opcao != 0) {
+            try {
+                System.out.println("Vamos fazer seu cadastro!");
+                if (cpf.equals("0")) { // Se o cpf for 0, o cliente vai digitar o cpf
+                    System.out.println("Digite seu CPF: ");
+                    cpf = scan.nextLine();
+                }
+                boolean cpfValido = ValidaCPF.isCPF(cpf);
+
+                if (!cpfValido) { // Se o cpf for invalido, o cliente tem 3 tentativas
+                    opcao--;
+                    System.out.println("CPF invalido, voce tem mais " + opcao + " tentativas");
+                } else {
+                    Pessoa novoCliente = new Cliente();
+                    for (Pessoa cliente : clientes) { // Verifica se o cliente ja esta cadastrado
+                        if (cliente.getCpf().equals(cpf)) {
+                            System.out.println("Cliente ja cadastrado");
+                            return;
+                        }
+                    }
+
+                    // Para cpf nao cadastrado, cadastra o cliente:
+
+                    // Dados pessoais
+                    System.out.println("Digite seu nome: ");
+                    novoCliente.setNome(scan.nextLine());
+                    System.out.println("Digite seu genero: ");
+                    novoCliente.setSexo(scan.nextLine());
+                    System.out.println("Digite seu estado civil: ");
+                    novoCliente.setEstadoCivil(scan.nextLine());
+
+                    // Endereco
+                    System.out.println("Endereco");
+                    System.out.println("Rua: ");
+                    String rua = scan.nextLine();
+                    System.out.println("Bairro: ");
+                    String bairro = scan.nextLine();
+                    System.out.println("Cidade: ");
+                    String cidade = scan.nextLine();
+                    System.out.println("Estado: ");
+                    String estado = scan.nextLine();
+                    System.out.println("Pais: ");
+                    String pais = scan.nextLine();
+                    System.out.println("Complemento: ");
+                    String complemento = scan.nextLine();
+                    System.out.println("Numero: ");
+                    int numero = scan.nextInt();
+                    System.out.println("CEP: ");
+                    int cep = scan.nextInt();
+
+                    // Data de nascimento
+                    System.out.println("Data de nascimento");
+                    System.out.println("Dia: ");
+                    int dia = scan.nextInt();
+                    System.out.println("Mes: ");
+                    int mes = scan.nextInt();
+                    System.out.println("Ano: ");
+                    int ano = scan.nextInt();
+                    scan.nextLine();
+
+                    // Cadastra o cliente com os dados informados
+                    novoCliente.setCpf(cpf);
+                    novoCliente.setDataNascimento(dia, mes, ano);
+                    Endereco endNovoCliente = new Endereco(rua, numero, bairro, cidade, estado, pais, complemento, cep);
+                    novoCliente.setEndereco(endNovoCliente);
+                    this.clientes.add((Cliente) novoCliente); // Cast de Pessoa para Cliente
+
+                }
+
+            } catch (NumberFormatException e) {
+                opcao--;
+                System.out.println(e + "voce tem mais " + opcao + " Tentativas");
+            } catch (InputMismatchException e) {
+                opcao--;
+                System.out.println("Digite valores validos " + opcao + " Tentativas");
+                continue; // Volta para o inicio do while
+            }
+
+        }
+        Arquivos.salvarArquivoCliente(clientes);
+    }
+
+    public int encontrarCliente(String CPF) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getCpf().equals(CPF)) {
                 return clientes.indexOf(cliente);
             }
-        } return -1;
+        }
+        return -1;
     }
+
+    public int indiceCliente(Scanner scan) {
+
+        // Encotrar o cliente existente no banco
+        System.out.println("Digite o seu CPF: ");
+        String CPF = scan.nextLine();
+        if (!ValidaCPF.isCPF(CPF)) {
+            throw new IllegalArgumentException("CPF invalido");
+        }
+        int indiceCliente = encontrarCliente(CPF);
+
+        // Cadastro do cliente caso nao exista no banco e retorna o indice dele
+        while (indiceCliente == -1) {
+            cadastrarCliente(scan, CPF);
+            indiceCliente = encontrarCliente(CPF);
+        }
+        return indiceCliente;
+    }
+
+    public void listarClientes() { // Lista todos os clientes cadastrados
+        for (Cliente cliente : clientes) {
+            System.out.println(cliente.printCliente());
+        }
+    }
+
+    // ------------------------------------------------------------ //
+    // -------------------------CONTAS---------------------------- //
+    // ---------------------------------------------------------- //
+
+    // Cadastra uma conta para o cliente ou retorna a conta ja existente
+    public void cadastrarConta(Scanner scan) {
+        boolean teste = true;
+        int indiceCliente = -1;
+
+        while (teste) {
+            try {
+                indiceCliente = indiceCliente(scan);
+                teste = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                teste = true;
+            }
+        }
+
+        int indiceAgencia = indiceAgencia(scan); // indice da agencia que contem a conta solicitada
+
+        teste = true;
+        Random random = new Random();
+        int numConta = 0;
+
+        while (teste) {
+            // random.nextInt((max - min) + 1) + min;
+            numConta = random.nextInt((999999999 - 111111111) + 1) + 111111111; // gera um numero aleatorio de 9 digitos
+
+            try {
+                LinkedList<Conta> percorre = agencias.get(indiceAgencia).getContas();
+                for (Conta conta : percorre) {
+                    if (conta.getNumConta() == numConta) { // se o numero da conta ja existir, gera outro numero
+                        teste = true;
+                        break;
+                    }
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Agencia nao encontrada");
+                teste = true;
+            }
+        }
+        System.out.println("Numero da conta: " + numConta);
+        System.out.println("Digite a senha da conta (apenas numeros): ");
+        int senha = scan.nextInt();
+
+        System.out.println("Escolha uma opcao: ");
+        System.out.println("1 - Conta Normal");
+        System.out.println("2 - Conta Conjunta");
+        int opcao = scan.nextInt();
+
+        boolean conjunta;
+        if (opcao == 1) {
+            conjunta = false;
+        } else {
+            conjunta = true;
+        }
+
+        Data data = Data.dataAtual(); // Registra a data de criacao da conta
+
+        System.out.println("Digite o tipo de conta: ");
+        System.out.printf("1 - Conta Corrente\n2 - Conta Poupanca\n3 - Salario");
+        opcao = scan.nextInt();
+
+        int numAgencia = agencias.get(indiceAgencia).getNumAgencia(); // numero da agencia que contem a conta solicitada
+
+        Conta nova = null;
+        switch (opcao) {
+            case 1:
+                nova = new Corrente(numConta, senha, 0, conjunta, clientes.get(indiceCliente), numAgencia, data, 0, 25);
+                break;
+            case 2:
+                nova = new Poupanca(numConta, senha, 0, conjunta, clientes.get(indiceCliente), numAgencia, data, 0);
+                break;
+            case 3:
+                nova = new Salario(numConta, senha, 0, conjunta, clientes.get(indiceCliente), numAgencia, data, 1000,
+                        1000);
+                break;
+            default:
+                System.out.println("Opcao invalida");
+                break;
+        }
+
+        if (conjunta) { // Caso a conta seja conjunta, cadastra o segundo titular
+            try {
+                nova.setClienteSecundario(cadastrarSegundoTitular(scan));
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+        LinkedList<Conta> atualizaContas = agencias.get(indiceAgencia).getContas();
+        atualizaContas.add(nova);
+        Arquivos.salvarArquivoConta(numAgencia, atualizaContas);
+        System.out.println("Conta cadastrada com sucesso");
+
+    }
+
+    public Conta loginConta(Scanner scan) {
+        Conta solicitada = null;
+        boolean acesso = true;
+        while (acesso) {
+            acesso = false;
+
+            try {
+                System.out.println("Bem-vindo ao login de conta");
+                System.out.printf("Agencia: ");
+                int numAgencia = scan.nextInt();
+                System.out.printf("Conta: ");
+                int numConta = scan.nextInt();
+                scan.nextLine();
+                System.out.printf("Senha: ");
+                int senha = scan.nextInt();
+
+                int indiceAgencia = indiceAgencia(numAgencia); // indice da agencia que contem a conta solicitada
+
+                if (indiceAgencia == -1) {
+                    System.out.println("Agencia nao encontrada");
+                    acesso = true;
+                    break; // Sai do while
+                }
+
+                try {
+                    solicitada = agencias.get(indiceAgencia).encontrarConta(numConta, senha); // Conta solicitada
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                    acesso = true;
+                    break; // Sai do while
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Digite apenas numeros");
+                scan.nextLine();
+                acesso = true;
+                break; // Sai do while
+            }
+        }
+        return solicitada;
+    }
+
+    public void listarContas() {
+        for (Agencia agencia : agencias) {
+            agencia.listarContas();
+        }
+    }
+
+    public Cliente cadastrarSegundoTitular(Scanner scan) {
+        int indiceCliente = indiceCliente(scan);
+        return clientes.get(indiceCliente);
+    }
+
+    public boolean enviarTransferencia(int numBancoDestino, int numAgenciaDestino, int numContaDestino, Float valor,
+            int numAgenciaOrigem, int numContaOrigem) {
+        for (Agencia agencia : agencias) {
+            if (agencia.getNumAgencia() == numAgenciaOrigem) { // se a agencia de origem for a mesma da agencia que esta
+                                                               // sendo percorrida
+                return agencia.enviarTransferencia(numContaDestino, valor, numBancoDestino, numAgenciaDestino,
+                        numContaOrigem);
+            }
+        }
+        return false;
+    }
+
+    // Enviar Transferencia 2
+    public boolean enviarTransferencia(Conta contOrigem, Conta contDestino, int numBancoOrigem, int numBancoDestino,
+            float valor,
+            int numAgencia) {
+
+        if (contOrigem == contDestino) {
+            return false;
+        } else {
+            for (Agencia agencia : agencias) {
+                if (agencia.getNumAgencia() == contOrigem.getNumAgencia()) { // se a agencia de origem for a mesma da
+                                                                             // agencia que esta
+                    // sendo percorrida
+                    return agencia.enviarTransferencia(contDestino, valor, numBancoDestino);
+                }
+            }
+            return true;
+        }
+    }
+
+    // ------------------------------------------------------------ //
+    // ------------------SALVAR-E-CARREGAR-ARQUIVOS--------------- //
+    // ---------------------------------------------------------- //
+
+    public void carregarBanco() {
+        this.agencias = Arquivos.carregarAgencias();
+        this.clientes = Arquivos.carregarClientes();
+        for (int i = 0; i < agencias.size(); i++) {
+            agencias.get(i).carregarArquivos(clientes);
+            ;
+        }
+    }
+
+    public void salvarBanco() {
+        Arquivos.salvarArquivoAgencia(agencias);
+        Arquivos.salvarArquivoCliente(clientes);
+        for (int i = 0; i < agencias.size(); i++) {
+            agencias.get(i).salvarArquivo();
+        }
+    }
+
 }
 
-////////////////////////////////////////////////////////////////////////////////////////
-/*
- * Banco.criaConta(); //Banco.java
- * qual agencia? = 1 //Banco.java
- * conta vai ser oq? = corrente //Banco.java
- * conta cont1; //Banco.java
- * cont1 = new ContaCorrente(); //Banco.java
- * agencia1.criaContaCorrente(cont1); //Banco.java - Agencia.java -
- * ContaCorrente.java
- * 
- * Banco CancoDoHeitor = new Banco();
- */
-////////////////////////////////////////////////////////////////////////////////////////

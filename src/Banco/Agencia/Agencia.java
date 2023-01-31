@@ -16,8 +16,6 @@ public class Agencia {
     private Gerente gerente;
     private LinkedList<Conta> contas;
     private LinkedList<Pessoa> funcionarios;
-    // private LinkedList<Pessoa> Funcionarios;
-    // private LinkedList<Cliente> clientes;
 
     public Agencia(String nomeAgencia, int numAgencia) {
         this.nomeAgencia = nomeAgencia;
@@ -132,7 +130,7 @@ public class Agencia {
     //// SALVAR E CARREGAR DADOS ////
     ///////////////////////////////
 
-    public void CarregarArquivos(LinkedList<Cliente> clientes) {
+    public void carregarArquivos(LinkedList<Cliente> clientes) {
         carregarContas(clientes);
         carregarFuncionario();
     }
@@ -244,18 +242,29 @@ public class Agencia {
         throw new IllegalArgumentException("Conta nao encontrada");
     }
 
-    public boolean enviarTranferencia(int numConta, float valor, int numBancoOrigem, int numAgenciaOrigem,
-            int numContaOrigem) {
+    public boolean enviarTransferencia(int numConta, float valor, int numBanco, int numAgencia,
+            int numContaOrigem) { 
         for (Conta conta : this.contas) {
-            if (conta.getNumConta() == numConta) {
-                if (conta.getNumConta() == numConta) {
-                    conta.receberTranf(numBancoOrigem, numAgenciaOrigem, numContaOrigem, valor);
+            if (conta.getNumConta() == numConta) { 
+                if (conta.getNumConta() == numConta) { 
+                    conta.receberTranf(numBanco, numAgencia, numContaOrigem, valor);
                     ;
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    //Transferencia 2
+    public boolean enviarTransferencia(Conta cont, float valor, int numBanco){
+        if(cont.getSaldo() < valor){
+            return false;
+        }
+        else{
+            cont.efetuarTransf(numBanco, this.numAgencia, cont.getNumConta(), valor, cont.getSenha());
+            return true;
+        }
     }
 
     public void listarContas() {
@@ -277,25 +286,5 @@ public class Agencia {
             }
         }
     }
-
-    //////////////////
-    ///// CRIAR /////
-    ////////////////
-
-    /*
-     * public void criaContaCorrente(Conta contaNova){
-     * this.contas.add(contaNova);
-     * //contaNova.criaConta(this);
-     * }
-     * 
-     * public void criaContaPoupanca(Conta contaNova){
-     * this.contas.add(contaNova);
-     * //contaNova.criaConta(this);
-     * }
-     * 
-     * public void criaContaSalario(Conta contaNova){
-     * this.contas.add(contaNova);
-     * //contaNova.criaConta(this);
-     * }
-     */
+    
 }
