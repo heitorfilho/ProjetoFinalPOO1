@@ -15,7 +15,7 @@ public abstract class Conta {
     protected Data aberturaConta;
     protected Data ultimaMovimentacao;
     protected boolean conjunta;
-    protected Cliente clientePrimario; // protected int cpfClientePrimario
+    protected Cliente clientePrimario;
     protected Cliente clienteSecundario;
     protected LinkedList<Movimentacao> movimentacoes;
     private Agencia agencia; // agencia que a conta pertence
@@ -181,7 +181,7 @@ public abstract class Conta {
                 System.out.println("Conta conjunta já possui dois clientes!");
             }
         } else {
-            System.out.println("Conta não é conjunta!");
+            System.out.println("Conta nao e conjunta!");
         }
     }
 
@@ -194,7 +194,7 @@ public abstract class Conta {
             if (saldo < valor)
                 throw new IllegalArgumentException("Saldo insuficiente!");
             if (valor < 0)
-                throw new IllegalArgumentException("Valor inválido!");
+                throw new IllegalArgumentException("Valor invalido!");
             if (this.saldo >= valor)
                 this.saldo -= valor;
             this.ultimaMovimentacao = Data.dataAtual();
@@ -215,7 +215,7 @@ public abstract class Conta {
     public void depositar(float valor, int senha) throws IllegalArgumentException {
         if (verificarSenha(senha) && this.estado == true) {
             if (valor < 0)
-                throw new IllegalArgumentException("Valor inválido!");
+                throw new IllegalArgumentException("Valor invalido!");
             this.saldo += valor;
             this.ultimaMovimentacao = Data.dataAtual();
 
@@ -223,7 +223,7 @@ public abstract class Conta {
             Nova.deposito(valor);
             this.movimentacoes.add(Nova);
 
-            System.out.println("Depósito realizado com sucesso!");
+            System.out.println("Deposito realizado com sucesso!");
 
         } else if (verificarSenha(senha) == false) {
             throw new IllegalArgumentException("Senha incorreta!");
@@ -234,7 +234,7 @@ public abstract class Conta {
 
     public void consultarSaldo(int senha) throws IllegalArgumentException {
         if (verificarSenha(senha) || this.estado == true) {
-            System.out.println("O saldo atual é: " + this.getSaldo());
+            System.out.println("O saldo atual e: " + this.getSaldo());
         } else { // tratar o erro depois
             throw new IllegalArgumentException("Senha incorreta!");
         }
@@ -261,7 +261,7 @@ public abstract class Conta {
     public void efetuarTransf(int numBanco, int numAgencia, int numConta, float valor, int senha) {
         if (verificarSenha(senha)) {
             if (valor <= 0) {
-                throw new IllegalArgumentException("Valor inválido!");
+                throw new IllegalArgumentException("Valor invalido!");
             }
             if (this.saldo >= valor) {
                 this.saldo -= valor;
@@ -402,10 +402,10 @@ public abstract class Conta {
 
             this.agencia = agenciaConta;
 
-            // FALTA MOVIMENTACOES//
+           this.movimentacoes = new LinkedList<>();
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 

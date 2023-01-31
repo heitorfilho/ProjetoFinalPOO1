@@ -146,7 +146,7 @@ public class Agencia {
                     this.gerente = encontra;
                 }
             } catch (ClassCastException e) {
-                continue; // Não é gerente então não faz nada e continua o loop
+                continue; // Nao e gerente entao nao faz nada e continua o loop
             }
         }
     }
@@ -170,7 +170,7 @@ public class Agencia {
     ///// FUNCIONÁRIOS /////
     ///////////////////////
 
-    public void adicionarNovoGerente(Gerente novo, Funcionario AntigoCargo) { // Adiciona um novo gerente na agência
+    public void adicionarNovoGerente(Gerente novo, Funcionario AntigoCargo) { // Adiciona um novo gerente na agencia
         for (int j = 0; j < funcionarios.size(); j++) {
             Funcionario TempFunc = (Funcionario) funcionarios.get(j);
             if (TempFunc.equals(AntigoCargo)) {
@@ -241,7 +241,7 @@ public class Agencia {
                 return conta;
             }
         }
-        throw new IllegalArgumentException("Conta não encontrada");
+        throw new IllegalArgumentException("Conta nao encontrada");
     }
 
     public boolean enviarTranferencia(int numConta, float valor, int numBancoOrigem, int numAgenciaOrigem,

@@ -51,21 +51,21 @@ public class Banco {
         int opcao = -1;
         while (opcao != 0) {
             System.out.println("1 - Entrar no sistema");
-            System.out.println("2 - Cadastrar funcionário");
+            System.out.println("2 - Cadastrar funcionario");
             System.out.println("3 - Promover a gerente");
-            System.out.println("4 - Cadastrar nova agência");
-            System.out.println("5 - Encontrar um funcionário");
+            System.out.println("4 - Cadastrar nova agencia");
+            System.out.println("5 - Encontrar um funcionario");
             System.out.println("6 - Lista de clientes");
             System.out.println("7 - Lista de contas");
-            System.out.println("8 - Encontrar agências próximas");
+            System.out.println("8 - Encontrar agências proximas");
             System.out.println("0 - Voltar");
 
             try {
                 opcao = scan.nextInt();
                 scan.nextLine();
             } catch (InputMismatchException e) {
-                System.out.println("Opção inválida!");
-                System.out.println("Digite um número de 0 a 8");
+                System.out.println("Opcao invalida!");
+                System.out.println("Digite um numero de 0 a 8");
                 scan.nextLine();
                 continue;
             }
@@ -81,10 +81,10 @@ public class Banco {
                     try {
                         // cadastraFuncionario(scan);
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Erro ao cadastrar funcionário");
+                        System.out.println("Erro ao cadastrar funcionario");
                         System.out.println(e.getMessage());
                     } catch (InputMismatchException e) {
-                        System.out.println("Erro ao cadastrar funcionário");
+                        System.out.println("Erro ao cadastrar funcionario");
                         System.out.println(e.getMessage());
                     }
                     opcao = 0;
@@ -95,11 +95,11 @@ public class Banco {
                     break;
                 case 4:
                     try {
-                        cadastraAgencia(scan);
+                        cadastrarAgencia(scan);
                     } catch (IllegalAccessException e) {
                         System.out.println(e.getMessage());
                     }
-                    System.out.println("A nova agência precisa de um gerente");
+                    System.out.println("A nova agencia precisa de um gerente");
                     Arquivos.salvarArquivoAgencia(agencias);
                     agencias = Arquivos.carregarAgencias();
                     opcao = 0;
@@ -121,8 +121,8 @@ public class Banco {
                     opcao = 1;
                     break;
                 default:
-                    System.out.println("Opção inválida!");
-                    System.out.println("Digite um número de 0 a 8");
+                    System.out.println("Opcao invalida!");
+                    System.out.println("Digite um numero de 0 a 8");
                     break;
 
             }
@@ -131,9 +131,9 @@ public class Banco {
     }
 
     public void acessoFuncionario(Scanner scan) {
-        System.out.println("Digite o nome do funcionário");
+        System.out.println("Digite o nome do funcionario");
         String nome = scan.nextLine();
-        System.out.println("Digite a senha do funcionário");
+        System.out.println("Digite a senha do funcionario");
         String senha = scan.nextLine();
 
         for (Agencia agencia : agencias) {
@@ -144,33 +144,33 @@ public class Banco {
                 }
             }
         }
-        System.out.println("Funcionário não encontrado");
+        System.out.println("Funcionario nao encontrado");
     }
 
     public Pessoa encontrarFuncionario(Scanner scan) throws IllegalArgumentException {
         try {
-            int func = 1; // variável para o funcionário
+            int func = 1; // variável para o funcionario
             for (int i = 0; i < agencias.size(); i++) {
                 System.out.print((i + 1) + " - ");
-                agencias.get(i).printNomeLocalizacao();
+                agencias.get(i).localizaAgencia();
             }
 
-            System.out.println("Qual Agência?");
-            int agc = scan.nextInt() - 1; // variável para a agência e -1 para começar a contar do 0
+            System.out.println("Qual Agencia?");
+            int agc = scan.nextInt() - 1; // variável para a agencia e -1 para começar a contar do 0
 
             agencias.get(agc).encontrarFuncionario(1); //
-            System.out.println("Qual Funcionário?");
+            System.out.println("Qual Funcionario?");
             func = scan.nextInt() - 1;
 
             if (func <= agencias.get(agc).getFuncionarios().size() && agc <= agencias.size()) { // se ambos existem
                 return agencias.get(agc).getFuncionarios().get(func);
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Opção Inválida!");
+            System.out.println("Opcao invalida!");
         } catch (InputMismatchException e) {
-            System.out.println("Valor inválido, digite um numeral!");
+            System.out.println("Valor invalido, digite um numeral!");
         }
-        throw new IllegalArgumentException("Funcionário não encontrado!");
+        throw new IllegalArgumentException("Funcionario nao encontrado!");
 
     }
 
@@ -181,36 +181,36 @@ public class Banco {
         scan.nextLine();
 
         // Nome
-        System.out.printf("Digite o nome do funcionário");
+        System.out.printf("Digite o nome do funcionario");
         String nome = scan.nextLine();
 
         // CPF
-        System.out.printf("Digite o CPF do funcionário");
+        System.out.printf("Digite o CPF do funcionario");
         String cpf = scan.nextLine();
         if (!ValidaCPF.isCPF(cpf)) {
-            throw new IllegalArgumentException("CPF inválido!");
+            throw new IllegalArgumentException("CPF invalido!");
         }
 
         // Dados Pessoais
-        System.out.printf("Gênero: ");
+        System.out.printf("Genero: ");
         String sexo = scan.nextLine();
-        System.out.printf("estado Civil: ");
+        System.out.printf("Estado Civil: ");
         String estadoCivil = scan.nextLine();
 
         // Endereço
         System.out.printf("Endereco\nPais: ");
         String pais = scan.nextLine();
-        System.out.printf("estado: ");
+        System.out.printf("Estado: ");
         String estado = scan.nextLine();
-        System.out.printf("cidade: ");
+        System.out.printf("Eidade: ");
         String cidade = scan.nextLine();
-        System.out.printf("bairro: ");
+        System.out.printf("Bairro: ");
         String bairro = scan.nextLine();
         System.out.printf("Rua: ");
         String rua = scan.nextLine();
         System.out.printf("Complemento: ");
         String complemento = scan.nextLine();
-        System.out.printf("Número: ");
+        System.out.printf("Numero: ");
         int numero = scan.nextInt();
         System.out.printf("CEP: ");
         int cep = scan.nextInt();
@@ -219,7 +219,7 @@ public class Banco {
         // RG
         System.out.printf("UF do RG (letras): ");
         String rg_uf = scan.nextLine();
-        System.out.printf("Números do RG: ");
+        System.out.printf("Numeros do RG: ");
         int rg_num = scan.nextInt();
         Data dataIngresso = Data.dataAtual();
 
@@ -234,9 +234,9 @@ public class Banco {
         // Dados Profissionais
         System.out.printf("Cargo: ");
         String cargo = scan.nextLine();
-        System.out.printf("Salário: ");
+        System.out.printf("Salario: ");
         float salario = scan.nextFloat();
-        System.out.printf("Número da Carteira de Trabalho: ");
+        System.out.printf("Numero da Carteira de Trabalho: ");
         int numCarteiraTrab = scan.nextInt();
 
         // Criação dos objetos
@@ -245,21 +245,21 @@ public class Banco {
         Funcionario novo = new Funcionario(nome, cpf, dataNascimento, endereco, sexo, estadoCivil,
                 numCarteiraTrab, cargo, salario, dataIngresso, rg_num, rg_uf);
 
-        // Adiciona o funcionário na agência
+        // Adiciona o funcionario na agencia
         agencias.get(indice).getFuncionarios().add(novo);
         agencias.get(indice).salvarArquivo();
 
     }
 
-    private void promoverAGerente(Scanner scan) { // Promove um funcionário a gerente
-        System.out.println("Escolha um funcionário");
+    private void promoverAGerente(Scanner scan) { // Promove um funcionario a gerente
+        System.out.println("Escolha um funcionario");
         try {
-            Funcionario funcionarioAtual = (Funcionario) encontrarFuncionario(scan); // Encontra o funcionário atual
+            Funcionario funcionarioAtual = (Funcionario) encontrarFuncionario(scan); // Encontra o funcionario atual
             System.out.printf("Possui Formação básica em Gerência? \n1 -> Sim \n2 ou mais -> Não\n");
             int temp = scan.nextInt();
 
             boolean formacaoBasica;
-            if (temp == 1) { // Se o funcionário possui formação básica em gerência
+            if (temp == 1) { // Se o funcionario possui formação básica em gerência
                 formacaoBasica = true;
             } else {
                 formacaoBasica = false;
@@ -296,7 +296,7 @@ public class Banco {
         }
     }
 
-    public void encontrarFunc(int pos) { // Encontra um funcionário com a posição
+    public void encontrarFunc(int pos) { // Encontra um funcionario com a posição
         System.out.println("N -> Nome, CPF");
         for (Agencia agencia : agencias) {
             agencia.localizaAgencia();
@@ -305,7 +305,7 @@ public class Banco {
 
     }
 
-    public void encontrarFunc() { // Sobrecarga do método anterior, para não precisar passar a posição
+    public void encontrarFunc() { // Sobrecarga do método anterior, para nao precisar passar a posição
         System.out.println("N -> Nome, CPF");
         for (Agencia agencia : agencias) {
             int pos = 1;
@@ -318,6 +318,48 @@ public class Banco {
     // -------------------------AGÊNCIAS-------------------------- //
     // ---------------------------------------------------------- //
 
+    private void cadastrarAgencia(Scanner scan) throws IllegalAccessException {
+
+        System.out.println("Acesso permitido apenas para administradores!\nPor favor, faca o login:");
+        System.out.print("Usuario: ");
+        String Usuario = scan.nextLine();
+        System.out.print("Senha: ");
+        String Senha = scan.nextLine();
+
+        // Verifica se o usuário é um administrador
+        boolean acessoAdmin = loginAdmin(Usuario, Senha);
+        if (!acessoAdmin)
+            throw new IllegalAccessException("Acesso Negado!");
+
+        System.out.print("Nome da Agencia: ");
+        String nomeAgencia = scan.nextLine();
+        Agencia nova = new Agencia(nomeAgencia, (agencias.size() + 100));
+        System.out.print("Pais: ");
+        String pais = scan.nextLine();
+        System.out.print("Estado: ");
+        String estado = scan.nextLine();
+        System.out.printf("Cidade: ");
+        String cidade = scan.nextLine();
+        System.out.printf("Bairro: ");
+        String bairro = scan.nextLine();
+        System.out.printf("Rua: ");
+        String rua = scan.nextLine();
+        System.out.printf("Complemento: ");
+        String complemento = scan.nextLine();
+        System.out.printf("Numero: ");
+        int numero = scan.nextInt();
+        System.out.printf("CEP: ");
+        int cep = scan.nextInt();
+        scan.nextLine();
+
+        nova.setEnderecoAgencia(new Endereco(rua, numero, bairro, cidade, estado, pais, complemento, cep));
+
+        System.out.println("Agencia cadastrada com sucesso!");
+        agencias.add(nova);
+
+        Arquivos.salvarArquivoAgencia(agencias);
+    }
+
     public void encontrarAgenciasProx(Scanner Scan) {
         int opcao = 1;
         String estado;
@@ -326,16 +368,16 @@ public class Banco {
 
         while (opcao != 0) {
             System.out.println("Deseja buscar por: ");
-            System.out.println("1 - Estado");
-            System.out.println("2 - Cidade e Estado");
-            System.out.println("3 - Bairro, Cidade e Estado");
+            System.out.println("1 - estado");
+            System.out.println("2 - cidade e estado");
+            System.out.println("3 - bairro, cidade e estado");
             System.out.println("4 - Mostrar todas");
             System.out.println("0 - Voltar");
             try {
                 opcao = Scan.nextInt();
                 Scan.nextLine();
             } catch (InputMismatchException e) {
-                System.out.println("Digite um número de 0 a 4");
+                System.out.println("Digite um numero de 0 a 4");
                 break;
             }
             switch (opcao) {
@@ -370,7 +412,7 @@ public class Banco {
                     opcao = 0;
                     break;
                 default:
-                    System.out.println("Opcao Inválida, tente novamente");
+                    System.out.println("Opcao inavlida, tente novamente");
                     break;
 
             }
@@ -378,22 +420,22 @@ public class Banco {
 
     }
 
-    // Métodos para encontrar agências próximas, com sobrecarga dos parâmetros
-    private void encontrarAgenciasProx(String Bairro, String Cidade, String Estado) {
+    // Métodos para encontrar agências proximas, com sobrecarga dos parâmetros
+    private void encontrarAgenciasProx(String bairro, String cidade, String estado) {
         for (Agencia agencia : agencias) {
-            agencia.localizaAgencia(Bairro, Cidade, Estado);
+            agencia.localizaAgencia(bairro, cidade, estado);
         }
     }
 
-    private void encontrarAgenciasProx(String Cidade, String Estado) {
+    private void encontrarAgenciasProx(String cidade, String estado) {
         for (Agencia agencia : agencias) {
-            agencia.localizaAgencia(Cidade, Estado);
+            agencia.localizaAgencia(cidade, estado);
         }
     }
 
-    private void encontrarAgenciasProx(String Estado) {
+    private void encontrarAgenciasProx(String estado) {
         for (Agencia agencia : agencias) {
-            agencia.localizaAgencia(Estado);
+            agencia.localizaAgencia(estado);
         }
     }
 
@@ -402,6 +444,41 @@ public class Banco {
             agencia.localizaAgencia();
         }
     }
+
+    public int indiceAgencia(Scanner scan) { // informa as agencias disponiveis e retorna a escolhar
+        int numAgencia = 0;
+
+        while (true) { // Encontrar o indice da Agencia;
+            System.out.println("Digite a agencia que deseja: ");
+            encontrarAgenciasProx();
+
+            numAgencia = scan.nextInt() - 1;
+            if (numAgencia > -1 && numAgencia < agencias.size()) { // Verifica se o indice é valido;
+                break;
+            } else
+                System.out.println("Opcao indisponivel, tente novamente");
+                break;
+        }
+        return numAgencia;
+    }
+
+    public int indiceAgencia(int numAgencia) {
+        for (Agencia agencia : agencias) {
+            if (agencia.getNumAgencia() == numAgencia) { // Verifica se o indice é valido;
+                return agencias.indexOf(agencia);
+            }
+        }
+        return -1;
+    }
+
+    public int encontraNumAgencia(Scanner scan) { // retorna o numero da agencia escolhida
+        int numAgencia = indiceAgencia(scan) + 99;
+        return numAgencia;
+    }
+
+    // ------------------------------------------------------------ //
+    // -------------------------CLIENTES-------------------------- //
+    // ---------------------------------------------------------- //
 
 }
 

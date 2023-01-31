@@ -18,7 +18,7 @@ import Banco.Agencia.Funcionarios.Gerente;
 
 public class Arquivos {
 
-    public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programação Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
+    public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programacao Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
 
     // ------------------------------------------------------------ //
     // -------------------ARQUIVO-PARA-CLIENTES------------------- //
@@ -35,7 +35,7 @@ public class Arquivos {
                     out.println(linha);
                 }
             } catch (NullPointerException erro) {
-                System.out.println("Não possui nenhum registro" + erro);
+                System.out.println("Nao possui nenhum registro" + erro);
             }
             out.close();
             arq.close();
@@ -105,7 +105,7 @@ public class Arquivos {
                     }
 
                     if (!CPF_Encontrado)
-                        throw new IllegalArgumentException("Cliente não encontrado");
+                        throw new IllegalArgumentException("Cliente nao encontrado");
 
                     Conta nova;
                     switch (campos[0]) {
@@ -147,7 +147,7 @@ public class Arquivos {
                     }
                 }
                 br.close();
-            } catch (NumberFormatException e) { // função para tratar o erro de conversão de string para int
+            } catch (NumberFormatException e) { // funcao para tratar o erro de conversao de string para int
                 e.printStackTrace(); // imprime o erro
             }
         } catch (IOException erro) {
@@ -167,7 +167,7 @@ public class Arquivos {
                     out.println(linha);
                 }
             } catch (NullPointerException erro) {
-                System.out.println("Não possui nenhum registro" + erro);
+                System.out.println("Nao possui nenhum registro" + erro);
             }
             out.close();
             arq.close();
@@ -216,7 +216,7 @@ public class Arquivos {
                     out.println(linha);
                 }
             } catch (NullPointerException erro) {
-                System.out.println("Não possui nenhum registro" + erro);
+                System.out.println("Nao possui nenhum registro" + erro);
             }
             out.close();
             arq.close();

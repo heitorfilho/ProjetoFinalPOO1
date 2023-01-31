@@ -61,8 +61,8 @@ public class Cliente extends Pessoa {
             this.escolaridade = sc.nextLine();
             this.agenciaCadastrada = agencia;
             System.out.println("Cliente cadastrado com sucesso!");
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
