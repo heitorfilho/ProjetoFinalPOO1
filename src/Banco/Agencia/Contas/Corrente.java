@@ -66,8 +66,8 @@ public class Corrente extends Conta {
             this.taxaAdmin = 30f;
             System.out.println("Conta criada com sucesso!");
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 

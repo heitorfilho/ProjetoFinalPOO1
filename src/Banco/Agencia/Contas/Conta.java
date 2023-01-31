@@ -2,6 +2,7 @@ package Banco.Agencia.Contas;
 
 import java.util.*;
 import Util.*;
+import Util.Exceptions.SaldoInsuficienteException;
 import Banco.Agencia.Agencia;
 import Banco.Agencia.Clientes.Cliente;
 import Banco.Agencia.Contas.Movimentacoes.Movimentacao;
@@ -189,10 +190,10 @@ public abstract class Conta {
     ///// OPERAÇÕES BANCÁRIAS //////
     ///////////////////////////////
 
-    public void sacar(float valor, int senha) throws IllegalArgumentException {
+    public void sacar(float valor, int senha) throws IllegalArgumentException, SaldoInsuficienteException {
         if (verificarSenha(senha) && this.estado == true) {
             if (saldo < valor)
-                throw new IllegalArgumentException("Saldo insuficiente!");
+                throw new SaldoInsuficienteException("Saldo insuficiente!");
             if (valor < 0)
                 throw new IllegalArgumentException("Valor invalido!");
             if (this.saldo >= valor)
@@ -240,7 +241,7 @@ public abstract class Conta {
         }
     }
 
-    public void efetuarPag(float valor, int senha, String tipo) {
+    public void efetuarPag(float valor, int senha, String tipo) throws SaldoInsuficienteException{
         if (verificarSenha(senha)) {
             if (this.saldo >= valor) {
                 this.saldo -= valor;
@@ -251,14 +252,14 @@ public abstract class Conta {
                 this.movimentacoes.add(Nova);
 
             } else {
-                throw new IllegalArgumentException("Saldo insuficiente!");
+                throw new SaldoInsuficienteException("Saldo insuficiente!");
             }
         } else {
             throw new IllegalArgumentException("Senha incorreta!");
         }
     }
 
-    public void efetuarTransf(int numBanco, int numAgencia, int numConta, float valor, int senha) {
+    public void efetuarTransf(int numBanco, int numAgencia, int numConta, float valor, int senha) throws SaldoInsuficienteException {
         if (verificarSenha(senha)) {
             if (valor <= 0) {
                 throw new IllegalArgumentException("Valor invalido!");
@@ -272,7 +273,7 @@ public abstract class Conta {
                 this.movimentacoes.add(Nova);
 
             } else {
-                throw new IllegalArgumentException("Saldo insuficiente!");
+                throw new SaldoInsuficienteException("Saldo insuficiente!");
             }
         } else {
             throw new IllegalArgumentException("Senha incorreta!");

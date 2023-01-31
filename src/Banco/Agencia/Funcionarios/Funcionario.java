@@ -108,8 +108,8 @@ public class Funcionario extends Pessoa {
             System.out.println("Digite a data de ingresso: ");
             // this.dataIngresso = sc.next();
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -128,8 +128,8 @@ public class Funcionario extends Pessoa {
             System.out.println("Digite o ano de ingresso: ");
             // this.dataIngresso = sc.nextInt();
 
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 

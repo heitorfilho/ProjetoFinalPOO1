@@ -1,5 +1,7 @@
 package Util.Exceptions;
 
-public class SaldoInsuficienteException {
-    
+public class SaldoInsuficienteException extends IllegalStateException{
+    public SaldoInsuficienteException(String msg){
+        super(msg);
+    }
 }

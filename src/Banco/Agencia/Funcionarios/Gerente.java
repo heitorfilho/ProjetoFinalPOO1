@@ -124,8 +124,8 @@ public class Gerente extends Funcionario {
      * this.estaEmUmaAgencia = true;
      * System.out.println("Gerente cadastrado com sucesso!");
      * 
-     * } catch (Exception e) {
-     * // TODO: handle exception
+     * } catch (IllegalArgumentException e) {
+     * // System.out.println(e.getMessage());
      * }
      * }
      */

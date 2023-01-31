@@ -76,8 +76,8 @@ public class Salario extends Conta {
                 this.limiteTransferencia = novoLimiteTransferencia;
             }
             System.out.println("Conta criada com sucesso!");
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
 
     }
