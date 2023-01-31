@@ -1,7 +1,6 @@
 package Banco.Agencia.Contas;
 
 import Util.Data;
-import Banco.Agencia.Agencia;
 import Banco.Agencia.Clientes.Cliente;
 import Banco.Agencia.Contas.Movimentacoes.*;
 
@@ -44,14 +43,5 @@ public class Poupanca extends Conta {
         return data;
     }
 
-    // CRIA CONTA//
-
-    @Override
-    public void criaConta(Agencia agencia) {
-        super.criaConta(agencia);
-        this.rendimentoMesAtual = 0.5f;
-        System.out.println("O rendimento mensal atual eh de 0.5%");
-        System.out.println("Conta criada com sucesso!");
-    }
 
 }
