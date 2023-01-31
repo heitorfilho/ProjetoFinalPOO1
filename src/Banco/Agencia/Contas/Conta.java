@@ -23,7 +23,7 @@ public abstract class Conta {
 
     // Conta unica
     public Conta(int numConta, int senha, float saldo, boolean conjunta,
-            Cliente Cliente_primario, int numAgencia, Data aberturaConta) {
+            Cliente clientePrimario, int numAgencia, Data aberturaConta) {
         this.numConta = numConta;
         this.senha = senha;
         this.saldo = saldo;
@@ -32,8 +32,8 @@ public abstract class Conta {
         this.ultimaMovimentacao = aberturaConta;
         this.estado = true;
         this.conjunta = conjunta;
-        // this.clientePrimario = clientePrimario;
-        // this.clienteSecundario = null;
+        this.clientePrimario = clientePrimario;
+        this.clienteSecundario = null;
         ultimaMovimentacao = new Data(0, 0, 0);
         this.movimentacoes = new LinkedList<>();
     }
@@ -425,15 +425,6 @@ public abstract class Conta {
                 + ultimaMovimentacao.printData() + ";";
 
         return data;
-    }
-
-    public void imprime() {
-        System.out.println("Numero da conta: " + this.numConta);
-        System.out.println("Saldo: " + this.saldo);
-        System.out.println("Data de abertura: " + this.aberturaConta);
-        System.out.println("Data da ultima movimentacao: " + this.ultimaMovimentacao);
-        System.out.println("Conta conjunta: " + this.conjunta);
-        System.out.println("Conta ativa: " + this.estado);
     }
 
     public void print() {

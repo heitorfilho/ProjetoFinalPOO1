@@ -20,9 +20,9 @@ public class Arquivos {
 
     public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programação Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
 
-    //////////////////////////////////
-    ///// ARQUIVO PARA CLIENTES /////
-    ////////////////////////////////
+    // ------------------------------ //
+    // ----ARQUIVO PARA CLIENTES---- //
+    // ---------------------------- //
 
     public static void salvarArquivoCliente(LinkedList<Cliente> clientes) {
 
@@ -70,9 +70,9 @@ public class Arquivos {
         return clientes;
     }
 
-    //////////////////////////////////
-    ///// ARQUIVO PARA CONTAS /////
-    ////////////////////////////////
+    // ------------------------------ //
+    // -----ARQUIVO PARA CONTAS----- //
+    // ---------------------------- //
 
     public static LinkedList<Conta> carregarContas(int numeroAgencia, LinkedList<Cliente> clientes) {
         String numAgencia = String.valueOf(numeroAgencia);
@@ -148,7 +148,7 @@ public class Arquivos {
                 }
                 br.close();
             } catch (NumberFormatException e) { // função para tratar o erro de conversão de string para int
-                e.printStackTrace(); // imprime o erro 
+                e.printStackTrace(); // imprime o erro
             }
         } catch (IOException erro) {
             System.out.println(" Arquivo nao encontrado ou corrompido:" + numAgencia + "Contas.csv");
@@ -177,9 +177,9 @@ public class Arquivos {
 
     }
 
-    //////////////////////////////////
-    //// ARQUIVO PARA AGENCIAS ////
-    ////////////////////////////////
+    // -------------------------------- //
+    // -----ARQUIVO PARA AGÊNCIAS----- //
+    // ------------------------------ //
 
     public static LinkedList<Agencia> carregarAgencias() {
         LinkedList<Agencia> agencias = new LinkedList<>();
@@ -226,9 +226,9 @@ public class Arquivos {
 
     }
 
-    //////////////////////////////////
-    //// ARQUIVO PARA FUNCIONARIOS //
-    ////////////////////////////////
+    // ------------------------------------- //
+    // -----ARQUIVO PARA FUNCIONÁRIOS------ //
+    // ----------------------------------- //
 
     public static LinkedList<Pessoa> carregarFuncionarios(int numAgencia) {
         LinkedList<Pessoa> funcionarios = new LinkedList<>();
@@ -296,9 +296,9 @@ public class Arquivos {
         }
     }
 
-    //////////////////////////////////
-    //// ARQUIVO PARA MOVIMENTACOES /
-    ////////////////////////////////
+    // ------------------------------------- //
+    // -----ARQUIVO PARA MOVIMENTAÇÕES----- //
+    // ----------------------------------- //
 
     public static LinkedList<Movimentacao> carregarMovimentacoes(int numeroConta, int numeroAgencia) {
         String numAgencia = String.valueOf(numeroAgencia);
