@@ -271,7 +271,7 @@ public class Arquivos {
         return funcionarios;
     }
 
-    public static void SalvarArquivoFuncionarios(int numeroAgencia, LinkedList<Pessoa> funcionarios) {
+    public static void salvarArquivoFuncionarios(int numeroAgencia, LinkedList<Pessoa> funcionarios) {
         String numAgencia = String.valueOf(numeroAgencia);
         try {
             FileWriter arq = new FileWriter(BaseDeDados + "\\Funcionarios\\" + numAgencia + "Funcionarios.csv");

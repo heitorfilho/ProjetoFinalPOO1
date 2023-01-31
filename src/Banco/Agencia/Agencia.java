@@ -133,11 +133,11 @@ public class Agencia {
     ///////////////////////////////
 
     public void CarregarArquivos(LinkedList<Cliente> clientes) {
-        carregar_Contas(clientes);
-        carregar_Funcionario();
+        carregarContas(clientes);
+        carregarFuncionario();
     }
 
-    public void carregar_Funcionario() {
+    public void carregarFuncionario() {
         this.funcionarios = Arquivos.carregarFuncionarios(this.numAgencia);
         for (int i = 0; i < funcionarios.size(); i++) {
             try {
@@ -151,19 +151,19 @@ public class Agencia {
         }
     }
 
-    public void carregar_Contas(LinkedList<Cliente> Clientes) {
+    public void carregarContas(LinkedList<Cliente> Clientes) {
         this.contas = Arquivos.carregarContas(this.numAgencia, Clientes);
         for (int i = 0; i < contas.size(); i++) {
             contas.get(i).CarregarMovimentacoes();
         }
     }
 
-    public void SalvarArquivo() {
+    public void salvarArquivo() {
         Arquivos.salvarArquivoConta(numAgencia, contas);
         for (int i = 0; i < contas.size(); i++) {
             contas.get(i).SalvarMovimentacoes();
         }
-        Arquivos.SalvarArquivoFuncionarios(numAgencia, funcionarios);
+        Arquivos.salvarArquivoFuncionarios(numAgencia, funcionarios);
     }
 
     /////////////////////////
@@ -182,7 +182,7 @@ public class Agencia {
                 break;
             }
         }
-        Arquivos.SalvarArquivoFuncionarios(numAgencia, funcionarios);
+        Arquivos.salvarArquivoFuncionarios(numAgencia, funcionarios);
     }
 
     public void RemoverGerenteAtual() {
@@ -201,7 +201,7 @@ public class Agencia {
                     continue;
                 }
             }
-            Arquivos.SalvarArquivoFuncionarios(numAgencia, funcionarios);
+            Arquivos.salvarArquivoFuncionarios(numAgencia, funcionarios);
         }
     }
 

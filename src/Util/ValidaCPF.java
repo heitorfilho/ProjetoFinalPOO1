@@ -4,7 +4,7 @@ import java.util.*;
 // import java.util.InputMismatchException;
 
 public interface ValidaCPF {
-    public static boolean validaCPF(String cpf) {
+    public static boolean isCPF(String cpf) {
 
         // CPF's formados por sequencias de numeros iguais sao considerados invalidos
         if (cpf.equals("00000000000") ||

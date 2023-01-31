@@ -3,7 +3,8 @@ package Banco;
 import java.util.*;
 import Banco.Agencia.*;
 import Util.*;
-import Banco.Agencia.Clientes.Cliente;
+import Banco.Agencia.Clientes.*;
+import Banco.Agencia.Funcionarios.*;
 
 public class Banco {
     private LinkedList<Agencia> agencias;
@@ -77,8 +78,8 @@ public class Banco {
                     opcao = 0;
                     break;
                 case 2:
-                    try{
-                        cadastraFuncionario(scan);
+                    try {
+                        // cadastraFuncionario(scan);
                     } catch (IllegalArgumentException e) {
                         System.out.println("Erro ao cadastrar funcionário");
                         System.out.println(e.getMessage());
@@ -89,33 +90,34 @@ public class Banco {
                     opcao = 0;
                     break;
                 case 3:
-                    promoverGerente(scan);
+                    // promoverGerente(scan);
                     opcao = 0;
                     break;
                 case 4:
-                    try{
+                    try {
                         cadastraAgencia(scan);
                     } catch (IllegalAccessException e) {
                         System.out.println(e.getMessage());
-                    } System.out.println("A nova agência precisa de um gerente");
+                    }
+                    System.out.println("A nova agência precisa de um gerente");
                     Arquivos.salvarArquivoAgencia(agencias);
                     agencias = Arquivos.carregarAgencias();
                     opcao = 0;
                     break;
                 case 5:
-                    encontrarFuncionario();
+                    // encontrarFuncionario();
                     opcao = 1;
                     break;
                 case 6:
-                    listaClientes();
+                    // listaClientes();
                     opcao = 1;
                     break;
                 case 7:
-                    listaContas();
+                    // listaContas();
                     opcao = 1;
                     break;
                 case 8:
-                    listaAgencias();
+                    // encontrarAgenciasProx();
                     opcao = 1;
                     break;
                 default:
@@ -127,6 +129,128 @@ public class Banco {
 
         }
     }
+
+    public void acessoFuncionario(Scanner scan) {
+        System.out.println("Digite o nome do funcionário");
+        String nome = scan.nextLine();
+        System.out.println("Digite a senha do funcionário");
+        String senha = scan.nextLine();
+
+        for (Agencia agencia : agencias) {
+            for (Pessoa funcionario : agencia.getFuncionarios()) {
+                if (funcionario.getNome().equals(nome) && funcionario.getSenha().equals(senha)) {
+                    // funcionario.areaDoFuncionario(scan);
+                    return;
+                }
+            }
+        }
+        System.out.println("Funcionário não encontrado");
+    }
+
+    public Pessoa encontrarFuncionario(Scanner scan) throws IllegalArgumentException {
+        try {
+            int func = 1; // variável para o funcionário
+            for (int i = 0; i < agencias.size(); i++) {
+                System.out.print((i + 1) + " - ");
+                agencias.get(i).printNomeLocalizacao();
+            }
+
+            System.out.println("Qual Agência?");
+            int agc = scan.nextInt() - 1; // variável para a agência e -1 para começar a contar do 0
+
+            agencias.get(agc).encontrarFuncionario(1); //
+            System.out.println("Qual Funcionário?");
+            func = scan.nextInt() - 1;
+
+            if (func <= agencias.get(agc).getFuncionarios().size() && agc <= agencias.size()) { // se ambos existem
+                return agencias.get(agc).getFuncionarios().get(func);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Opção Inválida!");
+        } catch (InputMismatchException e) {
+            System.out.println("Valor inválido, digite um numeral!");
+        }
+        throw new IllegalArgumentException("Funcionário não encontrado!");
+
+    }
+
+    public void cadastrarFuncionario(Scanner scan) {
+        // encontrarAgenciasProx();
+
+        int indice = scan.nextInt() - 1;
+        scan.nextLine();
+
+        // Nome
+        System.out.printf("Digite o nome do funcionário");
+        String nome = scan.nextLine();
+
+        // CPF
+        System.out.printf("Digite o CPF do funcionário");
+        String cpf = scan.nextLine();
+        if (!ValidaCPF.isCPF(cpf)) {
+            throw new IllegalArgumentException("CPF inválido!");
+        }
+
+        // Dados Pessoais
+        System.out.printf("Gênero: ");
+        String sexo = scan.nextLine();
+        System.out.printf("Estado Civil: ");
+        String estadoCivil = scan.nextLine();
+
+        // Endereço
+        System.out.printf("Endereco\nPais: ");
+        String pais = scan.nextLine();
+        System.out.printf("Estado: ");
+        String estado = scan.nextLine();
+        System.out.printf("Cidade: ");
+        String cidade = scan.nextLine();
+        System.out.printf("Bairro: ");
+        String bairro = scan.nextLine();
+        System.out.printf("Rua: ");
+        String rua = scan.nextLine();
+        System.out.printf("Complemento: ");
+        String complemento = scan.nextLine();
+        System.out.printf("Número: ");
+        int numero = scan.nextInt();
+        System.out.printf("CEP: ");
+        int cep = scan.nextInt();
+        scan.nextLine();
+
+        // RG
+        System.out.printf("UF do RG (letras): ");
+        String rg_uf = scan.nextLine();
+        System.out.printf("Números do RG: ");
+        int rg_num = scan.nextInt();
+        Data dataIngresso = Data.dataAtual();
+
+        // Data de Nascimento
+        System.out.printf("Data de Nascimento\nDia: ");
+        int dia = scan.nextInt();
+        System.out.printf("Mês: ");
+        int mes = scan.nextInt();
+        System.out.printf("Ano: ");
+        int ano = scan.nextInt();
+
+        // Dados Profissionais
+        System.out.printf("Cargo: ");
+        String cargo = scan.nextLine();
+        System.out.printf("Salário: ");
+        float salario = scan.nextFloat();
+        System.out.printf("Número da Carteira de Trabalho: ");
+        int numCarteiraTrab = scan.nextInt();
+
+        // Criação dos objetos
+        Endereco endereco = new Endereco(pais, numero, cidade, bairro, rua, complemento, estado, cep);
+        Data dataNascimento = new Data(dia, mes, ano);
+        Funcionario novo = new Funcionario(nome, cpf, dataNascimento, endereco, sexo, estadoCivil,
+                numCarteiraTrab, cargo, salario, dataIngresso, rg_num, rg_uf);
+
+        // Adiciona o funcionário na agência
+        agencias.get(indice).getFuncionarios().add(novo);
+        agencias.get(indice).salvarArquivo();
+
+    }
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
