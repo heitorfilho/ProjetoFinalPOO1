@@ -3,9 +3,11 @@ package Banco;
 import java.util.*;
 import Banco.Agencia.*;
 import Util.*;
+import Util.Exceptions.*;
 import Banco.Agencia.Contas.*;
 import Banco.Agencia.Funcionarios.*;
 import Banco.Clientes.*;
+
 
 public class Banco implements ValidaCPF{
     private LinkedList<Agencia> agencias;
@@ -81,7 +83,7 @@ public class Banco implements ValidaCPF{
                 case 2:
                     try {
                         cadastrarFuncionario(scan);
-                    } catch (IllegalArgumentException e) {
+                    } catch (ParametroInvalidoException e) {
                         System.out.println("Erro ao cadastrar funcionario");
                         System.out.println(e.getMessage());
                     } catch (InputMismatchException e) {
@@ -135,7 +137,7 @@ public class Banco implements ValidaCPF{
         System.out.println("Acesso ao sistema esta em manutencao no momento, tente novamente mais tarde");
     }
 
-    public Pessoa encontrarFuncionario(Scanner scan) throws IllegalArgumentException {
+    public Pessoa encontrarFuncionario(Scanner scan) throws ParametroInvalidoException {
         try {
             int func = 1; // variável para o funcionario
             for (int i = 0; i < agencias.size(); i++) {
@@ -158,7 +160,7 @@ public class Banco implements ValidaCPF{
         } catch (InputMismatchException e) {
             System.out.println("Valor invalido, digite um numeral!");
         }
-        throw new IllegalArgumentException("Funcionario nao encontrado!");
+        throw new ParametroInvalidoException("Funcionario nao encontrado!");
 
     }
 
@@ -176,7 +178,7 @@ public class Banco implements ValidaCPF{
         System.out.println("Digite o CPF do funcionario");
         String cpf = scan.nextLine();
         if (!ValidaCPF.isCPF(cpf)) {
-            throw new IllegalArgumentException("CPF invalido!");
+            throw new ParametroInvalidoException("CPF invalido!");
         }
 
         // Dados Pessoais
@@ -277,7 +279,7 @@ public class Banco implements ValidaCPF{
                     agencias.get(i).setGerente(novo, funcionarioAtual);
                 }
             }
-        } catch (IllegalArgumentException e) {
+        } catch (ParametroInvalidoException e) {
             System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println(e.getSuppressed());
@@ -573,7 +575,7 @@ public class Banco implements ValidaCPF{
         System.out.println("Digite o seu CPF: ");
         String CPF = scan.nextLine();
         if (!ValidaCPF.isCPF(CPF)) {
-            throw new IllegalArgumentException("CPF invalido");
+            throw new ParametroInvalidoException("CPF invalido");
         }
         int indiceCliente = encontrarCliente(CPF);
 
@@ -665,7 +667,7 @@ public class Banco implements ValidaCPF{
                                 valor = scan.nextFloat();
 
                                 if (valor > solicitada.getSaldo() || valor <= 0) {
-                                    throw new IllegalArgumentException("Saldo insuficiente");
+                                    throw new ParametroInvalidoException("Saldo insuficiente");
                                 }
                                 System.out.print("Numero da agencia de destino: ");
                                 numAgencia = scan.nextInt();
@@ -682,7 +684,7 @@ public class Banco implements ValidaCPF{
                                 agencias.get(solicitada.getNumAgencia() - 100).alteraConta(solicitada);
                             } else
                                 System.out.println("Conta de destino nao encontrada ou senha incorreta");
-                        } catch (IllegalArgumentException e) {
+                        } catch (ParametroInvalidoException e) {
                             System.out.println(e.getMessage());
                             acesso = true;
                         } catch (InputMismatchException e) {
@@ -701,7 +703,7 @@ public class Banco implements ValidaCPF{
                         opcao = 999;
                         break;
                 }
-            } catch (IllegalArgumentException e) {
+            } catch (ParametroInvalidoException e) {
                 System.out.println(e.getMessage());
             } catch (InputMismatchException e) {
                 System.err.println("Digite valores validos"); // System.err: Variacao de system.out para erros
@@ -725,7 +727,7 @@ public class Banco implements ValidaCPF{
             try {
                 indiceCliente = indiceCliente(scan);
                 teste = false;
-            } catch (IllegalArgumentException e) {
+            } catch (ParametroInvalidoException e) {
                 System.out.println(e.getMessage());
                 teste = true;
             }
@@ -838,7 +840,7 @@ public class Banco implements ValidaCPF{
 
                 try {
                     solicitada = agencias.get(indiceAgencia).encontrarConta(numConta, senha); // Conta solicitada
-                } catch (IllegalArgumentException e) {
+                } catch (ParametroInvalidoException e) {
                     System.out.println(e.getMessage());
                     acesso = true;
                     break; // Sai do while

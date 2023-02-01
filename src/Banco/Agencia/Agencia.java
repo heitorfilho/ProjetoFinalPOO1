@@ -6,6 +6,7 @@ import Banco.Agencia.Contas.*;
 import Banco.Agencia.Funcionarios.*;
 import Banco.Clientes.*;
 import Util.*;
+import Util.Exceptions.ParametroInvalidoException;
 
 public class Agencia {
 
@@ -221,30 +222,30 @@ public class Agencia {
     ///// CONTAS /////
     /////////////////
 
-    public Conta encontrarConta(int numConta, int senha) throws IllegalArgumentException {
+    public Conta encontrarConta(int numConta, int senha) throws ParametroInvalidoException {
         for (Conta conta : this.contas) {
             if (conta.getNumConta() == numConta) {
                 if (conta.verificarSenha(senha)) {
                     if (!conta.isEstado()) {
-                        throw new IllegalArgumentException("Conta bloqueada");
+                        throw new ParametroInvalidoException("Conta bloqueada");
                     } else {
                         return conta;
                     }
                 } else {
-                    throw new IllegalArgumentException("Senha incorreta");
+                    throw new ParametroInvalidoException("Senha incorreta");
                 }
             }
         }
-        throw new IllegalArgumentException("Conta nao encontrada");
+        throw new ParametroInvalidoException("Conta nao encontrada");
     }
 
-    public Conta encontrarConta(int numConta) throws IllegalArgumentException {
+    public Conta encontrarConta(int numConta) throws ParametroInvalidoException {
         for (Conta conta : this.contas) {
             if (conta.getNumConta() == numConta) {
                 return conta;
             }
         }
-        throw new IllegalArgumentException("Conta nao encontrada");
+        throw new ParametroInvalidoException("Conta nao encontrada");
     }
 
     // Antigo

@@ -2,6 +2,7 @@ package Banco.Agencia.Contas;
 
 import Banco.Clientes.Cliente;
 import Util.Data;
+import Util.Exceptions.ParametroInvalidoException;
 
 public class Salario extends Conta {
 
@@ -22,20 +23,20 @@ public class Salario extends Conta {
         return "Salario;" + super.saidaArquivo() + ";" + this.limiteSaque + ";" + this.limiteTransferencia;
     }
 
-    public float getLimiteSaque(int senha) throws IllegalArgumentException {
+    public float getLimiteSaque(int senha) throws ParametroInvalidoException {
         if (this.senha == senha)
             return this.limiteSaque;
-        throw new IllegalArgumentException("Senha incorreta");
+        throw new ParametroInvalidoException("Senha incorreta");
     }
 
     public void setLimiteChequeEspecial(float limiteSaque) {
         this.limiteSaque = limiteSaque;
     }
 
-    public float getLimiteTransferencia(int senha) throws IllegalArgumentException {
+    public float getLimiteTransferencia(int senha) throws ParametroInvalidoException {
         if (this.senha == senha)
             return this.limiteTransferencia;
-        throw new IllegalArgumentException("Senha incorreta");
+        throw new ParametroInvalidoException("Senha incorreta");
     }
 
     public void setLimiteTransferencia(float limiteTransferencia) {
