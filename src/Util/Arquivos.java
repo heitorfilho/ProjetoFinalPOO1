@@ -290,7 +290,7 @@ public class Arquivos {
                     String linha;
 
                     if (percorre.getCargo().equals("Gerente"))
-                        linha = percorre.printGerente();
+                        linha = percorre.printFuncionario();
                     else
                         linha = percorre.printFuncionario();
                     out.println(linha);

@@ -90,8 +90,9 @@ public class Gerente extends Funcionario {
 
     @Override
     public String printFuncionario() {
-        String data = super.printFuncionario() + this.dataIngressoGerente.printData() + ";" + // this.agenciaGerenciada.print();
-                this.formacaoBasica + ";" + this.estaEmUmaAgencia + ";";
+        String data = super.printFuncionario()  + // this.agenciaGerenciada.print();
+            this.numAgencia + ";" +  this.estaEmUmaAgencia + ";" + this.formacaoBasica + ";" + this.dataIngressoGerente.printData()
+            + this.comissaoGerente + ";";// + this.estaEmUmaAgencia + ";";
 
         return data;
 

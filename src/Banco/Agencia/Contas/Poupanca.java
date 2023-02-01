@@ -16,6 +16,14 @@ public class Poupanca extends Conta {
         this.rendimentoMesAtual = 0.5f;
     }
 
+    public Poupanca(int numConta, int senha, float saldo, boolean conjunta,
+            Cliente clientePrimario, int numAgencia,
+            Data aberturaConta, float rendimentoMesAtual, Cliente clienteSecundario) {
+        super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta, clienteSecundario);
+        this.tipoConta = "Poupanca";
+        this.rendimentoMesAtual = 0.5f;
+    }
+
     @Override
     public String saidaArquivo() {
         return "Poupanca;"+ super.saidaArquivo() + ";" + this.rendimentoMesAtual ;

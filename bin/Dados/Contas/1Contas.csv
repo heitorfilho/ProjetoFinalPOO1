@@ -1,1 +1,3 @@
-Corrente;168311389;1234;0.0;false;Banco.Clientes.Cliente@7ba4f24f;null;1;1;2;2023;1;2;2023;2.0;30.0;
+Corrente;168311389;1234;0.0;false;Banco.Clientes.Cliente@1b6d3586;null;1;1;2;2023;1;2;2023;2.0;30.0;
+Poupanca;560781123;1234;0.0;true;Banco.Clientes.Cliente@4554617c;Banco.Clientes.Cliente@74a14482;1;1;2;2023;0;0;0;0.5;
+Poupanca;622507545;1234;0.0;true;Banco.Clientes.Cliente@1540e19d;Banco.Clientes.Cliente@677327b6;1;1;2;2023;0;0;0;0.5;

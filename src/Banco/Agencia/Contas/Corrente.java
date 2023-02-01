@@ -17,6 +17,15 @@ public class Corrente extends Conta {
         this.taxaAdmin = 30f;
     }
 
+    public Corrente(int numConta, int senha, float saldo, boolean conjunta,
+            Cliente clientePrimario, int numAgencia,
+            Data aberturaConta, float limCheque, float taxaAdmin, Cliente clienteSecundario) {
+        super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta, clienteSecundario);
+        this.tipoConta = "Corrente";
+        this.limCheque = 2f;
+        this.taxaAdmin = 30f;
+    }
+
     @Override
     public String saidaArquivo() {
         String data = "Corrente;" + super.saidaArquivo() + ";" + this.limCheque + ";" + this.taxaAdmin;

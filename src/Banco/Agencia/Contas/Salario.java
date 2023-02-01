@@ -18,6 +18,15 @@ public class Salario extends Conta {
         this.limiteTransferencia = limiteTransferencia;
     }
 
+    public Salario(int numConta, int senha, float saldo, boolean conjunta,
+            Cliente clientePrimario, int numAgencia,
+            Data aberturaConta, float limiteSaque, float limiteTransferencia, Cliente clienteSecundario) {
+        super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta, clienteSecundario);
+        this.tipoConta = "Salario";
+        this.limiteSaque = limiteSaque;
+        this.limiteTransferencia = limiteTransferencia;
+    }
+
     @Override
     public String saidaArquivo() {
         return "Salario;" + super.saidaArquivo() + ";" + this.limiteSaque + ";" + this.limiteTransferencia;

@@ -38,6 +38,24 @@ public abstract class Conta {
         this.movimentacoes = new LinkedList<>();
     }
 
+    // Conta conjunta
+    public Conta(int numConta, int senha, float saldo, boolean conjunta,
+            Cliente clientePrimario, int numAgencia,
+            Data aberturaConta, Cliente clienteSecundario) {
+        this.numConta = numConta;
+        this.senha = senha;
+        this.saldo = saldo;
+        this.aberturaConta = aberturaConta;
+        this.ultimaMovimentacao = aberturaConta;
+        this.estado = true;
+        this.numAgencia = numAgencia;
+        this.conjunta = conjunta;
+        this.clientePrimario = clientePrimario;
+        this.clienteSecundario = clienteSecundario;
+        ultimaMovimentacao = new Data(0, 0, 0);
+        this.movimentacoes = new LinkedList<>();
+    }
+    
     public Conta() {
         this.estado = true;
     }
@@ -341,7 +359,7 @@ public abstract class Conta {
 
     public void CarregarMovimentacoes(int numeroAgencia) {
         this.movimentacoes = Arquivos.carregarMovimentacoes(numConta, numeroAgencia);
-        atualizarContas();
+        //atualizarContas();
     }
 
     public void SalvarMovimentacoes(int numeroAgencia) {

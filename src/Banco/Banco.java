@@ -52,7 +52,7 @@ public class Banco implements ValidaCPF {
     public void areaDoFuncionario(Scanner scan) {
         int opcao = -1;
         while (opcao != 0) {
-            System.out.println("1 - Entrar no sistema");
+            System.out.println("\n1 - Entrar no sistema");
             System.out.println("2 - Cadastrar funcionario");
             System.out.println("3 - Promover a gerente");
             System.out.println("4 - Cadastrar nova agencia");
@@ -170,62 +170,64 @@ public class Banco implements ValidaCPF {
         scan.nextLine();
 
         // Nome
-        System.out.println("Digite o nome do funcionario");
+        System.out.printf("Digite o nome do funcionario: ");
         String nome = scan.nextLine();
 
         // CPF
-        System.out.println("Digite o CPF do funcionario");
+        System.out.printf("Digite o CPF do funcionario: ");
         String cpf = scan.nextLine();
         if (!ValidaCPF.isCPF(cpf)) {
             throw new ParametroInvalidoException("CPF invalido!");
         }
 
         // Dados Pessoais
-        System.out.println("Genero: ");
+        System.out.printf("\nDados Pessoais");
+        System.out.printf("\nGenero: ");
         String sexo = scan.nextLine();
-        System.out.println("Estado Civil: ");
+        System.out.printf("Estado Civil: ");
         String estadoCivil = scan.nextLine();
 
         // Endereço
-        System.out.println("Endereco\nPais: ");
+        System.out.printf("\nEndereco\nPais: ");
         String pais = scan.nextLine();
-        System.out.println("Estado: ");
+        System.out.printf("Estado: ");
         String estado = scan.nextLine();
-        System.out.println("Cidade: ");
+        System.out.printf("Cidade: ");
         String cidade = scan.nextLine();
-        System.out.println("Bairro: ");
+        System.out.printf("Bairro: ");
         String bairro = scan.nextLine();
-        System.out.println("Rua: ");
+        System.out.printf("Rua: ");
         String rua = scan.nextLine();
-        System.out.println("Complemento: ");
+        System.out.printf("Complemento: ");
         String complemento = scan.nextLine();
-        System.out.println("Numero: ");
+        System.out.printf("Numero: ");
         int numero = scan.nextInt();
-        System.out.println("CEP: ");
+        System.out.printf("CEP: ");
         int cep = scan.nextInt();
         scan.nextLine();
 
         // RG
-        System.out.println("UF do RG (letras): ");
+        System.out.printf("UF do RG (letras): ");
         String rg_uf = scan.nextLine();
-        System.out.println("Numeros do RG: ");
+        System.out.printf("Numeros do RG: ");
         int rg_num = scan.nextInt();
         Data dataIngresso = Data.dataAtual();
 
         // Data de Nascimento
-        System.out.println("Data de Nascimento\nDia: ");
+        System.out.printf("\nData de Nascimento\nDia: ");
         int dia = scan.nextInt();
-        System.out.println("Mês: ");
+        System.out.printf("Mês: ");
         int mes = scan.nextInt();
-        System.out.println("Ano: ");
+        System.out.printf("Ano: ");
         int ano = scan.nextInt();
 
         // Dados Profissionais
-        System.out.println("Cargo: ");
+        System.out.printf("Cargo: ");
         String cargo = scan.nextLine();
-        System.out.println("Salario: ");
+        cargo = scan.nextLine();
+        System.out.printf("Salario: ");
         float salario = scan.nextFloat();
-        System.out.println("Numero da Carteira de Trabalho: ");
+        System.out.printf("Numero da Carteira de Trabalho: ");
         int numCarteiraTrab = scan.nextInt();
 
         // Criaçao dos objetos
@@ -235,6 +237,7 @@ public class Banco implements ValidaCPF {
                 numCarteiraTrab, cargo, salario, dataIngresso, rg_num, rg_uf);
 
         // Adiciona o funcionario na agencia
+        System.out.println("Funcionario cadastrado com sucesso!");
         agencias.get(indice).getFuncionarios().add(novo);
         agencias.get(indice).salvarArquivo();
 
@@ -244,7 +247,7 @@ public class Banco implements ValidaCPF {
         System.out.println("Escolha um funcionario");
         try {
             Funcionario funcionarioAtual = (Funcionario) encontrarFuncionario(scan); // Encontra o funcionario atual
-            System.out.println("Possui Formaçao básica em Gerência? \n1 -> Sim \n2 ou mais -> Nao\n");
+            System.out.println("Possui Formaçao básica em Gerência? \n1 -> Sim \n2 ou mais -> Nao");
             int temp = scan.nextInt();
 
             boolean formacaoBasica;
@@ -276,6 +279,7 @@ public class Banco implements ValidaCPF {
             for (int i = 0; i < agencias.size(); i++) {
                 if (agencias.get(i).isFuncionarioDaAgencia(funcionarioAtual)) {
                     agencias.get(i).setGerente(novo, funcionarioAtual);
+                    System.out.println("Funcionario promovido a gerente!");
                 }
             }
         } catch (ParametroInvalidoException e) {
@@ -484,6 +488,7 @@ public class Banco implements ValidaCPF {
                 if (!cpfValido) { // Se o cpf for invalido, o cliente tem 3 tentativas
                     opcao--;
                     System.out.println("CPF invalido, voce tem mais " + opcao + " tentativas");
+                    cpf = "0";
                 } else {
                     Cliente novoCliente = new Cliente();
                     for (Cliente cliente : clientes) { // Verifica se o cliente ja esta cadastrado
@@ -507,7 +512,7 @@ public class Banco implements ValidaCPF {
 
                     // Endereco
                     System.out.printf("Endereco");
-                    System.out.printf("Rua: ");
+                    System.out.printf("\nRua: ");
                     String rua = scan.nextLine();
                     System.out.printf("Bairro: ");
                     String bairro = scan.nextLine();
@@ -526,7 +531,7 @@ public class Banco implements ValidaCPF {
 
                     // Data de nascimento
                     System.out.printf("Data de nascimento");
-                    System.out.printf("Dia: ");
+                    System.out.printf("\nDia: ");
                     int dia = scan.nextInt();
                     System.out.printf("Mes: ");
                     int mes = scan.nextInt();
@@ -554,6 +559,7 @@ public class Banco implements ValidaCPF {
             }
 
         }
+        System.out.println("Cliente cadastrado com sucesso!");
         Arquivos.salvarArquivoCliente(clientes);
     }
 
@@ -571,6 +577,8 @@ public class Banco implements ValidaCPF {
         // Encotrar o cliente existente no banco
         System.out.printf("Digite o seu CPF: ");
         String CPF = scan.nextLine();
+        System.out.printf("Confirme o seu CPF: ");
+        CPF = scan.nextLine();
         if (!ValidaCPF.isCPF(CPF)) {
             throw new ParametroInvalidoException("CPF invalido");
         }
