@@ -228,12 +228,18 @@ public class Agencia {
         for (Conta conta : this.contas) {
             if (conta.getNumConta() == numConta) {
                 if (conta.getSenha() != senha) {
-                    if (!conta.isEstado()) {
-                        throw new IllegalArgumentException("Conta inativa");
-                    }
-                } else
                     throw new IllegalArgumentException("Senha incorreta");
-                // conta.print();
+                }
+                conta.print();
+                return conta;
+            }
+        }
+        throw new IllegalArgumentException("Conta nao encontrada");
+    }
+
+    public Conta encontrarConta(int numConta) throws IllegalArgumentException {
+        for (Conta conta : this.contas) {
+            if (conta.getNumConta() == numConta) {
                 return conta;
             }
         }

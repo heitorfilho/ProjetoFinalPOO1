@@ -26,6 +26,7 @@ public class Arquivos {
     // -------------------ARQUIVO-PARA-CLIENTES------------------- //
     // ---------------------------------------------------------- //
 
+    //NAO ALTERAR -> ESTA FUNCIONANDO
     public static void salvarArquivoCliente(LinkedList<Cliente> clientes) {
 
         try {
@@ -47,6 +48,7 @@ public class Arquivos {
 
     }
 
+    //NAO ALTERAR -> ESTA FUNCIONANDO
     public static LinkedList<Cliente> carregarClientes() {
         LinkedList<Cliente> clientes = new LinkedList<>();
 
@@ -76,6 +78,7 @@ public class Arquivos {
     // -------------------ARQUIVO-PARA-CONTAS--------------------- //
     // ---------------------------------------------------------- //
 
+    // MAIOR PARTE FUNCIONANDO, SO NAO ENTENDI A LOGICA DO CPF ENCONTRADO   
     public static LinkedList<Conta> carregarContas(int numeroAgencia, LinkedList<Cliente> clientes) {
         String numAgencia = String.valueOf(numeroAgencia);
         LinkedList<Conta> contas = new LinkedList<>();
@@ -159,6 +162,7 @@ public class Arquivos {
         return contas;
     }
 
+    // NAO ALTERAR -> ESTA FUNCIONANDO  
     public static void salvarArquivoConta(int numeroAgencia, LinkedList<Conta> contas) {
         String numAgencia = String.valueOf(numeroAgencia);
         try {
@@ -184,6 +188,7 @@ public class Arquivos {
     // -------------------ARQUIVO-PARA-AGENCIAS------------------- //
     // ---------------------------------------------------------- //
 
+    // NAO ALTERAR -> ESTA FUNCIONANDO
     public static LinkedList<Agencia> carregarAgencias() {
         LinkedList<Agencia> agencias = new LinkedList<>();
 
@@ -208,6 +213,7 @@ public class Arquivos {
         return agencias;
     }
 
+    // NAO ALTERAR -> ESTA FUNCIONANDO
     public static void salvarArquivoAgencia(LinkedList<Agencia> agencias) {
 
         try {

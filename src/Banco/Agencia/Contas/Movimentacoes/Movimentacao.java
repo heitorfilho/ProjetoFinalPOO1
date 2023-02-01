@@ -120,7 +120,7 @@ public class Movimentacao {
     public void TipoCanalTransacao() { // Metodo para descobrir qual eh o canal de transacao
         try (Scanner sc = new Scanner(System.in)) {
             int opcao = 4;
-            while (opcao != 1 || opcao != 2 || opcao != 3) {
+            while (opcao != 1 && opcao != 2 && opcao != 3) {
                 System.out.println(
                         "Qual o canal da transacao? (1 - Internet Banking, 2 - Caixa Eletronico, 3 - Caixa Fisico)");
                 opcao = sc.nextInt();

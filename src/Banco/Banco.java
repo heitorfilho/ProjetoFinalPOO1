@@ -169,62 +169,62 @@ public class Banco {
         scan.nextLine();
 
         // Nome
-        System.out.printf("Digite o nome do funcionario");
+        System.out.println("Digite o nome do funcionario");
         String nome = scan.nextLine();
 
         // CPF
-        System.out.printf("Digite o CPF do funcionario");
+        System.out.println("Digite o CPF do funcionario");
         String cpf = scan.nextLine();
         if (!ValidaCPF.isCPF(cpf)) {
             throw new IllegalArgumentException("CPF invalido!");
         }
 
         // Dados Pessoais
-        System.out.printf("Genero: ");
+        System.out.println("Genero: ");
         String sexo = scan.nextLine();
-        System.out.printf("Estado Civil: ");
+        System.out.println("Estado Civil: ");
         String estadoCivil = scan.nextLine();
 
         // Endereço
-        System.out.printf("Endereco\nPais: ");
+        System.out.println("Endereco\nPais: ");
         String pais = scan.nextLine();
-        System.out.printf("Estado: ");
+        System.out.println("Estado: ");
         String estado = scan.nextLine();
-        System.out.printf("Eidade: ");
+        System.out.println("Cidade: ");
         String cidade = scan.nextLine();
-        System.out.printf("Bairro: ");
+        System.out.println("Bairro: ");
         String bairro = scan.nextLine();
-        System.out.printf("Rua: ");
+        System.out.println("Rua: ");
         String rua = scan.nextLine();
-        System.out.printf("Complemento: ");
+        System.out.println("Complemento: ");
         String complemento = scan.nextLine();
-        System.out.printf("Numero: ");
+        System.out.println("Numero: ");
         int numero = scan.nextInt();
-        System.out.printf("CEP: ");
+        System.out.println("CEP: ");
         int cep = scan.nextInt();
         scan.nextLine();
 
         // RG
-        System.out.printf("UF do RG (letras): ");
+        System.out.println("UF do RG (letras): ");
         String rg_uf = scan.nextLine();
-        System.out.printf("Numeros do RG: ");
+        System.out.println("Numeros do RG: ");
         int rg_num = scan.nextInt();
         Data dataIngresso = Data.dataAtual();
 
         // Data de Nascimento
-        System.out.printf("Data de Nascimento\nDia: ");
+        System.out.println("Data de Nascimento\nDia: ");
         int dia = scan.nextInt();
-        System.out.printf("Mês: ");
+        System.out.println("Mês: ");
         int mes = scan.nextInt();
-        System.out.printf("Ano: ");
+        System.out.println("Ano: ");
         int ano = scan.nextInt();
 
         // Dados Profissionais
-        System.out.printf("Cargo: ");
+        System.out.println("Cargo: ");
         String cargo = scan.nextLine();
-        System.out.printf("Salario: ");
+        System.out.println("Salario: ");
         float salario = scan.nextFloat();
-        System.out.printf("Numero da Carteira de Trabalho: ");
+        System.out.println("Numero da Carteira de Trabalho: ");
         int numCarteiraTrab = scan.nextInt();
 
         // Criaçao dos objetos
@@ -243,7 +243,7 @@ public class Banco {
         System.out.println("Escolha um funcionario");
         try {
             Funcionario funcionarioAtual = (Funcionario) encontrarFuncionario(scan); // Encontra o funcionario atual
-            System.out.printf("Possui Formaçao básica em Gerência? \n1 -> Sim \n2 ou mais -> Nao\n");
+            System.out.println("Possui Formaçao básica em Gerência? \n1 -> Sim \n2 ou mais -> Nao\n");
             int temp = scan.nextInt();
 
             boolean formacaoBasica;
@@ -326,17 +326,17 @@ public class Banco {
         String pais = scan.nextLine();
         System.out.print("Estado: ");
         String estado = scan.nextLine();
-        System.out.printf("Cidade: ");
+        System.out.println("Cidade: ");
         String cidade = scan.nextLine();
-        System.out.printf("Bairro: ");
+        System.out.println("Bairro: ");
         String bairro = scan.nextLine();
-        System.out.printf("Rua: ");
+        System.out.println("Rua: ");
         String rua = scan.nextLine();
-        System.out.printf("Complemento: ");
+        System.out.println("Complemento: ");
         String complemento = scan.nextLine();
-        System.out.printf("Numero: ");
+        System.out.println("Numero: ");
         int numero = scan.nextInt();
-        System.out.printf("CEP: ");
+        System.out.println("CEP: ");
         int cep = scan.nextInt();
         scan.nextLine();
 
@@ -595,6 +595,7 @@ public class Banco {
     // -------------------------CONTAS---------------------------- //
     // ---------------------------------------------------------- //
 
+    // ESTA COM ERRO NO SCANNER
     public void acessarConta(Scanner scan) {
         int opcao = 1;
         Conta solicitada = loginConta(scan);
@@ -615,7 +616,7 @@ public class Banco {
             System.out.println("0 - Sair");
 
             opcao = scan.nextInt();
-            scan.nextLine();
+            //scan.nextLine();
             boolean acesso = true;
 
             // variaveis para operacoes
@@ -641,7 +642,7 @@ public class Banco {
                         System.out.println("Digite a senha: ");
                         senha = scan.nextInt();
                         solicitada.depositar(valor, senha);
-                        agencias.get(solicitada.getNumAgencia() - 100).alteraConta(solicitada);
+                        //agencias.get(solicitada.getNumAgencia()).alteraConta(solicitada);
                         break;
                     case 3:
                         System.out.println("Digite o valor a ser sacado: ");
@@ -772,7 +773,7 @@ public class Banco {
         Data data = Data.dataAtual(); // Registra a data de criacao da conta
 
         System.out.println("Digite o tipo de conta: ");
-        System.out.printf("1 - Conta Corrente\n2 - Conta Poupanca\n3 - Salario");
+        System.out.println("1 - Conta Corrente\n2 - Conta Poupanca\n3 - Salario");
         opcao = scan.nextInt();
 
         int numAgencia = agencias.get(indiceAgencia).getNumAgencia(); // numero da agencia que contem a conta solicitada
@@ -819,12 +820,12 @@ public class Banco {
 
             try {
                 System.out.println("Bem-vindo ao login de conta");
-                System.out.printf("Agencia: ");
+                System.out.println("Agencia: ");
                 int numAgencia = scan.nextInt();
-                System.out.printf("Conta: ");
+                System.out.println("Conta: ");
                 int numConta = scan.nextInt();
                 scan.nextLine();
-                System.out.printf("Senha: ");
+                System.out.println("Senha: ");
                 int senha = scan.nextInt();
 
                 int indiceAgencia = indiceAgencia(numAgencia); // indice da agencia que contem a conta solicitada
