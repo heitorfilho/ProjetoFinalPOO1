@@ -10,20 +10,18 @@ public class Gerente extends Funcionario {
     private boolean formacaoBasica;
     private Data dataIngressoGerente;
     private boolean estaEmUmaAgencia;
-    private int numAgenciaGerenciada;
+    private int numAgencia;
     private Agencia agenciaGerenciada; // tive que colocar como comentario para nao atrapalhar na parte de arquivos
     private static float comissaoGerente = 1000; // Atributo estatico
 
     public Gerente(String nome, String cpf, Data dataNascimento, Endereco endereco, String sexo, String estadoCivil,
             int numCarteiraTrab, float salario, Data dataIngresso, int rg_num, String rg_uf,
             boolean formacaoBasica,
-            Data dataIngressoGerente/* , Agencia agenciaGerenciada, boolean estaEmUmaAgencia */) {
+            Data dataIngressoGerente) {
         super(nome, cpf, dataNascimento, endereco, sexo, estadoCivil, numCarteiraTrab, "Gerente", salario, dataIngresso,
                 rg_num, rg_uf);
         this.dataIngressoGerente = dataIngressoGerente;
-        // this.agenciaGerenciada = agenciaGerenciada;
         this.formacaoBasica = formacaoBasica;
-        // this.formacaoBasica = true;
         if (agenciaGerenciada == null) {
             this.estaEmUmaAgencia = false;
         } else {
@@ -51,10 +49,10 @@ public class Gerente extends Funcionario {
         return comissaoGerente;
     }
 
-    public int getNumAgenciaGerenciada() {
-        return this.numAgenciaGerenciada;
+    public int getNumAgencia() {
+        return this.numAgencia;
     }
-    
+
     public Agencia getAgenciaGerenciada() {
         return this.agenciaGerenciada;
     }
@@ -71,17 +69,23 @@ public class Gerente extends Funcionario {
         this.estaEmUmaAgencia = estaEmUmaAgencia;
     }
 
-    public void setAgencia(int numAgenciaGerenciada) {
-        this.numAgenciaGerenciada = numAgenciaGerenciada;
+    public void setNumAgencia(int numAgencia) {
+        this.numAgencia = numAgencia;
     }
-
-    // public void setAgencia(Agencia agencia) { // Agencia agencia
-    // this.agenciaGerenciada = agencia;
-    // this.estaEmUmaAgencia = true;
-    // }
 
     public static void setComissaoGerente(float comissaoGerente) {
         Gerente.comissaoGerente = comissaoGerente;
+    }
+
+    @Override
+    public void calculaSalario() { // Metodo calcula salario especifico para gerente
+
+        if (this.getSalarioAjustado() != true) {
+            super.calculaSalario();
+            this.setSalario(this.getSalario() + Gerente.comissaoGerente);
+        } else {
+            System.out.println("Gerente ja teve seu salario ajustado");
+        }
     }
 
     @Override
@@ -91,18 +95,6 @@ public class Gerente extends Funcionario {
 
         return data;
 
-    }
-
-    @Override
-    public void calculaSalario() { // Metodo calcula salario especifico para gerente
-
-        if(this.getSalarioAjustado() != true){
-            super.calculaSalario();
-            this.setSalario(this.getSalario() + Gerente.comissaoGerente);
-        }
-        else{
-            System.out.println("Gerente ja teve seu salario ajustado");
-        }
     }
 
 }

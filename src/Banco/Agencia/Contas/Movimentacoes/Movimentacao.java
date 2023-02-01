@@ -1,7 +1,6 @@
 package Banco.Agencia.Contas.Movimentacoes;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 import Util.Data;
 
@@ -14,7 +13,6 @@ public class Movimentacao {
     private int numContaDestinatario;
     private int numAgenciaDestinatario;
     private int numBancoDestinatario;
-    // private Conta contaAssociada; -> necessario ser uma conta corrente
 
     public Movimentacao(Data dataTransacao, float valor, String canalTransacao, String tipoTransacao,
             int numContaDestinatario,
@@ -151,7 +149,6 @@ public class Movimentacao {
 
     // Float eh um objeto, nao um tipo primitivo, que
     // pode ser null para representar um valor desconhecido
-    // | _ |
     public void mov(Float valor) { // método auxiliar para criar movimentacao de qualquer tipo
         this.dataTransacao = Data.dataAtual();
         this.valor = valor;

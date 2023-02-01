@@ -1,6 +1,6 @@
 package Banco.Agencia.Contas;
 
-import Banco.Agencia.Clientes.Cliente;
+import Banco.Clientes.Cliente;
 import Util.Data;
 
 public class Salario extends Conta {
@@ -26,7 +26,6 @@ public class Salario extends Conta {
         if (this.senha == senha)
             return this.limiteSaque;
         throw new IllegalArgumentException("Senha incorreta");
-
     }
 
     public void setLimiteChequeEspecial(float limiteSaque) {
@@ -41,12 +40,6 @@ public class Salario extends Conta {
 
     public void setLimiteTransferencia(float limiteTransferencia) {
         this.limiteTransferencia = limiteTransferencia;
-    }
-
-    public String printConta() {
-        String data = super.printConta() + this.limiteSaque + ";" + this.limiteTransferencia + ";";
-
-        return data;
     }
 
 }

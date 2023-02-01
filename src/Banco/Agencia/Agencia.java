@@ -2,10 +2,9 @@ package Banco.Agencia;
 
 import java.util.*;
 
-import Banco.Agencia.Contas.Conta;
-import Banco.Agencia.Clientes.Cliente;
-import Banco.Agencia.Funcionarios.Funcionario;
-import Banco.Agencia.Funcionarios.Gerente;
+import Banco.Agencia.Contas.*;
+import Banco.Agencia.Funcionarios.*;
+import Banco.Clientes.*;
 import Util.*;
 
 public class Agencia {
@@ -22,7 +21,6 @@ public class Agencia {
         this.numAgencia = numAgencia;
         this.contas = new LinkedList<>();
         this.funcionarios = new LinkedList<>();
-        // this.clientes = new LinkedList<Cliente>();
     }
 
     public Agencia(String nomeAgencia, int numAgencia, Endereco enderecoAgencia, Gerente gerente) {
@@ -30,11 +28,10 @@ public class Agencia {
         this.numAgencia = numAgencia;
         this.enderecoAgencia = enderecoAgencia;
         this.gerente = gerente;
-        gerente.setAgencia(this.numAgencia);
-        // gerente.setEstaEmUmaAgencia(true);
-        this.contas = new LinkedList<Conta>();
-        this.funcionarios = new LinkedList<Pessoa>();
-        // this.clientes = new LinkedList<Cliente>();
+        gerente.setNumAgencia(this.numAgencia);
+        gerente.setEstaEmUmaAgencia(true);
+        contas = new LinkedList<Conta>();
+        funcionarios = new LinkedList<Pessoa>();
     }
 
     /////////////////////////////
@@ -73,9 +70,9 @@ public class Agencia {
         this.funcionarios = funcionarios;
     }
 
-    public void setGerente(Gerente novo, Funcionario AntigoCargo) {
+    public void setGerente(Gerente novo, Funcionario antigoCargo) {
         RemoverGerenteAtual();
-        adicionarNovoGerente(novo, AntigoCargo);
+        adicionarNovoGerente(novo, antigoCargo);
     }
 
     public void setNomeAgencia(String nomeAgencia) {
@@ -172,7 +169,7 @@ public class Agencia {
             if (TempFunc.equals(AntigoCargo)) {
                 funcionarios.remove(j);
                 funcionarios.add(j, novo);
-                novo.setAgencia(this.numAgencia);
+                novo.setNumAgencia(this.numAgencia);
                 novo.setEstaEmUmaAgencia(true);
                 this.gerente = novo;
                 break;
@@ -187,7 +184,7 @@ public class Agencia {
                 try {
                     Gerente percorre = (Gerente) funcionarios.get(i);
                     if (percorre.getCpf().equals(this.gerente.getCpf())) {
-                        percorre.setAgencia(0);
+                        percorre.setNumAgencia(0);
                         percorre.setEstaEmUmaAgencia(false);
                         percorre.setCargo("Antigo Gerente");
                         funcionarios.remove(i);
@@ -227,11 +224,15 @@ public class Agencia {
     public Conta encontrarConta(int numConta, int senha) throws IllegalArgumentException {
         for (Conta conta : this.contas) {
             if (conta.getNumConta() == numConta) {
-                if (conta.getSenha() != senha) {
+                if (conta.verificarSenha(senha)) {
+                    if (!conta.isEstado()) {
+                        throw new IllegalArgumentException("Conta bloqueada");
+                    } else {
+                        return conta;
+                    }
+                } else {
                     throw new IllegalArgumentException("Senha incorreta");
                 }
-                conta.print();
-                return conta;
             }
         }
         throw new IllegalArgumentException("Conta nao encontrada");
@@ -248,10 +249,10 @@ public class Agencia {
 
     // Antigo
     public boolean enviarTransferencia(int numConta, float valor, int numBanco, int numAgencia,
-            int numContaOrigem) { 
+            int numContaOrigem) {
         for (Conta conta : this.contas) {
-            if (conta.getNumConta() == numConta) { 
-                if (conta.getNumConta() == numConta) { 
+            if (conta.getNumConta() == numConta) {
+                if (conta.getNumConta() == numConta) {
                     conta.receberTranf(numBanco, numAgencia, numContaOrigem, valor);
                     ;
                     return true;
@@ -263,20 +264,22 @@ public class Agencia {
 
     // ENVIAR TRANSFERENCIA
 
-    public boolean enviarTransferencia(int numBancoDestino, int numAgenciaDestino, int numContaDestino, int numContaOrigem, float valor, int senha) { 
+    public boolean enviarTransferencia(int numBancoDestino, int numAgenciaDestino, int numContaDestino,
+            int numContaOrigem, float valor, int senha) {
         for (Conta conta : this.contas) {
-            if (conta.getNumConta() == numContaOrigem) { 
+            if (conta.getNumConta() == numContaOrigem) {
                 conta.efetuarTransf(numBancoDestino, numAgenciaDestino, numContaDestino, valor, senha);
                 return true;
-                }
             }
+        }
 
         return false;
-        }
-    
+    }
+
     // RECEBER TRANSFERENCIA
 
-    public boolean receberTransferencia(int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem, int numContaDestino ,float valor) {
+    public boolean receberTransferencia(int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem,
+            int numContaDestino, float valor) {
         for (Conta conta : this.contas) {
             if (conta.getNumConta() == numContaDestino) {
                 conta.receberTranf(numBancoOrigem, numAgenciaOrigem, numContaOrigem, valor);
@@ -301,5 +304,5 @@ public class Agencia {
             }
         }
     }
-    
+
 }

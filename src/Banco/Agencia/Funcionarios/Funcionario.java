@@ -1,10 +1,6 @@
 package Banco.Agencia.Funcionarios;
 
-import java.util.Scanner;
-
-import Util.Data;
-import Util.Endereco;
-import Util.Pessoa;
+import Util.*;
 
 public class Funcionario extends Pessoa {
 
@@ -95,47 +91,6 @@ public class Funcionario extends Pessoa {
 
     public String printGerente() throws IllegalAccessError { // Apenas um gerente pode imprimir os dados de gerente
         throw new IllegalAccessError("Acesso negado!");
-    }
-
-    public void cadastraFuncionario() {
-        super.cadastraPessoa();
-        try (Scanner sc = new Scanner(System.in);) {
-            System.out.println("Digite o numero da carteira de trabalho: ");
-            this.numCarteiraTrab = sc.nextInt();
-            System.out.println("Digite a UF do RG: ");
-            this.rg_uf = sc.nextLine();
-            System.out.println("Digite o numero do RG: ");
-            this.rg_num = sc.nextInt();
-            System.out.println("Digite o cargo: ");
-            this.cargo = sc.nextLine();
-            System.out.println("Digite o salario: ");
-            this.salario = sc.nextFloat();
-            System.out.println("Digite a data de ingresso: ");
-            // this.dataIngresso = sc.next();
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void cadastraFuncionarioGerente() { // Para cadastrar um gerente nao eh necessario informar o cargo
-        super.cadastraPessoa();
-        try (Scanner sc = new Scanner(System.in);) {
-            System.out.println("Digite o numero da carteira de trabalho: ");
-            this.numCarteiraTrab = sc.nextInt();
-            System.out.println("Digite a UF do RG: ");
-            this.rg_uf = sc.nextLine();
-            System.out.println("Digite o numero do RG: ");
-            this.rg_num = sc.nextInt();
-            this.cargo = "Gerente";
-            System.out.println("Digite o salario: ");
-            this.salario = sc.nextFloat();
-            System.out.println("Digite o ano de ingresso: ");
-            // this.dataIngresso = sc.nextInt();
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     // Se o funcionario estiver a mais de 15 anos na empresa, ele recebe um aumento

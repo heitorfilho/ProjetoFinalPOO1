@@ -3,11 +3,11 @@ package Banco;
 import java.util.*;
 import Banco.Agencia.*;
 import Util.*;
-import Banco.Agencia.Clientes.*;
 import Banco.Agencia.Contas.*;
 import Banco.Agencia.Funcionarios.*;
+import Banco.Clientes.*;
 
-public class Banco {
+public class Banco implements ValidaCPF{
     private LinkedList<Agencia> agencias;
     private LinkedList<Cliente> clientes;
     private String[] admin = { "Admin", "admin" };

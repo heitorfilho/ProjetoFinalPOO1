@@ -1,7 +1,6 @@
 package Util;
 
-import java.util.*;
-// import java.util.InputMismatchException;
+import java.util.InputMismatchException;
 
 public interface ValidaCPF {
     public static boolean isCPF(String cpf) {

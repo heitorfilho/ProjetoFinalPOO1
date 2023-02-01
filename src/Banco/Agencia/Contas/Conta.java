@@ -2,9 +2,9 @@ package Banco.Agencia.Contas;
 
 import java.util.*;
 import Util.*;
-import Util.Exceptions.SaldoInsuficienteException;
-import Banco.Agencia.Clientes.Cliente;
-import Banco.Agencia.Contas.Movimentacoes.Movimentacao;
+import Util.Exceptions.*;
+import Banco.Agencia.Contas.Movimentacoes.*;
+import Banco.Clientes.*;
 
 public abstract class Conta {
 
@@ -13,13 +13,13 @@ public abstract class Conta {
     protected int senha;
     protected float saldo;
     protected boolean estado;
+    protected int numAgencia;
+    protected boolean conjunta;
     protected Data aberturaConta;
     protected Data ultimaMovimentacao;
-    protected boolean conjunta;
     protected Cliente clientePrimario;
     protected Cliente clienteSecundario;
     protected LinkedList<Movimentacao> movimentacoes;
-    protected int numAgencia;
 
     // Conta unica
     public Conta(int numConta, int senha, float saldo, boolean conjunta,
@@ -89,8 +89,12 @@ public abstract class Conta {
         return this.clienteSecundario;
     }
 
-    public int getNumAgencia(){
+    public int getNumAgencia() {
         return this.numAgencia;
+    }
+
+    public LinkedList<Movimentacao> getMovimentacoes() {
+        return this.movimentacoes;
     }
 
     public void setNumConta(int numConta) {
@@ -125,23 +129,29 @@ public abstract class Conta {
         this.ultimaMovimentacao = ultimaMovimentacao;
     }
 
+    public void setMovimentacoes(LinkedList<Movimentacao> movimentacoes) {
+        this.movimentacoes = movimentacoes;
+    }
+
     /*
+     * public String printConta() {
+     * String data = this.estado + ";" + this.numConta + ";" + this.saldo + ";" +
+     * this.conjunta + ";" + this.aberturaConta.printData() +
+     * this.clientePrimario + ";" + this.numAgencia + ";" +
+     * this.aberturaConta.printData();
+     * 
+     * return data;
+     * }
+     */
+
     public String printConta() {
-        String data = this.estado + ";" + this.numConta + ";" + this.saldo + ";" + this.conjunta + ";" + this.aberturaConta.printData() +
-                this.clientePrimario + ";" + this.numAgencia + ";" + this.aberturaConta.printData();
+        String data = this.tipoConta + ";" + this.numConta + ";" + this.senha + ";" + this.saldo + ";" + this.conjunta
+                + ";" + this.clientePrimario + ";"
+                + this.clienteSecundario + ";" + this.numAgencia + ";" + this.aberturaConta.printData()
+                + this.ultimaMovimentacao.printData();
 
         return data;
     }
-    */
- 
-
-    public String printConta(){
-        String data = this.tipoConta + ";" + this.numConta + ";" + this.senha + ";" + this.saldo + ";" + this.conjunta + ";"+ this.clientePrimario + ";"
-         + this.clienteSecundario + ";" + this.numAgencia + ";" + this.aberturaConta.printData() + this.ultimaMovimentacao.printData();
-        
-        return data;
-    }
-
 
     //////////////////////////
     //// AVALIAR ACESSO /////
@@ -250,7 +260,7 @@ public abstract class Conta {
         }
     }
 
-    public void efetuarPag(float valor, int senha) throws SaldoInsuficienteException{
+    public void efetuarPag(float valor, int senha) throws SaldoInsuficienteException {
         if (verificarSenha(senha)) {
             if (this.saldo >= valor) {
                 this.saldo -= valor;
@@ -268,8 +278,9 @@ public abstract class Conta {
         }
     }
 
-     //OK
-    public boolean efetuarTransf(int numBancoDestino, int numAgenciaDestino, int numContaDestino, float valor, int senha) throws SaldoInsuficienteException {
+    // OK
+    public boolean efetuarTransf(int numBancoDestino, int numAgenciaDestino, int numContaDestino, float valor,
+            int senha) throws SaldoInsuficienteException {
         if (verificarSenha(senha)) {
             if (valor <= 0) {
                 throw new IllegalArgumentException("Valor invalido!");
@@ -292,7 +303,7 @@ public abstract class Conta {
     }
 
     // OK
-    public void receberTranf(int numBancoOrigem , int numAgenciaOrigem, int numContaOrigem, float valor) {
+    public void receberTranf(int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem, float valor) {
         this.saldo += valor;
         this.ultimaMovimentacao = Data.dataAtual();
 

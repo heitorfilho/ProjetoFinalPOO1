@@ -1,8 +1,8 @@
 package Banco.Agencia.Contas;
 
 import Util.Data;
-import Banco.Agencia.Clientes.Cliente;
 import Banco.Agencia.Contas.Movimentacoes.*;
+import Banco.Clientes.Cliente;
 
 public class Poupanca extends Conta {
 
@@ -39,7 +39,6 @@ public class Poupanca extends Conta {
 
     public String printConta() {
         String data = super.printConta() + this.rendimentoMesAtual + ";";
-
         return data;
     }
 
