@@ -266,6 +266,7 @@ public class Agencia {
                 return true;
                 }
             }
+
         return false;
         }
     
@@ -288,12 +289,8 @@ public class Agencia {
     }
 
     public void alteraConta(Conta nova) {
-        // for(int i = 0; i < this.contas.size(); i++){
         for (Conta contaAtual : this.contas) {
-
-            // contaAtual.getNumConta() == nova.getNumConta()
             if (contaAtual.equals(nova)) {
-                // contas.set(i, nova);
                 this.contas.remove(contaAtual);
                 this.contas.add(nova);
                 break;

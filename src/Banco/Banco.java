@@ -590,6 +590,126 @@ public class Banco {
     // -------------------------CONTAS---------------------------- //
     // ---------------------------------------------------------- //
 
+    public void acessarConta(Scanner scan) {
+        int opcao = 1;
+        Conta solicitada = loginConta(scan);
+
+        if (solicitada == null) {
+            System.out.println("Conta nao encontrada");
+            return;
+        }
+
+        while (opcao != 0) {
+            System.out.println("O que voce deseja fazer?");
+            System.out.println("1 - Consultar saldo");
+            System.out.println("2 - Depositar");
+            System.out.println("3 - Sacar");
+            System.out.println("4 - Realizar pagamento");
+            System.out.println("5 - Transferir");
+            System.out.println("6 - Historico bancario");
+            System.out.println("0 - Sair");
+
+            opcao = scan.nextInt();
+            scan.nextLine();
+            boolean acesso = true;
+
+            // variaveis para operacoes
+            int numBanco = 0;
+            int numAgencia = 0;
+            int numConta = 0;
+            int senha = 0;
+            float valor = 0f;
+
+            try {
+                switch (opcao) {
+                    case 0:
+                        System.out.println("Saindo...");
+                        acesso = false;
+                        break;
+                    case 1:
+                        senha = 0;
+                        System.out.println("Saldo: " + solicitada.getSaldo());
+                        break;
+                    case 2:
+                        System.out.println("Digite o valor a ser depositado: ");
+                        valor = scan.nextFloat();
+                        System.out.println("Digite a senha: ");
+                        senha = scan.nextInt();
+                        solicitada.depositar(valor, senha);
+                        agencias.get(solicitada.getNumAgencia() - 100).alteraConta(solicitada);
+                        break;
+                    case 3:
+                        System.out.println("Digite o valor a ser sacado: ");
+                        valor = scan.nextFloat();
+                        System.out.println("Digite a senha: ");
+                        senha = scan.nextInt();
+                        solicitada.sacar(valor, senha);
+                        break;
+                    case 4:
+                        System.out.println("Digite o valor a ser pago: ");
+                        valor = scan.nextFloat();
+                        System.out.println("Digite a senha: ");
+                        senha = scan.nextInt();
+                        solicitada.efetuarPag(valor, senha);
+                        break;
+                    case 5:
+                        try {
+                            while (acesso) {
+                                System.out.println("Digite o valor a ser transferido: ");
+                                valor = scan.nextFloat();
+
+                                if (valor > solicitada.getSaldo() || valor <= 0) {
+                                    throw new IllegalArgumentException("Saldo insuficiente");
+                                }
+                                System.out.print("Numero da agencia de destino: ");
+                                numAgencia = scan.nextInt();
+                                System.out.print("Numero da conta de destino: ");
+                                numConta = scan.nextInt();
+                                System.out.print("Senha: ");
+                                senha = scan.nextInt();
+                            }
+                            acesso = enviarTransferencia(0, numAgencia, numConta, valor, solicitada.getNumAgencia(),
+                                    solicitada.getNumConta());
+
+                            if (acesso) { // Se a conta de destino existir e a senha estiver correta
+                                solicitada.efetuarTransf(numBanco, numAgencia, numConta, valor, senha);
+                                agencias.get(solicitada.getNumAgencia() - 100).alteraConta(solicitada);
+                            } else
+                                System.out.println("Conta de destino nao encontrada ou senha incorreta");
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                            acesso = true;
+                        } catch (InputMismatchException e) {
+                            System.err.println("Digite valores validos"); // System.err: system.out para erros
+                        }
+                        break;
+                    case 6:
+                        System.out.println("Digite a senha: ");
+                        senha = scan.nextInt();
+                        System.out.println("Historico completo:");
+                        solicitada.historicoMovimentacoes(senha);
+                        break;
+                    default:
+                        System.out.println(
+                                "Essa opcao nao existe\nEscolha uma das opcoes acima e digite o numero correspondente");
+                        opcao = 999;
+                        break;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (InputMismatchException e) {
+                System.err.println("Digite valores validos"); // System.err: Variacao de system.out para erros
+            }
+
+            if (opcao == 0) {
+                return; // Sai do metodo
+            }
+            System.out.println("Digite 0 para sair ou qualquer outro numero para continuar");
+            opcao = scan.nextInt();
+        }
+
+    }
+
     // Cadastra uma conta para o cliente ou retorna a conta ja existente
     public void cadastrarConta(Scanner scan) {
         boolean teste = true;
@@ -751,34 +871,35 @@ public class Banco {
 
     // falta numBanco em Banco.java e Agencia.java
     // Novo
-    public boolean enviarTransferencia(Conta contOrigem, Conta contDestino, float valor) { // Envia Transferencias entre contas do mesmo banco
+    public boolean enviarTransferencia(Conta contOrigem, Conta contDestino, float valor) { // Envia Transferencias entre
+                                                                                           // contas do mesmo banco
 
         if (contOrigem == contDestino) {
             return false;
-        }
-        else if(contOrigem.getNumAgencia() == contDestino.getNumAgencia()){ // contas da mesma agencia
+        } else if (contOrigem.getNumAgencia() == contDestino.getNumAgencia()) { // contas da mesma agencia
             for (Agencia agencia : agencias) {
                 if (agencia.getNumAgencia() == contOrigem.getNumAgencia()) { // se a agencia de origem for a mesma da
                                                                              // agencia que esta sendo percorrida
-                    agencia.enviarTransferencia(1, contDestino.getNumAgencia(), contDestino.getNumConta(), contOrigem.getNumConta(), valor, contOrigem.getSenha());
-                    agencia.receberTransferencia(1, contOrigem.getNumAgencia(), contOrigem.getNumConta(), contDestino.getNumConta(), valor);
+                    agencia.enviarTransferencia(1, contDestino.getNumAgencia(), contDestino.getNumConta(),
+                            contOrigem.getNumConta(), valor, contOrigem.getSenha());
+                    agencia.receberTransferencia(1, contOrigem.getNumAgencia(), contOrigem.getNumConta(),
+                            contDestino.getNumConta(), valor);
                 }
             }
             return true;
-        }
-        else if(contOrigem.getNumAgencia() != contDestino.getNumAgencia()){
+        } else if (contOrigem.getNumAgencia() != contDestino.getNumAgencia()) {
             for (Agencia agencia : agencias) {
                 if (agencia.getNumAgencia() == contOrigem.getNumAgencia()) { // se a agencia de origem for a mesma da
                                                                              // agencia que esta sendo percorrida
-                    agencia.enviarTransferencia(1, contDestino.getNumAgencia(), contDestino.getNumConta(), contOrigem.getNumConta(), valor, contOrigem.getSenha());
-                }
-                else if(agencia.getNumAgencia() == contDestino.getNumAgencia()){
-                    agencia.receberTransferencia(1, contOrigem.getNumAgencia(), contOrigem.getNumConta(), contDestino.getNumConta(), valor);
+                    agencia.enviarTransferencia(1, contDestino.getNumAgencia(), contDestino.getNumConta(),
+                            contOrigem.getNumConta(), valor, contOrigem.getSenha());
+                } else if (agencia.getNumAgencia() == contDestino.getNumAgencia()) {
+                    agencia.receberTransferencia(1, contOrigem.getNumAgencia(), contOrigem.getNumConta(),
+                            contDestino.getNumConta(), valor);
                 }
             }
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -805,4 +926,3 @@ public class Banco {
     }
 
 }
-

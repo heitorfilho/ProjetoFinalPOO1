@@ -122,7 +122,7 @@ public class Movimentacao {
             int opcao = 4;
             while (opcao != 1 || opcao != 2 || opcao != 3) {
                 System.out.println(
-                        "Qual o canal de saque? (1 - Internet Banking, 2 - Caixa Eletronico, 3 - Caixa Fisico)");
+                        "Qual o canal da transacao? (1 - Internet Banking, 2 - Caixa Eletronico, 3 - Caixa Fisico)");
                 opcao = sc.nextInt();
                 switch (opcao) {
                     case 1:

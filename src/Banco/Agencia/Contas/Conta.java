@@ -238,7 +238,7 @@ public abstract class Conta {
         }
     }
 
-    public void efetuarPag(float valor, int senha, String tipo) throws SaldoInsuficienteException{
+    public void efetuarPag(float valor, int senha) throws SaldoInsuficienteException{
         if (verificarSenha(senha)) {
             if (this.saldo >= valor) {
                 this.saldo -= valor;
@@ -256,7 +256,7 @@ public abstract class Conta {
         }
     }
 
-    //OK
+     //OK
     public boolean efetuarTransf(int numBancoDestino, int numAgenciaDestino, int numContaDestino, float valor, int senha) throws SaldoInsuficienteException {
         if (verificarSenha(senha)) {
             if (valor <= 0) {
