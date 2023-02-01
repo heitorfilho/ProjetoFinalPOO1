@@ -242,6 +242,7 @@ public class Agencia {
         throw new IllegalArgumentException("Conta nao encontrada");
     }
 
+    // Antigo
     public boolean enviarTransferencia(int numConta, float valor, int numBanco, int numAgencia,
             int numContaOrigem) { 
         for (Conta conta : this.contas) {
@@ -254,23 +255,6 @@ public class Agencia {
             }
         }
         return false;
-    }
-
-    //Transferencia 2
-    public boolean enviarTransferencia(Conta cont, float valor, int numBanco){
-        if(cont.getSaldo() < valor){
-            return false;
-        }
-        else{
-            cont.efetuarTransf(numBanco, this.numAgencia, cont.getNumConta(), valor, cont.getSenha());
-            return true;
-        }
-    }
-
-    public void listarContas() {
-        for (Conta conta : this.contas) {
-            conta.print();
-        }
     }
 
     // ENVIAR TRANSFERENCIA
@@ -295,6 +279,12 @@ public class Agencia {
             }
         }
         return false;
+    }
+
+    public void listarContas() {
+        for (Conta conta : this.contas) {
+            conta.print();
+        }
     }
 
     public void alteraConta(Conta nova) {

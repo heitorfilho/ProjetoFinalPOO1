@@ -736,6 +736,7 @@ public class Banco {
         return clientes.get(indiceCliente);
     }
 
+    // Antigo
     public boolean enviarTransferencia(int numBancoDestino, int numAgenciaDestino, int numContaDestino, Float valor,
             int numAgenciaOrigem, int numContaOrigem) {
         for (Agencia agencia : agencias) {
@@ -748,18 +749,30 @@ public class Banco {
         return false;
     }
 
-    // FALTA NUM BANCO
-    // Enviar Transferencia 2
-    public boolean enviarTransferencia(Conta contOrigem, Conta contDestino, float valor) {
+    // falta numBanco em Banco.java e Agencia.java
+    // Novo
+    public boolean enviarTransferencia(Conta contOrigem, Conta contDestino, float valor) { // Envia Transferencias entre contas do mesmo banco
 
         if (contOrigem == contDestino) {
             return false;
         }
-        else if(contOrigem.getNumAgencia() == contDestino.getNumAgencia()){
+        else if(contOrigem.getNumAgencia() == contDestino.getNumAgencia()){ // contas da mesma agencia
             for (Agencia agencia : agencias) {
                 if (agencia.getNumAgencia() == contOrigem.getNumAgencia()) { // se a agencia de origem for a mesma da
                                                                              // agencia que esta sendo percorrida
                     agencia.enviarTransferencia(1, contDestino.getNumAgencia(), contDestino.getNumConta(), contOrigem.getNumConta(), valor, contOrigem.getSenha());
+                    agencia.receberTransferencia(1, contOrigem.getNumAgencia(), contOrigem.getNumConta(), contDestino.getNumConta(), valor);
+                }
+            }
+            return true;
+        }
+        else if(contOrigem.getNumAgencia() != contDestino.getNumAgencia()){
+            for (Agencia agencia : agencias) {
+                if (agencia.getNumAgencia() == contOrigem.getNumAgencia()) { // se a agencia de origem for a mesma da
+                                                                             // agencia que esta sendo percorrida
+                    agencia.enviarTransferencia(1, contDestino.getNumAgencia(), contDestino.getNumConta(), contOrigem.getNumConta(), valor, contOrigem.getSenha());
+                }
+                else if(agencia.getNumAgencia() == contDestino.getNumAgencia()){
                     agencia.receberTransferencia(1, contOrigem.getNumAgencia(), contOrigem.getNumConta(), contDestino.getNumConta(), valor);
                 }
             }
