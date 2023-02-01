@@ -133,17 +133,6 @@ public abstract class Conta {
         this.movimentacoes = movimentacoes;
     }
 
-    /*
-     * public String printConta() {
-     * String data = this.estado + ";" + this.numConta + ";" + this.saldo + ";" +
-     * this.conjunta + ";" + this.aberturaConta.printData() +
-     * this.clientePrimario + ";" + this.numAgencia + ";" +
-     * this.aberturaConta.printData();
-     * 
-     * return data;
-     * }
-     */
-
     public String printConta() {
         String data = this.tipoConta + ";" + this.numConta + ";" + this.senha + ";" + this.saldo + ";" + this.conjunta
                 + ";" + this.clientePrimario + ";"
@@ -186,7 +175,7 @@ public abstract class Conta {
                     System.out.println("Conta desativada com sucesso!");
                 }
             }
-        } catch (IllegalArgumentException e) {
+        } catch (ParametroInvalidoException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -209,12 +198,12 @@ public abstract class Conta {
     ///// OPERAÇÕES BANCÁRIAS //////
     ///////////////////////////////
 
-    public void sacar(float valor, int senha) throws IllegalArgumentException, SaldoInsuficienteException {
+    public void sacar(float valor, int senha) throws ParametroInvalidoException, SaldoInsuficienteException {
         if (verificarSenha(senha) && this.estado == true) {
             if (saldo < valor)
                 throw new SaldoInsuficienteException("Saldo insuficiente!");
             if (valor < 0)
-                throw new IllegalArgumentException("Valor invalido!");
+                throw new ParametroInvalidoException("Valor invalido!");
             if (this.saldo >= valor)
                 this.saldo -= valor;
             this.ultimaMovimentacao = Data.dataAtual();
@@ -226,16 +215,16 @@ public abstract class Conta {
             System.out.println("Saque realizado com sucesso!");
 
         } else if (verificarSenha(senha) == false) {
-            throw new IllegalArgumentException("Senha incorreta!");
+            throw new ParametroInvalidoException("Senha incorreta!");
         } else if (this.estado == false) {
-            throw new IllegalArgumentException("Conta desativada!");
+            throw new ParametroInvalidoException("Conta desativada!");
         }
     }
 
-    public void depositar(float valor, int senha) throws IllegalArgumentException {
+    public void depositar(float valor, int senha) throws ParametroInvalidoException {
         if (verificarSenha(senha) && this.estado == true) {
             if (valor < 0)
-                throw new IllegalArgumentException("Valor invalido!");
+                throw new ParametroInvalidoException("Valor invalido!");
             this.saldo += valor;
             this.ultimaMovimentacao = Data.dataAtual();
 
@@ -246,17 +235,17 @@ public abstract class Conta {
             System.out.println("Deposito realizado com sucesso!");
 
         } else if (verificarSenha(senha) == false) {
-            throw new IllegalArgumentException("Senha incorreta!");
+            throw new ParametroInvalidoException("Senha incorreta!");
         } else if (this.estado == false) {
-            throw new IllegalArgumentException("Conta desativada!");
+            throw new ParametroInvalidoException("Conta desativada!");
         }
     }
 
-    public void consultarSaldo(int senha) throws IllegalArgumentException {
+    public void consultarSaldo(int senha) throws ParametroInvalidoException {
         if (verificarSenha(senha) || this.estado == true) {
             System.out.println("O saldo atual e: " + this.getSaldo());
         } else { // tratar o erro depois
-            throw new IllegalArgumentException("Senha incorreta!");
+            throw new ParametroInvalidoException("Senha incorreta!");
         }
     }
 
@@ -274,7 +263,7 @@ public abstract class Conta {
                 throw new SaldoInsuficienteException("Saldo insuficiente!");
             }
         } else {
-            throw new IllegalArgumentException("Senha incorreta!");
+            throw new ParametroInvalidoException("Senha incorreta!");
         }
     }
 
@@ -283,7 +272,7 @@ public abstract class Conta {
             int senha) throws SaldoInsuficienteException {
         if (verificarSenha(senha)) {
             if (valor <= 0) {
-                throw new IllegalArgumentException("Valor invalido!");
+                throw new ParametroInvalidoException("Valor invalido!");
             }
             if (this.saldo >= valor) {
                 this.saldo -= valor;
@@ -319,7 +308,7 @@ public abstract class Conta {
                 System.out.println(movimentacao);
             }
         } else {
-            throw new IllegalArgumentException("Senha incorreta!");
+            throw new ParametroInvalidoException("Senha incorreta!");
         }
     }
 
