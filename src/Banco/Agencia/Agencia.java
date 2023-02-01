@@ -120,9 +120,7 @@ public class Agencia {
     }
 
     public String printAgencia() {
-        String Data = this.nomeAgencia + ";" +
-                this.numAgencia + ";" +
-                enderecoAgencia.printEndereco();
+        String Data = this.nomeAgencia + ";" + this.numAgencia + ";" + enderecoAgencia.printEndereco();
         return Data;
     }
 

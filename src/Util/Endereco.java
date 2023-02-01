@@ -89,8 +89,8 @@ public class Endereco {
 
 
     public String printEndereco() {
-        String Data = rua + "; " + numero + "; " + complemento + "; "
-                + bairro + "; " + cidade + "; " + estado + "; " + pais + "; " + cep;
+        String Data = rua + ";" + numero + ";" + bairro + ";"
+                + cidade + ";" + estado + ";" + pais + ";" + complemento + ";" + cep + ";";
         return Data;
     }
 

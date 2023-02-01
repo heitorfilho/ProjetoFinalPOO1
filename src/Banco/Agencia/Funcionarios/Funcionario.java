@@ -88,8 +88,8 @@ public class Funcionario extends Pessoa {
     }
 
     public String printFuncionario() {
-        String data = printPessoa() + " ; " + this.numCarteiraTrab + " ; " + this.cargo + " ; " + this.salario + " ; "
-                + this.dataIngresso + " ; " + this.rg_num + " ; " + this.rg_uf + " ; ";
+        String data = printPessoa() + this.numCarteiraTrab + ";" + this.cargo + ";" + this.salario + ";"
+                + this.dataIngresso + ";" + this.rg_num + ";" + this.rg_uf + ";";
         return data;
     }
 

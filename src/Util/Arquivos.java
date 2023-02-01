@@ -18,7 +18,9 @@ import Banco.Agencia.Funcionarios.Gerente;
 
 public class Arquivos {
 
-    public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programacao Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
+    public static final String BaseDeDados = "C:\\Users\\Pichau\\Documents\\Faculdade\\3° Periodo\\POO1\\Projeto Final\\ProjetoFinalPOO1\\src\\Dados\\";
+    
+    //"C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programacao Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
 
     // ------------------------------------------------------------ //
     // -------------------ARQUIVO-PARA-CLIENTES------------------- //
@@ -85,36 +87,36 @@ public class Arquivos {
                 String[] campos = null;
                 while ((linha = br.readLine()) != null) {
                     campos = linha.split(";");
-                    Data AberturaConta = new Data(Integer.parseInt(campos[9]), Integer.parseInt(campos[10]),
-                            Integer.parseInt(campos[11]));
-                    Data UltimaMovimentacao = new Data(Integer.parseInt(campos[12]), Integer.parseInt(campos[13]),
-                            Integer.parseInt(campos[14]));
+                    Data AberturaConta = new Data(Integer.parseInt(campos[8]), Integer.parseInt(campos[9]),
+                            Integer.parseInt(campos[10]));
+                    Data UltimaMovimentacao = new Data(Integer.parseInt(campos[11]), Integer.parseInt(campos[12]),
+                            Integer.parseInt(campos[13]));
                     Cliente primario = new Cliente();
                     Cliente secundario = new Cliente();
                     boolean CPF_Encontrado = false;
 
                     for (Cliente cliente : clientes) {
                         Cliente percorre = cliente;
-                        if (percorre.getCpf().equals(campos[6])) {
+                        if (percorre.getCpf().equals(campos[5])) {
                             primario = percorre;
                             CPF_Encontrado = true;
-                        } else if (percorre.getCpf().equals(campos[7])) {
+                        } else if (percorre.getCpf().equals(campos[6])) {
                             secundario = percorre;
                         }
 
                     }
 
-                    if (!CPF_Encontrado)
-                        throw new IllegalArgumentException("Cliente nao encontrado");
+                    //if (!CPF_Encontrado)
+                        //throw new IllegalArgumentException("Cliente nao encontrado");
 
                     Conta nova;
                     switch (campos[0]) {
                         case "Corrente":
                             nova = new Corrente(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
-                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), primario,
-                                    Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]),
-                                    Float.parseFloat(campos[16]));
-                            if (Boolean.parseBoolean(campos[5])) {
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[4]), primario,
+                                    Integer.parseInt(campos[7]), AberturaConta, Float.parseFloat(campos[13]),
+                                    Float.parseFloat(campos[14]));
+                            if (Boolean.parseBoolean(campos[4])) {
                                 nova.setClienteSecundario(secundario);
                             }
                             nova.setUltimaMovimentacao(UltimaMovimentacao);
@@ -122,20 +124,21 @@ public class Arquivos {
                             break;
                         case "Poupanca":
                             nova = new Poupanca(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
-                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), primario,
-                                    Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]));
-                            if (Boolean.parseBoolean(campos[5])) {
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[4]), primario,
+                                    Integer.parseInt(campos[7]), AberturaConta, Float.parseFloat(campos[13]));
+                            if (Boolean.parseBoolean(campos[4])) {
                                 nova.setClienteSecundario(secundario);
                             }
                             nova.setUltimaMovimentacao(UltimaMovimentacao);
                             contas.add(nova);
                             break;
+
                         case "Salario":
                             nova = new Salario(Integer.parseInt(campos[1]), Integer.parseInt(campos[2]),
-                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[5]), primario,
-                                    Integer.parseInt(campos[8]), AberturaConta, Float.parseFloat(campos[15]),
-                                    Float.parseFloat(campos[16]));
-                            if (Boolean.parseBoolean(campos[5])) {
+                                    Float.parseFloat(campos[3]), Boolean.parseBoolean(campos[4]), primario,
+                                    Integer.parseInt(campos[7]), AberturaConta, Float.parseFloat(campos[13]),
+                                    Float.parseFloat(campos[14]));
+                            if (Boolean.parseBoolean(campos[4])) {
                                 nova.setClienteSecundario(secundario);
                             }
                             nova.setUltimaMovimentacao(UltimaMovimentacao);
@@ -143,7 +146,7 @@ public class Arquivos {
                             break;
                         default:
                             break;
-
+                     
                     }
                 }
                 br.close();
@@ -235,7 +238,7 @@ public class Arquivos {
         String numeroAgencia = String.valueOf(numAgencia);
 
         try {
-            FileReader ent = new FileReader(BaseDeDados + "\\Funcionarios\\" + numeroAgencia + "Funcionarios.csv");
+            FileReader ent = new FileReader(BaseDeDados + "\\Funcionarios\\Funcionarios.csv"); //" + numeroAgencia + 
             BufferedReader br = new BufferedReader(ent);
             String linha;
             String[] campos = null;

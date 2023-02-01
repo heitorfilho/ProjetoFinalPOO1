@@ -306,7 +306,7 @@ public class Banco {
     // -------------------------AGÊNCIAS-------------------------- //
     // ---------------------------------------------------------- //
 
-    private void cadastrarAgencia(Scanner scan) throws IllegalAccessException {
+    public void cadastrarAgencia(Scanner scan) throws IllegalAccessException {
 
         System.out.println("Acesso permitido apenas para administradores!\nPor favor, faca o login:");
         System.out.print("Usuario: ");
@@ -316,12 +316,12 @@ public class Banco {
 
         // Verifica se o usuário é um administrador
         boolean acessoAdmin = loginAdmin(Usuario, Senha);
-        if (!acessoAdmin)
-            throw new IllegalAccessException("Acesso Negado!");
+        //if (!acessoAdmin)
+            //throw new IllegalAccessException("Acesso Negado!");
 
         System.out.print("Nome da Agencia: ");
         String nomeAgencia = scan.nextLine();
-        Agencia nova = new Agencia(nomeAgencia, (agencias.size() + 100));
+        Agencia nova = new Agencia(nomeAgencia, (agencias.size() + 1));
         System.out.print("Pais: ");
         String pais = scan.nextLine();
         System.out.print("Estado: ");
@@ -484,8 +484,8 @@ public class Banco {
                     opcao--;
                     System.out.println("CPF invalido, voce tem mais " + opcao + " tentativas");
                 } else {
-                    Pessoa novoCliente = new Cliente();
-                    for (Pessoa cliente : clientes) { // Verifica se o cliente ja esta cadastrado
+                    Cliente novoCliente = new Cliente();
+                    for (Cliente cliente : clientes) { // Verifica se o cliente ja esta cadastrado
                         if (cliente.getCpf().equals(cpf)) {
                             System.out.println("Cliente ja cadastrado");
                             return;
@@ -501,6 +501,8 @@ public class Banco {
                     novoCliente.setSexo(scan.nextLine());
                     System.out.println("Digite seu estado civil: ");
                     novoCliente.setEstadoCivil(scan.nextLine());
+                    System.out.println("Digite sua escolaridade: ");
+                    novoCliente.setEscolaridade(scan.nextLine());
 
                     // Endereco
                     System.out.println("Endereco");
@@ -531,12 +533,15 @@ public class Banco {
                     int ano = scan.nextInt();
                     scan.nextLine();
 
+                    
+
                     // Cadastra o cliente com os dados informados
                     novoCliente.setCpf(cpf);
                     novoCliente.setDataNascimento(dia, mes, ano);
                     Endereco endNovoCliente = new Endereco(rua, numero, bairro, cidade, estado, pais, complemento, cep);
                     novoCliente.setEndereco(endNovoCliente);
                     this.clientes.add((Cliente) novoCliente); // Cast de Pessoa para Cliente
+                    opcao = 0;
 
                 }
 
@@ -739,7 +744,6 @@ public class Banco {
                 LinkedList<Conta> percorre = agencias.get(indiceAgencia).getContas();
                 for (Conta conta : percorre) {
                     if (conta.getNumConta() == numConta) { // se o numero da conta ja existir, gera outro numero
-                        teste = true;
                         break;
                     }
                 }
@@ -747,6 +751,7 @@ public class Banco {
                 System.out.println("Agencia nao encontrada");
                 teste = true;
             }
+            teste = false;
         }
         System.out.println("Numero da conta: " + numConta);
         System.out.println("Digite a senha da conta (apenas numeros): ");
@@ -797,6 +802,8 @@ public class Banco {
             }
 
         }
+        // Adiciona a conta a lista de contas da agencia
+
         LinkedList<Conta> atualizaContas = agencias.get(indiceAgencia).getContas();
         atualizaContas.add(nova);
         Arquivos.salvarArquivoConta(numAgencia, atualizaContas);
@@ -913,7 +920,6 @@ public class Banco {
         this.clientes = Arquivos.carregarClientes();
         for (int i = 0; i < agencias.size(); i++) {
             agencias.get(i).carregarArquivos(clientes);
-            ;
         }
     }
 

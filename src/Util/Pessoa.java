@@ -68,8 +68,8 @@ public abstract class Pessoa {
     }
 
     public String printPessoa() {
-        String Data = this.nome + ";" + this.cpf + ";" + this.dataNascimento.printData() + ";"
-                + this.endereco.printEndereco() + ";" + this.sexo + ";" + this.estadoCivil;
+        String Data = this.nome + ";" + this.cpf + ";" + this.dataNascimento.printData()
+                + this.endereco.printEndereco() + this.sexo + ";" + this.estadoCivil + ";";
 
         return Data;
     }

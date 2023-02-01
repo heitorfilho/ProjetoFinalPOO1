@@ -38,7 +38,7 @@ public class Data {
     }
 
     public String printData() {
-        String Data = this.dia + ";" + this.mes + ";" + this.ano;
+        String Data = this.dia + ";" + this.mes + ";" + this.ano + ";";
         return Data;
     }
 

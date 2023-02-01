@@ -103,7 +103,7 @@ public class Movimentacao {
     public String printMovimentacoes() {
         String data = dataTransacao.printData() + ";" + valor + ";" + canalTransacao + ";"
                 + tipoTransacao + ";" + numContaDestinatario + ";" + numAgenciaDestinatario + ";"
-                + numBancoDestinatario;
+                + numBancoDestinatario + ";";
         return data;
     }
 

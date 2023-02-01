@@ -12,6 +12,7 @@ public class Salario extends Conta {
             Cliente clientePrimario, int numAgencia,
             Data aberturaConta, float limiteSaque, float limiteTransferencia) {
         super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta);
+        this.tipoConta = "Salario";
         this.limiteSaque = limiteSaque;
         this.limiteTransferencia = limiteTransferencia;
     }
@@ -43,8 +44,7 @@ public class Salario extends Conta {
     }
 
     public String printConta() {
-        super.printConta();
-        String data = this.limiteSaque + ";" + this.limiteTransferencia + ";";
+        String data = super.printConta() + this.limiteSaque + ";" + this.limiteTransferencia + ";";
 
         return data;
     }

@@ -12,6 +12,7 @@ public class Poupanca extends Conta {
             Cliente clientePrimario, int numAgencia,
             Data aberturaConta, float rendimentoMesAtual) {
         super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta);
+        this.tipoConta = "Poupanca";
         this.rendimentoMesAtual = 0.5f;
     }
 
@@ -37,8 +38,7 @@ public class Poupanca extends Conta {
     }
 
     public String printConta() {
-        super.printConta();
-        String data = this.rendimentoMesAtual + ";";
+        String data = super.printConta() + this.rendimentoMesAtual + ";";
 
         return data;
     }

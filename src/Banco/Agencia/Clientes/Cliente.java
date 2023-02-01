@@ -50,7 +50,7 @@ public class Cliente extends Pessoa {
     }
 
     public String printCliente() {
-        String data = super.printPessoa() + ";" + this.escolaridade;
+        String data = super.printPessoa() + this.escolaridade + ";";
         return data;
     }
 

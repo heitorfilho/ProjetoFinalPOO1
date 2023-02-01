@@ -11,9 +11,11 @@ public class Corrente extends Conta {
 
     public Corrente(int numConta, int senha, float saldo, boolean conjunta,
             Cliente clientePrimario, int numAgencia,
-            Data aberturaConta, float limCheque, float taxaAdmin) { // Precisa fazer alteracao para Data
+            Data aberturaConta, float limCheque, float taxaAdmin) {
+
         super(numConta, senha, saldo, conjunta, clientePrimario, numAgencia, aberturaConta);
-        this.limCheque = 0;
+        this.tipoConta = "Corrente";
+        this.limCheque = 2f;
         this.taxaAdmin = 30f;
     }
 
@@ -39,8 +41,7 @@ public class Corrente extends Conta {
     }
 
     public String printConta() {
-        super.printConta();
-        String data = this.limCheque + ";" + this.taxaAdmin + ";";
+        String data = super.printConta() + this.limCheque + ";" + this.taxaAdmin + ";";
 
         return data;
     }

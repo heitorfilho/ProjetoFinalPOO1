@@ -8,6 +8,7 @@ import Banco.Agencia.Contas.Movimentacoes.Movimentacao;
 
 public abstract class Conta {
 
+    protected String tipoConta;
     protected int numConta;
     protected int senha;
     protected float saldo;
@@ -124,12 +125,23 @@ public abstract class Conta {
         this.ultimaMovimentacao = ultimaMovimentacao;
     }
 
+    /*
     public String printConta() {
-        String data = this.estado + ";" + this.numConta + ";" + this.saldo + ";" + this.aberturaConta.printData() +
-                ";" + this.ultimaMovimentacao.printData();
+        String data = this.estado + ";" + this.numConta + ";" + this.saldo + ";" + this.conjunta + ";" + this.aberturaConta.printData() +
+                this.clientePrimario + ";" + this.numAgencia + ";" + this.aberturaConta.printData();
 
         return data;
     }
+    */
+ 
+
+    public String printConta(){
+        String data = this.tipoConta + ";" + this.numConta + ";" + this.senha + ";" + this.saldo + ";" + this.conjunta + ";"+ this.clientePrimario + ";"
+         + this.clienteSecundario + ";" + this.numAgencia + ";" + this.aberturaConta.printData() + this.ultimaMovimentacao.printData();
+        
+        return data;
+    }
+
 
     //////////////////////////
     //// AVALIAR ACESSO /////
