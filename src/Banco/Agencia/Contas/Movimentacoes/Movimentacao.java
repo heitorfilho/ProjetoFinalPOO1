@@ -3,6 +3,7 @@ package Banco.Agencia.Contas.Movimentacoes;
 import java.util.*;
 
 import Util.Data;
+import Banco.Agencia.Contas.Corrente;
 
 public class Movimentacao {
 
@@ -23,11 +24,18 @@ public class Movimentacao {
         this.tipoTransacao = tipoTransacao;
     }
 
+    public Movimentacao(Data data, Corrente cont){ //Construtor para consultar saldo
+        this.dataTransacao = data;
+        this.valor = cont.getSaldo();
+        this.canalTransacao = "Internet Banking";
+        this.tipoTransacao = "n/a"; // n/a = not applicable
+    }
+
     // Construtor default
     public Movimentacao() { // nao precisa de this, pois nao tem nenhum atributo com o mesmo nome
         dataTransacao = Data.dataAtual();
         valor = 0f;
-        canalTransacao = "n/a"; // n/a = not applicable
+        canalTransacao = "Internet Banking"; // n/a = not applicable -> Usar tipoCanalTRansacao()
         tipoTransacao = "n/a"; // n/a = not applicable
         numContaDestinatario = 0;
         numAgenciaDestinatario = 0;
@@ -99,7 +107,7 @@ public class Movimentacao {
     /////////////////////////
 
     public String printMovimentacoes() {
-        String data = dataTransacao.printData() + ";" + valor + ";" + canalTransacao + ";"
+        String data = dataTransacao.printData() + valor + ";" + canalTransacao + ";"
                 + tipoTransacao + ";" + numContaDestinatario + ";" + numAgenciaDestinatario + ";"
                 + numBancoDestinatario + ";";
         return data;
@@ -152,7 +160,7 @@ public class Movimentacao {
     public void mov(Float valor) { // método auxiliar para criar movimentacao de qualquer tipo
         this.dataTransacao = Data.dataAtual();
         this.valor = valor;
-        this.TipoCanalTransacao();
+        // this.TipoCanalTransacao();
     }
 
     public void saque(Float valor) { // Cria movimentacao de saque

@@ -8,8 +8,7 @@ import Banco.Agencia.Contas.*;
 import Banco.Agencia.Funcionarios.*;
 import Banco.Clientes.*;
 
-
-public class Banco implements ValidaCPF{
+public class Banco implements ValidaCPF {
     private LinkedList<Agencia> agencias;
     private LinkedList<Cliente> clientes;
     private String[] admin = { "Admin", "admin" };
@@ -318,8 +317,8 @@ public class Banco implements ValidaCPF{
 
         // Verifica se o usuário é um administrador
         boolean acessoAdmin = loginAdmin(Usuario, Senha);
-        //if (!acessoAdmin)
-            //throw new IllegalAccessException("Acesso Negado!");
+        // if (!acessoAdmin)
+        // throw new IllegalAccessException("Acesso Negado!");
 
         System.out.print("Nome da Agencia: ");
         String nomeAgencia = scan.nextLine();
@@ -328,17 +327,17 @@ public class Banco implements ValidaCPF{
         String pais = scan.nextLine();
         System.out.print("Estado: ");
         String estado = scan.nextLine();
-        System.out.println("Cidade: ");
+        System.out.print("Cidade: ");
         String cidade = scan.nextLine();
-        System.out.println("Bairro: ");
+        System.out.print("Bairro: ");
         String bairro = scan.nextLine();
-        System.out.println("Rua: ");
+        System.out.print("Rua: ");
         String rua = scan.nextLine();
-        System.out.println("Complemento: ");
+        System.out.print("Complemento: ");
         String complemento = scan.nextLine();
-        System.out.println("Numero: ");
+        System.out.print("Numero: ");
         int numero = scan.nextInt();
-        System.out.println("CEP: ");
+        System.out.print("CEP: ");
         int cep = scan.nextInt();
         scan.nextLine();
 
@@ -477,7 +476,7 @@ public class Banco implements ValidaCPF{
             try {
                 System.out.println("Vamos fazer seu cadastro!");
                 if (cpf.equals("0")) { // Se o cpf for 0, o cliente vai digitar o cpf
-                    System.out.println("Digite seu CPF: ");
+                    System.out.printf("Digite seu CPF: ");
                     cpf = scan.nextLine();
                 }
                 boolean cpfValido = ValidaCPF.isCPF(cpf);
@@ -497,45 +496,43 @@ public class Banco implements ValidaCPF{
                     // Para cpf nao cadastrado, cadastra o cliente:
 
                     // Dados pessoais
-                    System.out.println("Digite seu nome: ");
+                    System.out.printf("Digite seu nome: ");
                     novoCliente.setNome(scan.nextLine());
-                    System.out.println("Digite seu genero: ");
+                    System.out.printf("Digite seu genero: ");
                     novoCliente.setSexo(scan.nextLine());
-                    System.out.println("Digite seu estado civil: ");
+                    System.out.printf("Digite seu estado civil: ");
                     novoCliente.setEstadoCivil(scan.nextLine());
-                    System.out.println("Digite sua escolaridade: ");
+                    System.out.printf("Digite sua escolaridade: ");
                     novoCliente.setEscolaridade(scan.nextLine());
 
                     // Endereco
-                    System.out.println("Endereco");
-                    System.out.println("Rua: ");
+                    System.out.printf("Endereco");
+                    System.out.printf("Rua: ");
                     String rua = scan.nextLine();
-                    System.out.println("Bairro: ");
+                    System.out.printf("Bairro: ");
                     String bairro = scan.nextLine();
-                    System.out.println("Cidade: ");
+                    System.out.printf("Cidade: ");
                     String cidade = scan.nextLine();
-                    System.out.println("Estado: ");
+                    System.out.printf("Estado: ");
                     String estado = scan.nextLine();
-                    System.out.println("Pais: ");
+                    System.out.printf("Pais: ");
                     String pais = scan.nextLine();
-                    System.out.println("Complemento: ");
+                    System.out.printf("Complemento: ");
                     String complemento = scan.nextLine();
-                    System.out.println("Numero: ");
+                    System.out.printf("Numero: ");
                     int numero = scan.nextInt();
-                    System.out.println("CEP: ");
+                    System.out.printf("CEP: ");
                     int cep = scan.nextInt();
 
                     // Data de nascimento
-                    System.out.println("Data de nascimento");
-                    System.out.println("Dia: ");
+                    System.out.printf("Data de nascimento");
+                    System.out.printf("Dia: ");
                     int dia = scan.nextInt();
-                    System.out.println("Mes: ");
+                    System.out.printf("Mes: ");
                     int mes = scan.nextInt();
-                    System.out.println("Ano: ");
+                    System.out.printf("Ano: ");
                     int ano = scan.nextInt();
                     scan.nextLine();
-
-                    
 
                     // Cadastra o cliente com os dados informados
                     novoCliente.setCpf(cpf);
@@ -572,7 +569,7 @@ public class Banco implements ValidaCPF{
     public int indiceCliente(Scanner scan) {
 
         // Encotrar o cliente existente no banco
-        System.out.println("Digite o seu CPF: ");
+        System.out.printf("Digite o seu CPF: ");
         String CPF = scan.nextLine();
         if (!ValidaCPF.isCPF(CPF)) {
             throw new ParametroInvalidoException("CPF invalido");
@@ -597,123 +594,136 @@ public class Banco implements ValidaCPF{
     // -------------------------CONTAS---------------------------- //
     // ---------------------------------------------------------- //
 
-    // ESTA COM ERRO NO SCANNER
-    public void acessarConta(Scanner scan) {
+    public void acessarConta(Scanner scan) { // Acessa a conta do cliente
         int opcao = 1;
         Conta solicitada = loginConta(scan);
 
         if (solicitada == null) {
             System.out.println("Conta nao encontrada");
             return;
-        }
+            
+        } else if (solicitada.getEstado() != true) { // Verifica se a conta esta ativa ou nao
+            System.out.println("Conta inativa");
 
-        while (opcao != 0) {
-            System.out.println("O que voce deseja fazer?");
-            System.out.println("1 - Consultar saldo");
-            System.out.println("2 - Depositar");
-            System.out.println("3 - Sacar");
-            System.out.println("4 - Realizar pagamento");
-            System.out.println("5 - Transferir");
-            System.out.println("6 - Historico bancario");
-            System.out.println("0 - Sair");
+            System.out.println("Deseja acessar o historico de movimentacoes da conta? 1-Sim 2-Nao");
+            int acessoConta = scan.nextInt();
 
-            opcao = scan.nextInt();
-            //scan.nextLine();
-            boolean acesso = true;
+            if (acessoConta == 1) { // Se o usuario desejar acessar o historico de movimentacoes
+                System.out.println("Digite a senha da conta: ");
+                int senha = scan.nextInt();
+                solicitada.historicoMovimentacoes(senha);
+            } 
+            return;
+        } else { // Se a conta estiver ativa
+            
 
-            // variaveis para operacoes
-            int numBanco = 0;
-            int numAgencia = 0;
-            int numConta = 0;
-            int senha = 0;
-            float valor = 0f;
+            while (opcao != 0) {
+                System.out.println("O que voce deseja fazer?");
+                System.out.println("1 - Consultar saldo");
+                System.out.println("2 - Depositar");
+                System.out.println("3 - Sacar");
+                System.out.println("4 - Realizar pagamento");
+                System.out.println("5 - Transferir");
+                System.out.println("6 - Historico bancario");
+                System.out.println("0 - Sair");
 
-            try {
-                switch (opcao) {
-                    case 0:
-                        System.out.println("Saindo...");
-                        acesso = false;
-                        break;
-                    case 1:
-                        senha = 0;
-                        System.out.println("Saldo: " + solicitada.getSaldo());
-                        break;
-                    case 2:
-                        System.out.println("Digite o valor a ser depositado: ");
-                        valor = scan.nextFloat();
-                        System.out.println("Digite a senha: ");
-                        senha = scan.nextInt();
-                        solicitada.depositar(valor, senha);
-                        //agencias.get(solicitada.getNumAgencia()).alteraConta(solicitada);
-                        break;
-                    case 3:
-                        System.out.println("Digite o valor a ser sacado: ");
-                        valor = scan.nextFloat();
-                        System.out.println("Digite a senha: ");
-                        senha = scan.nextInt();
-                        solicitada.sacar(valor, senha);
-                        break;
-                    case 4:
-                        System.out.println("Digite o valor a ser pago: ");
-                        valor = scan.nextFloat();
-                        System.out.println("Digite a senha: ");
-                        senha = scan.nextInt();
-                        solicitada.efetuarPag(valor, senha);
-                        break;
-                    case 5:
-                        try {
-                            while (acesso) {
-                                System.out.println("Digite o valor a ser transferido: ");
-                                valor = scan.nextFloat();
+                opcao = scan.nextInt();
+                scan.nextLine();
+                boolean acesso = true;
 
-                                if (valor > solicitada.getSaldo() || valor <= 0) {
-                                    throw new ParametroInvalidoException("Saldo insuficiente");
+                // variaveis para operacoes
+                int numBanco = 0;
+                int numAgencia = 0;
+                int numConta = 0;
+                int senha = 0;
+                float valor = 0f;
+
+                try {
+                    switch (opcao) {
+                        case 0:
+                            System.out.println("Saindo...");
+                            acesso = false;
+                            break;
+                        case 1:
+                            senha = 0;
+                            System.out.println("Saldo: R$" + solicitada.getSaldo());
+                            break;
+                        case 2:
+                            System.out.printf("Digite o valor a ser depositado: R$");
+                            valor = scan.nextFloat();
+                            System.out.printf("Digite a senha: ");
+                            senha = scan.nextInt();
+                            solicitada.depositar(valor, senha);
+                            break;
+                        case 3:
+                            System.out.printf("Digite o valor a ser sacado: R$");
+                            valor = scan.nextFloat();
+                            System.out.printf("Digite a senha: ");
+                            senha = scan.nextInt();
+                            solicitada.sacar(valor, senha);
+                            break;
+                        case 4:
+                            System.out.printf("Digite o valor a ser pago: R$");
+                            valor = scan.nextFloat();
+                            System.out.printf("Digite a senha: ");
+                            senha = scan.nextInt();
+                            solicitada.efetuarPag(valor, senha);
+                            break;
+                        case 5:
+                            try {
+                                while (acesso) {
+                                    System.out.printf("Digite o valor a ser transferido: R$");
+                                    valor = scan.nextFloat();
+
+                                    if (valor > solicitada.getSaldo() || valor <= 0) {
+                                        throw new ParametroInvalidoException("Saldo insuficiente");
+                                    }
+                                    System.out.print("Numero da agencia de destino: ");
+                                    numAgencia = scan.nextInt();
+                                    System.out.print("Numero da conta de destino: ");
+                                    numConta = scan.nextInt();
+                                    System.out.print("Senha: ");
+                                    senha = scan.nextInt();
                                 }
-                                System.out.print("Numero da agencia de destino: ");
-                                numAgencia = scan.nextInt();
-                                System.out.print("Numero da conta de destino: ");
-                                numConta = scan.nextInt();
-                                System.out.print("Senha: ");
-                                senha = scan.nextInt();
+                                acesso = enviarTransferencia(0, numAgencia, numConta, valor, solicitada.getNumAgencia(),
+                                        solicitada.getNumConta());
+
+                                if (acesso) { // Se a conta de destino existir e a senha estiver correta
+                                    solicitada.efetuarTransf(numBanco, numAgencia, numConta, valor, senha);
+                                    agencias.get(solicitada.getNumAgencia() - 100).alteraConta(solicitada);
+                                } else
+                                    System.out.println("Conta de destino nao encontrada ou senha incorreta");
+                            } catch (ParametroInvalidoException e) {
+                                System.out.println(e.getMessage());
+                                acesso = true;
+                            } catch (InputMismatchException e) {
+                                System.err.println("Digite valores validos"); // System.err: system.out para erros
                             }
-                            acesso = enviarTransferencia(0, numAgencia, numConta, valor, solicitada.getNumAgencia(),
-                                    solicitada.getNumConta());
-
-                            if (acesso) { // Se a conta de destino existir e a senha estiver correta
-                                solicitada.efetuarTransf(numBanco, numAgencia, numConta, valor, senha);
-                                agencias.get(solicitada.getNumAgencia() - 100).alteraConta(solicitada);
-                            } else
-                                System.out.println("Conta de destino nao encontrada ou senha incorreta");
-                        } catch (ParametroInvalidoException e) {
-                            System.out.println(e.getMessage());
-                            acesso = true;
-                        } catch (InputMismatchException e) {
-                            System.err.println("Digite valores validos"); // System.err: system.out para erros
-                        }
-                        break;
-                    case 6:
-                        System.out.println("Digite a senha: ");
-                        senha = scan.nextInt();
-                        System.out.println("Historico completo:");
-                        solicitada.historicoMovimentacoes(senha);
-                        break;
-                    default:
-                        System.out.println(
-                                "Essa opcao nao existe\nEscolha uma das opcoes acima e digite o numero correspondente");
-                        opcao = 999;
-                        break;
+                            break;
+                        case 6:
+                            System.out.printf("Digite a senha: ");
+                            senha = scan.nextInt();
+                            System.out.printf("Historico completo:");
+                            solicitada.historicoMovimentacoes(senha);
+                            break;
+                        default:
+                            System.out.println(
+                                    "Essa opcao nao existe\nEscolha uma das opcoes acima e digite o numero correspondente");
+                            opcao = 999;
+                            break;
+                    }
+                } catch (ParametroInvalidoException e) {
+                    System.out.println(e.getMessage());
+                } catch (InputMismatchException e) {
+                    System.err.println("Digite valores validos"); // System.err: Variacao de system.out para erros
                 }
-            } catch (ParametroInvalidoException e) {
-                System.out.println(e.getMessage());
-            } catch (InputMismatchException e) {
-                System.err.println("Digite valores validos"); // System.err: Variacao de system.out para erros
-            }
 
-            if (opcao == 0) {
-                return; // Sai do metodo
+                if (opcao == 0) {
+                    return; // Sai do metodo
+                }
+                System.out.println("Digite 0 para sair ou qualquer outro numero para continuar");
+                opcao = scan.nextInt();
             }
-            System.out.println("Digite 0 para sair ou qualquer outro numero para continuar");
-            opcao = scan.nextInt();
         }
 
     }
@@ -756,8 +766,8 @@ public class Banco implements ValidaCPF{
             }
             teste = false;
         }
-        System.out.println("Numero da conta: " + numConta);
-        System.out.println("Digite a senha da conta (apenas numeros): ");
+        System.out.printf("Numero da conta: " + numConta);
+        System.out.printf("\nDigite a senha da conta (apenas numeros): ");
         int senha = scan.nextInt();
 
         System.out.println("Escolha uma opcao: ");
@@ -821,13 +831,13 @@ public class Banco implements ValidaCPF{
             acesso = false;
 
             try {
-                System.out.println("Bem-vindo ao login de conta");
-                System.out.println("Agencia: ");
+                System.out.printf("Bem-vindo ao login de conta");
+                System.out.printf("Agencia: ");
                 int numAgencia = scan.nextInt();
-                System.out.println("Conta: ");
+                System.out.printf("Conta: ");
                 int numConta = scan.nextInt();
                 scan.nextLine();
-                System.out.println("Senha: ");
+                System.out.printf("Senha: ");
                 int senha = scan.nextInt();
 
                 int indiceAgencia = indiceAgencia(numAgencia); // indice da agencia que contem a conta solicitada

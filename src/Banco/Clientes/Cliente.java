@@ -33,7 +33,7 @@ public class Cliente extends Pessoa implements Serializable {
     }
 
     public String printCliente() {
-        String data = super.printPessoa() + ";" + this.escolaridade;
+        String data = super.printPessoa() + escolaridade + ";";
         return data;
     }
 

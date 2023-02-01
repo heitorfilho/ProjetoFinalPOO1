@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Util.Exceptions.*;
 import Banco.Banco;
 
 public class Main {
@@ -42,7 +43,7 @@ public class Main {
                 case 2: // criar conta
                     try {
                         banco.cadastrarConta(scan);
-                    } catch (IllegalArgumentException e) {
+                    } catch (ParametroInvalidoException e) {
                         System.out.println(e);
                     }
                     break;

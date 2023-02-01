@@ -17,9 +17,9 @@ import Banco.Clientes.Cliente;
 
 public class Arquivos {
 
-    public static final String BaseDeDados = "C:\\Users\\Pichau\\Documents\\Faculdade\\3° Periodo\\POO1\\Projeto Final\\ProjetoFinalPOO1\\src\\Dados\\";
+    // public static final String BaseDeDados = "C:\\Users\\Pichau\\Documents\\Faculdade\\3° Periodo\\POO1\\Projeto Final\\ProjetoFinalPOO1\\src\\Dados\\";
     
-    // public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programacao Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
+    public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programação Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
 
     // ------------------------------------------------------------ //
     // -------------------ARQUIVO-PARA-CLIENTES------------------- //
@@ -243,7 +243,7 @@ public class Arquivos {
         String numeroAgencia = String.valueOf(numAgencia);
 
         try {
-            FileReader ent = new FileReader(BaseDeDados + "\\Funcionarios\\Funcionarios.csv"); //" + numeroAgencia + 
+            FileReader ent = new FileReader(BaseDeDados + "\\Funcionarios\\" + numeroAgencia + "Funcionarios.csv");
             BufferedReader br = new BufferedReader(ent);
             String linha;
             String[] campos = null;

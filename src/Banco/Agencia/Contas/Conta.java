@@ -30,6 +30,7 @@ public abstract class Conta {
         this.aberturaConta = aberturaConta;
         this.ultimaMovimentacao = aberturaConta;
         this.estado = true;
+        this.numAgencia = numAgencia;
         this.conjunta = conjunta;
         this.clientePrimario = clientePrimario;
         this.clienteSecundario = null;
@@ -338,12 +339,12 @@ public abstract class Conta {
     ///// SALVAR E CARREGAR /////
     ////////////////////////////
 
-    public void CarregarMovimentacoes() {
-        this.movimentacoes = Arquivos.carregarMovimentacoes(numConta, numAgencia);
+    public void CarregarMovimentacoes(int numeroAgencia) {
+        this.movimentacoes = Arquivos.carregarMovimentacoes(numConta, numeroAgencia);
         atualizarContas();
     }
 
-    public void SalvarMovimentacoes() {
+    public void SalvarMovimentacoes(int numeroAgencia) {
         Arquivos.salvarArquivoMovimentacoes(numAgencia, numConta, movimentacoes);
     }
 

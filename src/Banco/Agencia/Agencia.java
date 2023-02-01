@@ -93,7 +93,7 @@ public class Agencia {
     /////////////////////
 
     public void localizaAgencia() { // localiza a agencia sem parametros, imprime todos os dados
-        System.out.println(nomeAgencia + ": " + enderecoAgencia.getRua() + ", " + enderecoAgencia.getNumero() + ", "
+        System.out.println(nomeAgencia + ": " + this.numAgencia + ";" + enderecoAgencia.getRua() + ", " + enderecoAgencia.getNumero() + ", "
                 + enderecoAgencia.getCidade() + ", " + enderecoAgencia.getEstado() + ", " + enderecoAgencia.getPais()
                 + ", " + enderecoAgencia.getCep());
     }
@@ -148,14 +148,14 @@ public class Agencia {
     public void carregarContas(LinkedList<Cliente> Clientes) {
         this.contas = Arquivos.carregarContas(this.numAgencia, Clientes);
         for (int i = 0; i < contas.size(); i++) {
-            contas.get(i).CarregarMovimentacoes();
+            contas.get(i).CarregarMovimentacoes(this.numAgencia);
         }
     }
 
     public void salvarArquivo() {
         Arquivos.salvarArquivoConta(numAgencia, contas);
         for (int i = 0; i < contas.size(); i++) {
-            contas.get(i).SalvarMovimentacoes();
+            contas.get(i).SalvarMovimentacoes(this.numAgencia);
         }
         Arquivos.salvarArquivoFuncionarios(numAgencia, funcionarios);
     }
@@ -164,10 +164,10 @@ public class Agencia {
     ///// FUNCIONÁRIOS /////
     ///////////////////////
 
-    public void adicionarNovoGerente(Gerente novo, Funcionario AntigoCargo) { // Adiciona um novo gerente na agencia
+    public void adicionarNovoGerente(Gerente novo, Funcionario antigoCargo) { // Adiciona um novo gerente na agencia
         for (int j = 0; j < funcionarios.size(); j++) {
             Funcionario TempFunc = (Funcionario) funcionarios.get(j);
-            if (TempFunc.equals(AntigoCargo)) {
+            if (TempFunc.equals(antigoCargo)) {
                 funcionarios.remove(j);
                 funcionarios.add(j, novo);
                 novo.setNumAgencia(this.numAgencia);
