@@ -256,7 +256,8 @@ public abstract class Conta {
         }
     }
 
-    public void efetuarTransf(int numBanco, int numAgencia, int numConta, float valor, int senha) throws SaldoInsuficienteException {
+    //OK
+    public boolean efetuarTransf(int numBancoDestino, int numAgenciaDestino, int numContaDestino, float valor, int senha) throws SaldoInsuficienteException {
         if (verificarSenha(senha)) {
             if (valor <= 0) {
                 throw new IllegalArgumentException("Valor invalido!");
@@ -266,23 +267,25 @@ public abstract class Conta {
                 this.ultimaMovimentacao = Data.dataAtual();
 
                 Movimentacao Nova = new Movimentacao();
-                Nova.transferencia(valor, numBanco, numAgencia, numConta);
+                Nova.transferencia(valor, numBancoDestino, numAgenciaDestino, numContaDestino);
                 this.movimentacoes.add(Nova);
+                return true;
 
             } else {
                 throw new SaldoInsuficienteException("Saldo insuficiente!");
             }
         } else {
-            throw new IllegalArgumentException("Senha incorreta!");
+            return false;
         }
     }
 
-    public void receberTranf(int numBanco, int numAgencia, int numConta, float valor) {
+    // OK
+    public void receberTranf(int numBancoOrigem , int numAgenciaOrigem, int numContaOrigem, float valor) {
         this.saldo += valor;
         this.ultimaMovimentacao = Data.dataAtual();
 
         Movimentacao Nova = new Movimentacao();
-        Nova.receberTransferencia(valor, numBanco, numAgencia, numConta);
+        Nova.receberTransferencia(valor, numBancoOrigem, numAgenciaOrigem, numContaOrigem);
         this.movimentacoes.add(Nova);
 
     }

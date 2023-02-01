@@ -748,22 +748,25 @@ public class Banco {
         return false;
     }
 
+    // FALTA NUM BANCO
     // Enviar Transferencia 2
-    public boolean enviarTransferencia(Conta contOrigem, Conta contDestino, int numBancoOrigem, int numBancoDestino,
-            float valor,
-            int numAgencia) {
+    public boolean enviarTransferencia(Conta contOrigem, Conta contDestino, float valor) {
 
         if (contOrigem == contDestino) {
             return false;
-        } else {
+        }
+        else if(contOrigem.getNumAgencia() == contDestino.getNumAgencia()){
             for (Agencia agencia : agencias) {
                 if (agencia.getNumAgencia() == contOrigem.getNumAgencia()) { // se a agencia de origem for a mesma da
-                                                                             // agencia que esta
-                    // sendo percorrida
-                    return agencia.enviarTransferencia(contDestino, valor, numBancoDestino);
+                                                                             // agencia que esta sendo percorrida
+                    agencia.enviarTransferencia(1, contDestino.getNumAgencia(), contDestino.getNumConta(), contOrigem.getNumConta(), valor, contOrigem.getSenha());
+                    agencia.receberTransferencia(1, contOrigem.getNumAgencia(), contOrigem.getNumConta(), contDestino.getNumConta(), valor);
                 }
             }
             return true;
+        }
+        else{
+            return false;
         }
     }
 

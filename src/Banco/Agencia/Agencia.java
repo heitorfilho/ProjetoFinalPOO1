@@ -273,6 +273,30 @@ public class Agencia {
         }
     }
 
+    // ENVIAR TRANSFERENCIA
+
+    public boolean enviarTransferencia(int numBancoDestino, int numAgenciaDestino, int numContaDestino, int numContaOrigem, float valor, int senha) { 
+        for (Conta conta : this.contas) {
+            if (conta.getNumConta() == numContaOrigem) { 
+                conta.efetuarTransf(numBancoDestino, numAgenciaDestino, numContaDestino, valor, senha);
+                return true;
+                }
+            }
+        return false;
+        }
+    
+    // RECEBER TRANSFERENCIA
+
+    public boolean receberTransferencia(int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem, int numContaDestino ,float valor) {
+        for (Conta conta : this.contas) {
+            if (conta.getNumConta() == numContaDestino) {
+                conta.receberTranf(numBancoOrigem, numAgenciaOrigem, numContaOrigem, valor);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void alteraConta(Conta nova) {
         // for(int i = 0; i < this.contas.size(); i++){
         for (Conta contaAtual : this.contas) {

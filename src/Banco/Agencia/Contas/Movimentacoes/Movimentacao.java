@@ -183,13 +183,13 @@ public class Movimentacao {
         this.tipoTransacao = "Rendimento";
     }
 
-    public void transferencia(Float valor, int numBancoDestinatario, int numAgenciaDestinatario,
-            int numContaDestinatario) { // Cria movimentacao de transferencia
+    public void transferencia(Float valor, int numBancoDestino, int numAgenciaDestino,
+            int numContaDestino) { // Cria movimentacao de transferencia
         mov(valor);
         this.tipoTransacao = "Transferencia";
-        this.numBancoDestinatario = numBancoDestinatario;
-        this.numAgenciaDestinatario = numAgenciaDestinatario;
-        this.numContaDestinatario = numContaDestinatario;
+        this.numBancoDestinatario = numBancoDestino;
+        this.numAgenciaDestinatario = numAgenciaDestino;
+        this.numContaDestinatario = numContaDestino;
     }
 
     public void receberTransferencia(Float valor, int numBancoOrigem, int numAgenciaOrigem, int numContaOrigem) {
