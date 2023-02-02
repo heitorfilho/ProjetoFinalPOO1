@@ -1,7 +1,5 @@
 # ProjetoFinalPOO1
 
-# Trabalho Final
-
 # Trabalho Final: Instituição Financeira
 
 > Perguntas:
