@@ -14,8 +14,8 @@ public class Agencia {
     private String nomeAgencia;
     private Endereco enderecoAgencia;
     private Gerente gerente;
-    private LinkedList<Conta> contas;
-    private LinkedList<Pessoa> funcionarios;
+    private LinkedList<Conta> contas; // lista de contas da agencia
+    private LinkedList<Pessoa> funcionarios; // lista de funcionarios da agencia
 
     public Agencia(String nomeAgencia, int numAgencia) {
         this.nomeAgencia = nomeAgencia;

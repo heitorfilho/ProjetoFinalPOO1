@@ -18,14 +18,14 @@ import Banco.Clientes.Cliente;
 public class Arquivos {
 
     // public static final String BaseDeDados = "C:\\Users\\Pichau\\Documents\\Faculdade\\3° Periodo\\POO1\\Projeto Final\\ProjetoFinalPOO1\\src\\Dados\\";
-    
+    // Caminho do diretorio que contem os arquivos
     public static final String BaseDeDados = "C:\\Users\\augus\\OneDrive\\Área de Trabalho\\UFU-BSI\\3º Período\\GSI015 - Programação Orientada a Objetos 1\\3\\ProjetoFinalPOO1\\src\\Dados\\";
 
     // ------------------------------------------------------------ //
     // -------------------ARQUIVO-PARA-CLIENTES------------------- //
     // ---------------------------------------------------------- //
 
-    //NAO ALTERAR -> ESTA FUNCIONANDO
+    // SALVA OS DADOS DOS CLIENTES EM UM ARQUIVO
     public static void salvarArquivoCliente(LinkedList<Cliente> clientes) {
 
         try {
@@ -47,7 +47,7 @@ public class Arquivos {
 
     }
 
-    //NAO ALTERAR -> ESTA FUNCIONANDO
+    // CARREGA OS DADOS DOS CLIENTES DE UM ARQUIVO
     public static LinkedList<Cliente> carregarClientes() {
         LinkedList<Cliente> clientes = new LinkedList<>();
 
@@ -77,7 +77,7 @@ public class Arquivos {
     // -------------------ARQUIVO-PARA-CONTAS--------------------- //
     // ---------------------------------------------------------- //
 
-    // MAIOR PARTE FUNCIONANDO, SO NAO ENTENDI A LOGICA DO CPF ENCONTRADO   
+    // CARREGA OS DADOS DAS CONTAS DE UM ARQUIVO
     public static LinkedList<Conta> carregarContas(int numeroAgencia, LinkedList<Cliente> clientes) {
         String numAgencia = String.valueOf(numeroAgencia);
         LinkedList<Conta> contas = new LinkedList<>();
@@ -161,7 +161,7 @@ public class Arquivos {
         return contas;
     }
 
-    // NAO ALTERAR -> ESTA FUNCIONANDO  
+    // SALVA OS DADOS DAS CONTAS EM UM ARQUIVO  
     public static void salvarArquivoConta(int numeroAgencia, LinkedList<Conta> contas) {
         String numAgencia = String.valueOf(numeroAgencia);
         try {
@@ -187,7 +187,7 @@ public class Arquivos {
     // -------------------ARQUIVO-PARA-AGENCIAS------------------- //
     // ---------------------------------------------------------- //
 
-    // NAO ALTERAR -> ESTA FUNCIONANDO
+    // CARREGA OS DADOS DAS AGENCIAS DE UM ARQUIVO
     public static LinkedList<Agencia> carregarAgencias() {
         LinkedList<Agencia> agencias = new LinkedList<>();
 
@@ -212,7 +212,7 @@ public class Arquivos {
         return agencias;
     }
 
-    // NAO ALTERAR -> ESTA FUNCIONANDO
+    // SALVA OS DADOS DAS AGENCIAS EM UM ARQUIVO
     public static void salvarArquivoAgencia(LinkedList<Agencia> agencias) {
 
         try {
@@ -238,6 +238,7 @@ public class Arquivos {
     // -------------------ARQUIVO-PARA-FUNCIONARIOS--------------- //
     // ---------------------------------------------------------- //
 
+    // CARREGA OS DADOS DOS FUNCIONARIOS DE UM ARQUIVO
     public static LinkedList<Pessoa> carregarFuncionarios(int numAgencia) {
         LinkedList<Pessoa> funcionarios = new LinkedList<>();
         String numeroAgencia = String.valueOf(numAgencia);
@@ -279,6 +280,7 @@ public class Arquivos {
         return funcionarios;
     }
 
+    // SALVA OS DADOS DOS FUNCIONARIOS EM UM ARQUIVO
     public static void salvarArquivoFuncionarios(int numeroAgencia, LinkedList<Pessoa> funcionarios) {
         String numAgencia = String.valueOf(numeroAgencia);
         try {
@@ -308,6 +310,7 @@ public class Arquivos {
     // -------------------ARQUIVO-PARA-MOVIMENTACOES-------------- //
     // ---------------------------------------------------------- //
 
+    // CARREGA OS DADOS DAS MOVIMENTACOES DE UM ARQUIVO
     public static LinkedList<Movimentacao> carregarMovimentacoes(int numeroConta, int numeroAgencia) {
         String numAgencia = String.valueOf(numeroAgencia);
         String numConta = String.valueOf(numeroConta);
@@ -336,6 +339,7 @@ public class Arquivos {
         return movimentacoes;
     }
 
+    // SALVA OS DADOS DAS MOVIMENTACOES EM UM ARQUIVO
     public static void salvarArquivoMovimentacoes(int numeroConta, int numeroAgencia,
             LinkedList<Movimentacao> movimentacoes) {
         String numAgencia = String.valueOf(numeroConta);
