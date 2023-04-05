@@ -92,7 +92,7 @@ public class Gerente extends Funcionario {
     public String printFuncionario() {
         String data = super.printFuncionario()  + // this.agenciaGerenciada.print();
             this.numAgencia + ";" +  this.estaEmUmaAgencia + ";" + this.formacaoBasica + ";" + this.dataIngressoGerente.printData()
-            + this.comissaoGerente + ";";// + this.estaEmUmaAgencia + ";";
+            + Gerente.comissaoGerente + ";";// + this.estaEmUmaAgencia + ";";
 
         return data;
 

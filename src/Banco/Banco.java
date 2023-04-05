@@ -313,14 +313,14 @@ public class Banco implements ValidaCPF {
 
     public void cadastrarAgencia(Scanner scan) throws IllegalAccessException {
 
-        System.out.println("Acesso permitido apenas para administradores!\nPor favor, faca o login:");
-        System.out.print("Usuario: ");
-        String Usuario = scan.nextLine();
-        System.out.print("Senha: ");
-        String Senha = scan.nextLine();
+        // System.out.println("Acesso permitido apenas para administradores!\nPor favor, faca o login:");
+        // System.out.print("Usuario: ");
+        // String Usuario = scan.nextLine();
+        // System.out.print("Senha: ");
+        // String Senha = scan.nextLine();
 
         // Verifica se o usuário é um administrador
-        boolean acessoAdmin = loginAdmin(Usuario, Senha);
+        // boolean acessoAdmin = loginAdmin(Usuario, Senha);
         // if (!acessoAdmin)
         // throw new IllegalAccessException("Acesso Negado!");
 

@@ -95,21 +95,15 @@ public class Arquivos {
                             Integer.parseInt(campos[13]));
                     Cliente primario = new Cliente();
                     Cliente secundario = new Cliente();
-                    boolean CPF_Encontrado = false;
-
                     for (Cliente cliente : clientes) {
                         Cliente percorre = cliente;
                         if (percorre.getCpf().equals(campos[5])) {
                             primario = percorre;
-                            CPF_Encontrado = true;
                         } else if (percorre.getCpf().equals(campos[6])) {
                             secundario = percorre;
                         }
 
                     }
-
-                    //if (!CPF_Encontrado)
-                        //throw new IllegalArgumentException("Cliente nao encontrado");
 
                     Conta nova;
                     switch (campos[0]) {
